@@ -1,13 +1,13 @@
 # Glasswall-ICAP-Platform
 
 This is the main Terraform project to create the Glasswall ICAP Platform cloud infrastructure. The technical design documentation is here;
-(ICAP Design Documentation)[https://glasswallsolutionsltd-my.sharepoint.com/:w:/g/personal/pgerard_glasswallsolutions_com/EQyNuHOGDFNDmxTS282TGDABEke9OmBAz7pb872LA3BgfA?e=BlmDkL]
+[ICAP Design Documentation](https://glasswallsolutionsltd-my.sharepoint.com/:w:/g/personal/pgerard_glasswallsolutions_com/EQyNuHOGDFNDmxTS282TGDABEke9OmBAz7pb872LA3BgfA?e=BlmDkL)
 
 
 ## Modules
 
-1. (Azure VM)[https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/vm]
-2. (Glasswall ICAP)[https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/glasswall/icap]
+1. [Azure VM](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/vm)
+2. [Glasswall ICAP](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/glasswall/icap)
 
 # How To
 
