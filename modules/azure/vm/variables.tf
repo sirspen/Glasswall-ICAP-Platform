@@ -58,6 +58,11 @@ variable "os_offer" {
   type        = string
 }
 
+variable "os_sku" {
+  description = "Linux OS SKU"
+  type        = string
+}
+
 variable "os_version" {
   description = "Linux OS Version"
   type        = string
