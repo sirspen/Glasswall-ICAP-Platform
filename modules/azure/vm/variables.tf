@@ -37,15 +37,27 @@ variable "azure_region" {
 }
 
 variable "size" {
-  description  = "AZ Pipeline Runner VM image name"
-  type         = string
-  default      = "Standard_DS1_v2"
+  description = "AZ Pipeline Runner VM image name"
+  type        = string
+  default     = "Standard_DS1_v2"
 }
 
 variable "ssh_port" {
   description = "SSH Port"
   type        = number
   default     = 22
+}
+
+variable "https_port" {
+  description = "HTTPS Port"
+  type        = number
+  default     = 443
+}
+
+variable "http_port" {
+  description = "HTTP Port"
+  type        = number
+  default     = 80
 }
 
 variable "os_publisher" {
@@ -72,5 +84,10 @@ variable "os_version" {
 variable "admin_username" {
   description = "Virtual Machine Admin Username"
   type        = string
-  default     = "azure-user" 
+  default     = "azure-user"
+}
+
+variable "custom_data_file_path" {
+  description = "Custom data filepath"
+  type        = string
 }
