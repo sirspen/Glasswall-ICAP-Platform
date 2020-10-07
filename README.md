@@ -1,8 +1,10 @@
 # Glasswall-ICAP-Platform
 
-This is the main Terraform project to create the Glasswall ICAP Platform cloud infrastructure. The technical design documentation is here;
-[ICAP Design Documentation](https://glasswallsolutionsltd-my.sharepoint.com/:w:/g/personal/pgerard_glasswallsolutions_com/EQyNuHOGDFNDmxTS282TGDABEke9OmBAz7pb872LA3BgfA?e=BlmDkL)
+This repo is in the early stages of development, right now its helping to prototype rancher features and it will evolve to eventually provision all the dependencies necessary to serve ICAP.  
 
+To read more about the Glasswall ICAP Platform. The technical design documentation is here;
+[ICAP Design Documentation](https://glasswallsolutionsltd-my.sharepoint.com/:w:/g/personal/pgerard_glasswallsolutions_com/EQyNuHOGDFNDmxTS282TGDABEke9OmBAz7pb872LA3BgfA?e=BlmDkL)
+Access is restricted.
 
 ## Modules
 
