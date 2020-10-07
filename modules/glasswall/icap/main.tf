@@ -9,7 +9,7 @@ module "azure_virtual_machine" {
   os_offer                = "RHEL"
   os_publisher            = "RedHat"
   azure_region            = "ukwest"
-  custom_data_file_path   = "../../../scripts/start-rancher-server.sh"
+  custom_data_file_path   = filebase64("../../../scripts/start-rancher-server.sh")
   network_cidr_range      = ["10.10.0.0/16"]
   network_subnet_prefixes = ["10.10.2.0/24"]
   network_subnet_names    = ["subnet-1"]
