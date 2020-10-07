@@ -59,14 +59,9 @@ variable "os_offer" {
 }
 
 variable "os_version" {
-  description = "Linux OS Offer SKU"
+  description = "Linux OS Version"
   type        = string
   default     = "latest"
-}
-
-variable "os_version" {
-  description = "Linux OS Offer SKU"
-  type        = string
 }
 
 variable "admin_username" {
