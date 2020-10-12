@@ -9,7 +9,11 @@ Access is restricted.
 ## Modules
 
 1. [Azure VM](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/vm)
-2. [Glasswall ICAP](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/glasswall/icap)
+2. [Azure Network](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/network)
+3. [Azure Subnet](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/subnet)
+4. [Azure Public IP](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/public_ip)
+5. [Azure Resource Group](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/resource_group)
+6. [Glasswall ICAP](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/glasswall/icap)
 
 # How To
 
