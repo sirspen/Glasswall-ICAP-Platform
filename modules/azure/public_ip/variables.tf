@@ -13,6 +13,11 @@ variable "service_name" {
   type        = string
 }
 
+variable "service_type" {
+  description = "This is consolidated based on the project, type and suffix"
+  type        = string
+}
+
 variable "region" {
   description = "The Azure Region"
   type        = string
@@ -21,9 +26,4 @@ variable "region" {
 variable "resource_group" {
   description = "Azure Resource Group"
   type        = string
-}
-
-variable "address_space" {
-  description = "Azure Virtual Network CIDR range"
-  type        = list(string)
 }

@@ -10,27 +10,32 @@ variable "environment" {
   type        = string
 }
 
-variable "project" {
-  description = "Metadata Project"
+variable "service_name" {
+  description = "This is a consolidated name based on org, environment, region"
   type        = string
 }
 
-variable "network_cidr_range" {
-  description = "Azure Virtual Network CIDR range"
-  type        = list(string)
+variable "service_type" {
+  description = "This is consolidated based on the project, type and suffix"
+  type        = string
 }
 
-variable "network_subnet_prefixes" {
-  description = "Azure Subnet Prefixes"
-  type        = list(string)
+variable "resource_group" {
+  description = "Azure Resource Group"
+  type        = string
 }
 
-variable "network_subnet_names" {
-  description = "Azure Subnet Names"
-  type        = list(string)
+variable "subnet_id" {
+  description = "ID from Subnet module"
+  type        = string
 }
 
-variable "azure_region" {
+variable "public_ip_id" {
+  description = "ID from Public IP module"
+  type        = string
+}
+
+variable "region" {
   description = "Azure Region"
   type        = string
   default     = "euwest"
@@ -89,5 +94,11 @@ variable "admin_username" {
 
 variable "custom_data_file_path" {
   description = "Custom data filepath"
+  type        = string
+}
+
+
+variable "public_key_openssh" {
+  description = "SSH Public Key"
   type        = string
 }

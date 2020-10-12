@@ -21,6 +21,11 @@ variable "suffix" {
   type        = string
 }
 
+variable "azure_region" {
+  description = "Set the Azure Region"
+  type        = string
+}
+
 variable "custom_data_file_path" {
   description = "Bootstrap the virtual machine with this file"
   type        = string

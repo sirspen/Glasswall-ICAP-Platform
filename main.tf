@@ -6,5 +6,6 @@ module "glasswall_icap" {
   project                 = "icap"
   environment             = "dev"
   suffix                  = "1"
+  azure_region            = "ukwest"
   custom_data_file_path   = filebase64("scripts/start-rancher-server.sh")
 }

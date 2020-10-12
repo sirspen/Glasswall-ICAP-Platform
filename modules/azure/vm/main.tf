@@ -1,35 +1,30 @@
-provider "azurerm" {
-  features {}
-}
 
-locals {
-  short_region = substr(var.azure_region, 0, 3)
-  service_name = "${var.organisation}-${var.project}-${var.environment}-${local.short_region}"
-}
+# Create network interface
+resource "azurerm_network_interface" "net_nic" {
+  name                = var.service_name
+  location            = var.region
+  resource_group_name = var.resource_group
 
-resource "azurerm_resource_group" "resource_group" {
-  name     = local.service_name
-  location = var.azure_region
-}
+  ip_configuration {
+    name                          = var.service_name
+    subnet_id                     = var.subnet_id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = var.public_ip_id
+  }
 
-resource "azurerm_public_ip" "net_public_ip" {
-  name                = "${local.service_name}-public-ip"
-  location            = var.azure_region
-  resource_group_name = azurerm_resource_group.resource_group.name
-  allocation_method   = "Dynamic"
   tags = {
     org          = var.organisation
     environment  = var.environment
-    project      = var.project
-    service_name = local.service_name
+    service_name = var.service_name
   }
 }
 
+
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "net_sg" {
-  name                = local.service_name
-  location            = var.azure_region
-  resource_group_name = azurerm_resource_group.resource_group.name
+  name                = var.service_name
+  location            = var.region
+  resource_group_name = var.resource_group
 
   security_rule {
     name                       = "SSH"
@@ -70,54 +65,11 @@ resource "azurerm_network_security_group" "net_sg" {
   tags = {
     org          = var.organisation
     environment  = var.environment
-    project      = var.project
-    service_name = local.service_name
+    service_name = var.service_name
   }
 }
 
-# Create virtual network
-resource "azurerm_virtual_network" "net_virtual_network" {
-  name                = local.service_name
-  address_space       = var.network_cidr_range
-  location            = var.azure_region
-  resource_group_name = azurerm_resource_group.resource_group.name
 
-  tags = {
-    org          = var.organisation
-    environment  = var.environment
-    project      = var.project
-    service_name = local.service_name
-  }
-}
-
-# Create subnet
-resource "azurerm_subnet" "net_subnet" {
-  name                 = local.service_name
-  resource_group_name  = azurerm_resource_group.resource_group.name
-  virtual_network_name = azurerm_virtual_network.net_virtual_network.name
-  address_prefixes     = var.network_subnet_prefixes
-}
-
-# Create network interface
-resource "azurerm_network_interface" "net_nic" {
-  name                = local.service_name
-  location            = var.azure_region
-  resource_group_name = azurerm_resource_group.resource_group.name
-
-  ip_configuration {
-    name                          = local.service_name
-    subnet_id                     = azurerm_subnet.net_subnet.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.net_public_ip.id
-  }
-
-  tags = {
-    org          = var.organisation
-    environment  = var.environment
-    project      = var.project
-    service_name = local.service_name
-  }
-}
 
 # Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "machine_sga" {
@@ -129,7 +81,7 @@ resource "azurerm_network_interface_security_group_association" "machine_sga" {
 resource "random_id" "machine_random_id" {
   keepers = {
     # Generate a new ID only when a new resource group is defined
-    resource_group = azurerm_resource_group.resource_group.name
+    resource_group = var.resource_group
   }
 
   byte_length = 8
@@ -138,32 +90,28 @@ resource "random_id" "machine_random_id" {
 # Create storage account for boot diagnostics
 resource "azurerm_storage_account" "storage_account" {
   name                     = "hash${random_id.machine_random_id.hex}"
-  resource_group_name      = azurerm_resource_group.resource_group.name
-  location                 = var.azure_region
+  resource_group_name      = var.resource_group
+  location                 = var.region
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
   tags = {
     org          = var.organisation
     environment  = var.environment
-    project      = var.project
-    service_name = local.service_name
+    service_name = var.service_name
   }
 }
 
-resource "tls_private_key" "machine_ssh" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+
 
 resource "azurerm_linux_virtual_machine" "the_machine" {
-  resource_group_name             = azurerm_resource_group.resource_group.name
-  name                            = local.service_name
-  location                        = var.azure_region
+  resource_group_name             = var.resource_group
+  name                            = var.service_name
+  location                        = var.region
   disable_password_authentication = true
   network_interface_ids           = [azurerm_network_interface.net_nic.id]
   size                            = var.size
-  computer_name                   = local.service_name
+  computer_name                   = var.service_name
   admin_username                  = var.admin_username
   custom_data                     = var.custom_data_file_path
 
@@ -181,14 +129,13 @@ resource "azurerm_linux_virtual_machine" "the_machine" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = tls_private_key.machine_ssh.public_key_openssh
+    public_key = var.public_key_openssh
   }
 
   tags = {
     org          = var.organisation
     environment  = var.environment
-    project      = var.project
-    service_name = local.service_name
+    service_name = var.service_name
   }
 
 }
