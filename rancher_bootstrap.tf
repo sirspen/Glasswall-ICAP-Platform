@@ -4,14 +4,11 @@ provider "rancher2" {
   api_url   = "https://${module.glasswall_icap.linux_vm_public_ips}"
   bootstrap = true
   insecure = true # FIXME: Box should use proper cert
+  retries = 100
 }
 
 resource "rancher2_bootstrap" "admin" {
   provider = rancher2.bootstrap
-
-  timeouts {
-    create = "10m"
-  }
 }
 
 output "token" {
