@@ -24,7 +24,7 @@ Access is restricted.
 
 ## Requirements
 
-A new version of Terraform is required. 
+A newish version of Terraform is required. 
 
 ```
 terraform {
