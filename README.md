@@ -28,13 +28,13 @@ A newish version of Terraform is required.
 
 ```
 terraform {
-  required_version = ">= 0.12.6"
+  required_version = ">= 0.13"
 }
 ```
 
 ## Providers
 - azurerm
-- rancher
+- rancher2
 
 ## Inputs
 
