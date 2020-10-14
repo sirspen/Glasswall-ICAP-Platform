@@ -1,32 +1,18 @@
 
 # Common variables
 
-variable "organisation" {
-  description = "Metadata Organisation"
+variable "cluster_network_plugin" {
+  description = "Set the network plugin"
   type        = string
 }
 
-variable "environment" {
-  description = "Metadata Environment"
-  type        = string
-}
-
-variable "project" {
-  description = "Metadata Project"
-  type        = string
-}
-
-variable "suffix" {
-  description = "Metadata Project Suffix (so that we can create multiple instances)"
-  type        = string
-}
-
-variable "azure_region" {
-  description = "Set the Azure Region"
-  type        = string
-}
-
-variable "custom_data_file_path" {
+variable "cluster_name" {
   description = "Bootstrap the virtual machine with this file"
   type        = string
+}
+
+variable "kubernetes_version" {
+  description = "The Kubernetes version"
+  type        = string
+  default     = "1.18.9"
 }
