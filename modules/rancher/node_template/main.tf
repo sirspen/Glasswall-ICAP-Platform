@@ -6,12 +6,6 @@ provider "rancher2" {
   insecure = true
 }
 
-module "resource_group" {
-  source                  = "../../azure/resource_group"
-  service_name            = var.service_name
-  region                  = var.azure_region
-}
-
 data "rancher2_cloud_credential" "credentials" {
     name = var.credential_name
 }

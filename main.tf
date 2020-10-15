@@ -9,7 +9,6 @@ module "rancher_server" {
   custom_data_file_path   = filebase64("scripts/start-rancher-server.sh")
 }
 
-
 module "icap_cluster" {
-    source                  = "./modules/glasswall/icap"
+  source                  = "./modules/glasswall/icap"  
 }

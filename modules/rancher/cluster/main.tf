@@ -6,6 +6,11 @@ provider "rancher2" {
   insecure = true
 }
 
+module "resource_group" {
+  source                  = "../../azure/resource_group"
+  service_name            = var.service_name
+  region                  = var.azure_region
+}
 
 resource "rancher2_cluster" "the_cluster" {
   provider    = "rancher2.admin"

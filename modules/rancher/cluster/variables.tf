@@ -16,6 +16,7 @@ variable "rancher_admin_token" {
 variable "cluster_network_plugin" {
   description = "Set the network plugin"
   type        = string
+  default     = "canal"
 }
 
 variable "cluster_name" {
@@ -27,14 +28,4 @@ variable "kubernetes_version" {
   description = "The Kubernetes version"
   type        = string
   default     = "1.18.9"
-}
-
-variable "rancher_admin_token" {
-  description = "The Rancher admin token"
-  type        = string
-}
-
-variable "rancher_admin_url" {
-  description = "The Rancher admin url"
-  type        = string
 }
