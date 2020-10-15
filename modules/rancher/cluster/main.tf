@@ -13,7 +13,7 @@ module "resource_group" {
 }
 
 resource "rancher2_cluster" "the_cluster" {
-  provider    = "rancher2.admin"
+  provider    = rancher2.admin
   name        = var.cluster_name
   description = "Cluster to run the ICAP Service"
 

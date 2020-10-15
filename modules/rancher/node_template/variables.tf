@@ -29,29 +29,26 @@ variable "node_image" {
 variable "node_type" {
   description = "the server type to use for the node"
   type        = string
-  default     = "Standard_D2s_v3"
+  default     = "Standard_D1_v2"
 }
 
 # Disk Size
 variable "node_disk_size" {
   description = "Total size of Disk"
   type        = string
-  default     = "20"
+  default     = "120"
 }
 
 variable "node_ports" {
   description = "Node Ports"
   type        = string
+  default     =  ["80/tcp","443/tcp","6443/tcp","2379/tcp","2380/tcp","8472/udp","4789/udp","9796/tcp","10256/tcp","10250/tcp","10251/tcp","10252/tcp"]
 }
 
 variable "node_storage_type" {
   description = "Node Storage Type"
   type        = string
-}
-
-variable "node_size" {
-  description = "Node Size"
-  type        = string
+  default     = "Standard_LRS"
 }
 
 variable "resource_group" {
@@ -74,4 +71,20 @@ variable "docker_url" {
   description = "Docker Install Url"
   type        = string
   default     = "https://releases.rancher.com/install-docker/19.03.sh"
+}
+
+
+variable "cluster_virtual_machine_net" {
+  description = "Set the Virtual Network for the Cluster"
+  type        = string
+}
+
+variable "cluster_subnet_name" {
+  description = "Set the cluster subnet"
+  type        = string
+}
+
+variable "cluster_subnet_prefix" {
+  description = "Set the cluster subnet cidr prefix"
+  type        = string
 }
