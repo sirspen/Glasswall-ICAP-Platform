@@ -1,5 +1,17 @@
 
-# Common variables
+# Rancher API Url
+variable "rancher_admin_url" {
+  description = "The Rancher API"
+  type        = string
+  default     = "RedHat:RHEL:7-LVM:latest"
+}
+
+#Rancher API Admin Token
+variable "rancher_admin_token" {
+  description = "The Rancher Admin Token"
+  type        = string
+  default     = "Standard_D2s_v3"
+}
 
 variable "cluster_network_plugin" {
   description = "Set the network plugin"
