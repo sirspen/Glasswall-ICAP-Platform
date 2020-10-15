@@ -10,14 +10,14 @@ output "tls_public_key" {
   value = tls_private_key.ssh.public_key_openssh
 }
 
-output "token" {
+output "admin_url" {
+  value = rancher2_bootstrap.admin.url
+}
+
+output "admin_token" {
   value = rancher2_bootstrap.admin.token
 }
 
-output "token_id" {
+output "admin_token_id" {
   value = rancher2_bootstrap.admin.token_id
-}
-
-output "password" {
-  value = rancher2_bootstrap.admin.password
 }

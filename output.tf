@@ -7,13 +7,11 @@ output "linux_vm_public_ips" {
 }
 
 output "rancher_admin_token" {
-  value = module.rancher_server.token
+  value = module.rancher_server.admin_token
 }
 
 output "rancher_token_id" {
-  value = module.rancher_server.token_id
+  value = module.rancher_server.admin_token_id
 }
 
-output "rancher_password" {
-  value = module.rancher_server.password
-}
+

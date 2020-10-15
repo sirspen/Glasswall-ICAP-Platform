@@ -15,23 +15,23 @@ resource "tls_private_key" "ssh" {
 }
 
 module "resource_group" {
-  source                  = "../../azure/resource_group"
-  service_name            = local.service_name
+  source                  = "../azure/resource_group"
+  name            = local.service_name
   region                  = var.azure_region
 }
 
 module "network" {
-  source                  = "../../azure/network"
+  source                  = "../azure/network"
   resource_group          = module.resource_group.name
   region                  = var.azure_region
   service_name            = local.service_name
+  address_space           = ["10.10.0.0/16"]
   organisation            = var.organisation
   environment             = var.environment
-  address_space           = ["10.10.0.0/16"]
 }
 
 module "subnet" {
-  source                  = "../../azure/subnet"
+  source                  = "../azure/subnet"
   service_name            = local.service_name
   resource_group          = module.resource_group.name
   virtual_network_name    = module.network.name
@@ -39,7 +39,7 @@ module "subnet" {
 }
 
 module "public_ip" {
-  source                  = "../../azure/public_ip"
+  source                  = "../azure/public_ip"
   resource_group          = module.resource_group.name
   region                  = var.azure_region
   service_name            = local.service_name
@@ -49,7 +49,7 @@ module "public_ip" {
 }
 
 module "rancher_server" {
-  source                  = "../../azure/vm"
+  source                  = "../azure/vm"
   resource_group          = module.resource_group.name
   organisation            = var.organisation
   environment             = var.environment

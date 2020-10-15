@@ -1,13 +1,13 @@
 output "name" {
-  value = resource.rancher2_cluster.name
+  value = rancher2_cluster.the_cluster.name
 }
 
 output "id" {
-  value = resource.rancher2_cluster.id
+  value = rancher2_cluster.the_cluster.id
 }
 
 output "resource_group" {
-  value = resource.resource_group.name
+  value = module.resource_group.name
 }
 
 output "kubernetes_version" {

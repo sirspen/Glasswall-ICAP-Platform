@@ -1,4 +1,5 @@
 
+
 provider "rancher2" {
   alias = "admin"
   api_url = var.rancher_admin_url
@@ -8,7 +9,7 @@ provider "rancher2" {
 
 module "resource_group" {
   source                  = "../../azure/resource_group"
-  service_name            = var.service_name
+  name                    = var.cluster_name
   region                  = var.azure_region
 }
 

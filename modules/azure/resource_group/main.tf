@@ -1,5 +1,5 @@
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = var.service_name
+  name     = var.name
   location = var.region
 }

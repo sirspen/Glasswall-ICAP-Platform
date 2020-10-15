@@ -2,14 +2,12 @@
 variable "rancher_admin_url" {
   description = "The Rancher API"
   type        = string
-  default     = "RedHat:RHEL:7-LVM:latest"
 }
 
 #Rancher API Admin Token
 variable "rancher_admin_token" {
   description = "The Rancher Admin Token"
   type        = string
-  default     = "Standard_D2s_v3"
 }
 
 # Service Name
@@ -41,7 +39,7 @@ variable "node_disk_size" {
 
 variable "node_ports" {
   description = "Node Ports"
-  type        = string
+  type        = list(string)
   default     =  ["80/tcp","443/tcp","6443/tcp","2379/tcp","2380/tcp","8472/udp","4789/udp","9796/tcp","10256/tcp","10250/tcp","10251/tcp","10252/tcp"]
 }
 
@@ -57,7 +55,7 @@ variable "resource_group" {
 }
 
 # Cloud Credentials
-variable "credential_name" {
+variable "cloud_credentials_id" {
   description = "the credential name"
   type        = string
 }
