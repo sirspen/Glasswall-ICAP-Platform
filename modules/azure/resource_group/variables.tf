@@ -1,4 +1,4 @@
-variable "service_name" {
+variable "name" {
   description = "This is a consolidated name based on org, environment, region"
   type        = string
 }

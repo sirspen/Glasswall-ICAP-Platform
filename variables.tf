@@ -1,6 +1,3 @@
-
-# Common variables
-
 variable "organisation" {
   description = "Metadata Organisation"
   type        = string
@@ -17,16 +14,26 @@ variable "project" {
 }
 
 variable "suffix" {
-  description = "Metadata Project Suffix (so that we can create multiple instances)"
+  description = "Metadata Suffix"
   type        = string
 }
 
 variable "azure_region" {
-  description = "Set the Azure Region"
+  description = "Metadata Azure Region"
   type        = string
 }
 
-variable "custom_data_file_path" {
-  description = "Bootstrap the virtual machine with this file"
+variable "az_client_id" {
+  description = "Service Principal ClientID"
+  type        = string
+}
+
+variable "az_client_secret" {
+  description = "Service Principal Secret"
+  type        = string
+}
+
+variable "az_subscription_id" {
+  description = "Service Principal Subscription ID"
   type        = string
 }
