@@ -1,5 +1,5 @@
 # Rancher API Url
-/*variable "rancher_admin_url" {
+variable "rancher_admin_url" {
   description = "The Rancher API"
   type        = string
 }
@@ -8,7 +8,7 @@
 variable "rancher_admin_token" {
   description = "The Rancher Admin Token"
   type        = string
-}*/
+}
 
 variable "cluster_network_plugin" {
   description = "Set the network plugin"
