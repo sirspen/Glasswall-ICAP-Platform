@@ -1,10 +1,10 @@
 
-provider "rancher2" {
+/*provider "rancher2" {
   alias = "admin"
   api_url = var.rancher_admin_url
   token_key = var.rancher_admin_token
   insecure = true
-}
+}*/
 
 # Azure Node Pool
 resource "rancher2_node_pool" "node_pool" {

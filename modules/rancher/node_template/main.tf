@@ -1,10 +1,11 @@
+/*
 provider "rancher2" {
   alias = "admin"
   api_url = var.rancher_admin_url
   token_key = var.rancher_admin_token
   insecure = true
 }
-
+*/
 resource "rancher2_node_template" "node_template" {
   name = "${var.service_name}-pool"
   cloud_credential_id       = var.cloud_credentials_id

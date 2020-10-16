@@ -65,6 +65,11 @@ module "rancher_server" {
   public_key_openssh      = tls_private_key.ssh.public_key_openssh
 }
 
+data "azurerm_dns_zone" "curlywurly_zone" {
+  name                = "icap-proxy.curlywurly.me"
+  resource_group_name = "gw-icap-rg-dns"
+}
+
 resource "azurerm_dns_a_record" "rancher_server" {
   name                = "rancher-${local.service_name}"
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
@@ -73,19 +78,28 @@ resource "azurerm_dns_a_record" "rancher_server" {
   records             = [module.rancher_server.linux_vm_public_ips]
 }
 
+resource "time_sleep" "wait_300_seconds" {
+  depends_on = [module.rancher_server]
+  create_duration = "300s"
+}
 
-#module "rancher_nodes" {
-#  source                  = "../../azure/vm"
-#  organisation            = var.organisation
-#  environment             = var.environment
-#  project                 = local.project
-#  type                    = "worker"
-#  os_sku                  = "7-LVM"
-#  os_offer                = "RHEL"
-#  os_publisher            = "RedHat"
-#  azure_region            = "ukwest"
-#  custom_data_file_path   = var.custom_data_file_path_worker
-#  network_cidr_range      = ["10.10.0.0/16"]
-#  network_subnet_prefixes = ["10.10.2.0/24"]
-#  network_subnet_names    = ["subnet-1"]
-#}
+provider "rancher2" {
+  alias = "bootstrap"
+  api_url = "https://${azurerm_dns_a_record.rancher_server.fqdn}"
+  #api_url   = "https://rancher-${local.service_name}.${data.azurerm_dns_zone.curlywurly_zone.name}"
+  bootstrap = true
+  insecure = true # FIXME: Box should use proper cert
+  retries = 100
+}
+
+resource "random_password" "password" {
+  length = 16
+  special = true
+  override_special = "_%@"
+}
+
+resource "rancher2_bootstrap" "admin" {
+  provider = rancher2.bootstrap
+  password = random_password.password.result
+  depends_on = [time_sleep.wait_300_seconds]
+}
