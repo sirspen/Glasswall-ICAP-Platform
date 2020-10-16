@@ -85,8 +85,8 @@ resource "time_sleep" "wait_300_seconds" {
 
 provider "rancher2" {
   alias = "bootstrap"
-  api_url = "https://${azurerm_dns_a_record.rancher_server.fqdn}"
-  #api_url   = "https://rancher-${local.service_name}.${data.azurerm_dns_zone.curlywurly_zone.name}"
+  #api_url = "https://${azurerm_dns_a_record.rancher_server.fqdn}"
+  api_url   = "https://rancher-${local.service_name}.${data.azurerm_dns_zone.curlywurly_zone.name}"
   bootstrap = true
   insecure = true # FIXME: Box should use proper cert
   retries = 100

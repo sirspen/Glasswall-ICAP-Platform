@@ -1,4 +1,3 @@
-/*
 # Rancher API Url
 variable "rancher_admin_url" {
   description = "The Rancher API"
@@ -9,7 +8,7 @@ variable "rancher_admin_url" {
 variable "rancher_admin_token" {
   description = "The Rancher Admin Token"
   type        = string
-}*/
+}
 
 variable "client_id" {
   description = "Service Principal ClientID"

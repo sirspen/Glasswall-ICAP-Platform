@@ -34,5 +34,5 @@ variable "azure_region" {
 variable "kubernetes_version" {
   description = "The Kubernetes version"
   type        = string
-  default     = "1.18.9"
+  default     = "v1.19.2-rancher1-1"
 }

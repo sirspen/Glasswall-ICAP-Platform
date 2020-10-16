@@ -3,23 +3,15 @@ locals {
   cluster_name = "${var.service_name}-${var.suffix}"
 }
 
-
 provider "azurerm" {
   version = "=2.30.0"
   features {}
 }
 
-provider "rancher2" {
-  alias = "api"
-  api_url = var.rancher_api_url
-  token_key = var.rancher_admin_token
-  insecure = true
-}
-
 module "azure_cloud_credentials"{
   source                    = "../../../modules/rancher/cloud_credentials"
-#  rancher_admin_url         = var.rancher_admin_url
-#  rancher_admin_token       = var.rancher_admin_token
+  rancher_admin_url         = var.rancher_admin_url
+  rancher_admin_token       = var.rancher_admin_token
   credential_name           = local.cluster_name
   client_id                 = var.client_id
   client_secret             = var.client_secret
@@ -37,9 +29,9 @@ module "icap_cluster" {
 
 module "icap_master_temp" {
   source              = "../../../modules/rancher/node_template"
-#  rancher_admin_url   = var.rancher_admin_url
-#  rancher_admin_token = var.rancher_admin_token
-  service_name        = var.service_name
+  rancher_admin_url   = var.rancher_admin_url
+  rancher_admin_token = var.rancher_admin_token
+  service_name        = "${var.service_name}-mstr-temp"
   node_type           = "Standard_D1_v2"
   resource_group      = module.icap_cluster.resource_group
   cloud_credentials_id  = module.azure_cloud_credentials.id
@@ -51,9 +43,9 @@ module "icap_master_temp" {
 
 module "icap_worker_temp" {
   source              = "../../../modules/rancher/node_template"
-#  rancher_admin_url   = var.rancher_admin_url
-#  rancher_admin_token = var.rancher_admin_token
-  service_name        = var.service_name
+  rancher_admin_url   = var.rancher_admin_url
+  rancher_admin_token = var.rancher_admin_token
+  service_name        = "${var.service_name}-wkr-temp"
   node_type           = "Standard_D2_v2"
   resource_group      = module.icap_cluster.resource_group
   cloud_credentials_id  = module.azure_cloud_credentials.id
@@ -65,9 +57,9 @@ module "icap_worker_temp" {
 
 module "icap_master_node_pool"{
   source                   = "../../../modules/rancher/node_pool"
-#  rancher_admin_url        = var.rancher_admin_url
-#  rancher_admin_token      = var.rancher_admin_token
-  service_name             = var.service_name
+  rancher_admin_url        = var.rancher_admin_url
+  rancher_admin_token      = var.rancher_admin_token
+  service_name             = "${var.service_name}-mstr"
   cluster_id               = module.icap_cluster.id
   node_pool_template_id    = module.icap_master_temp.id
   resource_group           = module.icap_cluster.resource_group
@@ -79,9 +71,9 @@ module "icap_master_node_pool"{
 
 module "icap_worker_node_pool"{
   source                   = "../../../modules/rancher/node_pool"
-#  rancher_admin_url        = var.rancher_admin_url
-#  rancher_admin_token      = var.rancher_admin_token
-  service_name             = var.service_name
+  rancher_admin_url        = var.rancher_admin_url
+  rancher_admin_token      = var.rancher_admin_token
+  service_name             = "${var.service_name}-wkr"
   cluster_id               = module.icap_cluster.id
   node_pool_template_id    = module.icap_worker_temp.id
   resource_group           = module.icap_cluster.resource_group
