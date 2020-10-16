@@ -7,6 +7,7 @@ provider "rancher2" {
 }
 */
 resource "rancher2_node_template" "node_template" {
+  provider    = rancher2.admin
   name = "${var.service_name}-pool"
   cloud_credential_id       = var.cloud_credentials_id
   engine_install_url        = var.docker_url
