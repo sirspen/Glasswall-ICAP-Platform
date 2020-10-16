@@ -1,10 +1,10 @@
-/*provider "rancher2" {
+provider "rancher2" {
   alias = "admin"
   api_url = var.rancher_admin_url
   token_key = var.rancher_admin_token
   insecure = true
 }
-*/
+
 module "resource_group" {
   source                  = "../../azure/resource_group"
   name                    = var.cluster_name
