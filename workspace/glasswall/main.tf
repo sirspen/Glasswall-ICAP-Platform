@@ -1,7 +1,7 @@
 data "terraform_remote_state" "rancher_server" {
   backend = "local"
   config = {
-    path = "../../terraform.tfstate"
+    path = "../rancher-bootstrap/terraform.tfstate"
   }
 }
 
