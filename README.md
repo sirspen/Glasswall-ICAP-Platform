@@ -21,6 +21,9 @@ Access is restricted.
 3. [Node Pool](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher/node_pool)
 4. [Node Template](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher/node_template)
 
+### Rancher Bootstrap
+1. [Rancher Bootstrap](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher-bootstrap)
+
 ### Workspaces
 We use these to separate the terraform apply processes. 
 
