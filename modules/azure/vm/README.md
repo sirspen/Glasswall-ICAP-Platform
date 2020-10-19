@@ -2,7 +2,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.6 |
+| terraform | >= 0.13 |
 | azurerm | ~> 2.30.0 |
 
 ## Providers

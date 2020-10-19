@@ -10,17 +10,21 @@
 | Name | Version |
 |------|---------|
 | rancher2.admin | 1.10.3 |
+| random | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| azure\_region | The Cloud Region | `string` | n/a | yes |
-| cluster\_name | Bootstrap the virtual machine with this file | `string` | n/a | yes |
-| cluster\_network\_plugin | Set the network plugin | `string` | `"canal"` | no |
-| kubernetes\_version | The Kubernetes version | `string` | `"v1.19.2-rancher1-1"` | no |
+| cluster\_id | The Cluster ID | `string` | n/a | yes |
+| node\_pool\_nodes\_qty | The total number of node pool nodes | `string` | n/a | yes |
+| node\_pool\_role\_control\_plane | The total number of node pool nodes | `bool` | n/a | yes |
+| node\_pool\_role\_etcd | Should the nodes use etcd? | `bool` | n/a | yes |
+| node\_pool\_role\_worker | Should the nodes be used as workers ? | `bool` | n/a | yes |
+| node\_pool\_template\_id | The Node Pool Template to use | `string` | n/a | yes |
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
+| resource\_group | Resource Group | `string` | n/a | yes |
 | service\_name | The Service Name | `string` | n/a | yes |
 
 ## Outputs
@@ -28,7 +32,4 @@
 | Name | Description |
 |------|-------------|
 | id | n/a |
-| kubernetes\_version | n/a |
-| name | n/a |
-| resource\_group | n/a |
 
