@@ -8,12 +8,24 @@ Access is restricted.
 
 ## Modules
 
+### Azure
 1. [Azure VM](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/vm)
 2. [Azure Network](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/network)
 3. [Azure Subnet](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/subnet)
 4. [Azure Public IP](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/public_ip)
 5. [Azure Resource Group](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/resource_group)
-6. [Glasswall ICAP](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/glasswall/icap)
+
+### Rancher
+1. [Cloud Credentials](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher/cloud_credentials)
+2. [Cluster](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher/cluster)
+3. [Node Pool](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher/node_pool)
+4. [Node Template](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/rancher/node_template)
+
+### Workspaces
+We use these to separate the terraform apply processes. 
+
+6. [Rancher Bootstrap](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/rancher-bootstrap)
+6. [Glasswall ICAP Cluster](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/glasswall/icap)
 
 # How To
 
