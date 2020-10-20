@@ -16,7 +16,7 @@ resource "tls_private_key" "ssh" {
 
 module "resource_group" {
   source                  = "../azure/resource_group"
-  name            = local.service_name
+  name                    = local.service_name
   region                  = var.azure_region
 }
 

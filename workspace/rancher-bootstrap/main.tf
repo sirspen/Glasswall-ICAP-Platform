@@ -10,11 +10,11 @@ locals {
 }
 
 module "rancher_server" {
-  source                  = "./modules/rancher-bootstrap"
+  source                  = "../../modules/rancher-bootstrap"
   organisation            = var.organisation
   project                 = var.project
   environment             = var.environment
   suffix                  = var.suffix
   azure_region            = var.azure_region
-  custom_data_file_path   = filebase64("scripts/start-rancher-server.sh")
+  custom_data_file_path   = filebase64("./scripts/start-rancher-server.sh")
 }

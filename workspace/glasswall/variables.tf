@@ -23,6 +23,11 @@ variable "azure_region" {
   type        = string
 }
 
+variable "az_tenant_id" {
+  description = "Service Principal Tenant"
+  type        = string
+}
+
 variable "az_client_id" {
   description = "Service Principal ClientID"
   type        = string
@@ -37,3 +42,8 @@ variable "az_subscription_id" {
   description = "Service Principal Subscription ID"
   type        = string
 }
+
+#variable "cluster_subnet_prefix" {
+#  description = "Subnet CIDR"
+#  type        = string
+#}

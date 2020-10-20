@@ -10,6 +10,26 @@ variable "rancher_admin_token" {
   type        = string
 }
 
+variable "tenant_id" {
+  description = "Service Principal TenantID"
+  type        = string
+}
+
+variable "client_id" {
+  description = "Service Principal ClientID"
+  type        = string
+}
+
+variable "client_secret" {
+  description = "Service Principal Secret"
+  type        = string
+}
+
+variable "subscription_id" {
+  description = "Service Principal Subscription ID"
+  type        = string
+}
+
 variable "cluster_network_plugin" {
   description = "Set the network plugin"
   type        = string
@@ -35,4 +55,24 @@ variable "kubernetes_version" {
   description = "The Kubernetes version"
   type        = string
   default     = "v1.19.2-rancher1-1"
+}
+
+variable "address_space" {
+  description = "Network CIDR"
+  type        = list(string)
+}
+
+variable "subnet_cidr" {
+  description = "Subnet CIDR"
+  type        = list(string)
+}
+
+variable "organisation" {
+  description = "Metadata Organisation"
+  type        = string
+}
+
+variable "environment" {
+  description = "Metadata Environment"
+  type        = string
 }

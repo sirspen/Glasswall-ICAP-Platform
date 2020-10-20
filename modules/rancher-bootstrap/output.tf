@@ -33,3 +33,11 @@ output "admin_token_id" {
 output "rancher_api_url" {
   value = azurerm_dns_a_record.rancher_server.fqdn
 }
+
+output "rancher_resource_group" {
+  value = module.resource_group.name
+}
+
+output "rancher_network" {
+  value = module.network.name
+}
