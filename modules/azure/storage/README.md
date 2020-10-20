@@ -15,12 +15,15 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
-| region | The Azure Region | `string` | n/a | yes |
+| account\_replication\_type | The storage account replication type | `string` | n/a | yes |
+| account\_tier | The storage account tier | `string` | n/a | yes |
+| location | The Azure Location | `string` | n/a | yes |
+| resource\_group\_name | The resource group name | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| name | n/a |
-
+| access\_key | n/a |
+| container\_name | n/a |
+| storage\_account\_name | n/a |
