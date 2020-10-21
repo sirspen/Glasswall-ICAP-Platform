@@ -35,7 +35,7 @@ data "azurerm_key_vault_secret" "az-client-secret" {
 }
 
 data "azurerm_key_vault_secret" "az-subscription-id" {
-  name      = "subscription-id"
+  name      = "az-subscription-id"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
