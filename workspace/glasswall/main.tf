@@ -19,19 +19,24 @@ locals {
   rancher_api_url = "https://${data.terraform_remote_state.rancher_server.outputs.rancher_api_url}"
 }
 
-data "azurerm_key_vault_client_id" "az-client-id" {
+data "azurerm_key_vault" "key_vault" {
+  name = "gw-icap-keyvault"
+  resource_group_name = "keyvault"
+}
+
+data "azurerm_key_vault_secret" "az-client-id" {
   name      = "az-client-id"
-  vault_uri = "https://gw-icap-keyvault.vault.azure.net/secrets/az-client-id/4bdda12cb6fc4dc7a9d60bf75de34ec1"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
-data "azurerm_key_vault_client_secret" "az-client-secret" {
+data "azurerm_key_vault_secret" "az-client-secret" {
   name      = "az-client-secret"
-  vault_uri = "https://gw-icap-keyvault.vault.azure.net/secrets/az-client-secret/1b491e39e77d4da68c12d9554e4e77a2"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
-data "azurerm_key_vault_subscription_id" "az-subscription-id" {
+data "azurerm_key_vault_secret" "az-subscription-id" {
   name      = "subscription-id"
-  vault_uri = "https://gw-icap-keyvault.vault.azure.net/secrets/az-subscription-id/7c38dd2274304bae9a2a23f76baa5ed8"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
 module "icap_service" {
@@ -40,9 +45,9 @@ module "icap_service" {
   rancher_admin_token = data.terraform_remote_state.rancher_server.outputs.rancher_admin_token
   service_name        = local.service_name
   suffix              = var.suffix
-  client_id           = data.azurerm_key_vault_client_id.az-client-id.id
-  client_secret       = data.azurerm_key_vault_client_secret.az-client-secret.id
-  subscription_id     = data.azurerm_key_vault_subscription_id.az-subscription-id.id
+  client_id           = data.azurerm_key_vault_secret.az-client-id.id
+  client_secret       = data.azurerm_key_vault_secret.az-client-secret.id
+  subscription_id     = data.azurerm_key_vault_secret.az-subscription-id.id
   azure_region        = var.azure_region
 }
 

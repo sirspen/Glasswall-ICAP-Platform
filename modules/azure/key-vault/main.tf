@@ -106,8 +106,4 @@ resource "azurerm_key_vault" "keyvault" {
     default_action = "Deny"
     bypass         = "AzureServices"
   }
-
-  tags = {
-    environment = "Testing"
-  }
 }
