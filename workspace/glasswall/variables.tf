@@ -23,4 +23,3 @@ variable "azure_region" {
   type        = string
   default     = "uksouth"
 }
-

@@ -12,6 +12,7 @@ resource "rancher2_node_template" "node_template" {
   cloud_credential_id       = var.cloud_credentials_id
   engine_install_url        = var.docker_url
     azure_config {
+      availability_set      = var.service_name
       disk_size             = var.node_disk_size
       image                 = var.node_image
       location              = var.azure_region
@@ -25,5 +26,7 @@ resource "rancher2_node_template" "node_template" {
       vnet                  = var.cluster_virtual_machine_net
       subnet                = var.cluster_subnet_name
       subnet_prefix         = var.cluster_subnet_prefix
+      fault_domain_count    = 2
+      ssh_user              = "az-user"
     }
 }

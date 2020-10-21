@@ -41,7 +41,7 @@ variable "node_disk_size" {
 variable "node_ports" {
   description = "Node Ports"
   type        = list(string)
-  default     =  ["80/tcp","443/tcp","6443/tcp","2379/tcp","2380/tcp","8472/udp","4789/udp","9796/tcp","10256/tcp","10250/tcp","10251/tcp","10252/tcp"]
+  default     =  ["80/tcp","443/tcp","6443/tcp","2376/tcp","2379/tcp","2380/tcp","8472/udp","4789/udp","9796/tcp","10256/tcp","10250/tcp","10251/tcp","10252/tcp"]
 }
 
 variable "node_storage_type" {
@@ -71,7 +71,6 @@ variable "docker_url" {
   type        = string
   default     = "https://releases.rancher.com/install-docker/19.03.sh"
 }
-
 
 variable "cluster_virtual_machine_net" {
   description = "Set the Virtual Network for the Cluster"
