@@ -1,3 +1,3 @@
-output "tls_private_key" {
-  value = module.storage.container_name
+output "access_key" {
+  value = module.storage.access_key
 }

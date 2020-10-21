@@ -6,7 +6,7 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name   = "tf-state-resource-group"
+    resource_group_name   = "gw-icap-rg-tfstate"
     storage_account_name  = "gwtfstatestorageaccount"
     container_name        = "tfstatecontainer"
     key                   = "terraform.tfstate"
