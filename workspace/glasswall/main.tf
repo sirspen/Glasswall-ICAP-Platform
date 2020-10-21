@@ -7,29 +7,26 @@ provider "azurerm" {
 }
 
 locals {
-  short_region    = substr(var.azure_region, 0, 3)
-  service_name    = "${var.organisation}-${var.project}-${var.environment}-${local.short_region}"
-  rancher_api_url = "https://${data.terraform_remote_state.rancher_server.outputs.rancher_api_url}"
-  storage_account_name = "gwtfstatestorageaccount"
-  container_name       = "tfstatecontainer"
-  key                  = "terraform.tfstate"
+  short_region         = substr(var.azure_region, 0, 3)
+  service_name         = "${var.organisation}-${var.project}-${var.environment}-${local.short_region}"
+  rancher_api_url      = "https://${data.terraform_remote_state.rancher_server.outputs.rancher_api_url}"
 }
 
 terraform {
-  backend "gw-icap-tf-remote-store" {
-    resource_group_name  = "gw-icap-rg-tfstate"
-    storage_account_name = local.storage_account_name
-    container_name       = local.container_name
-    key                  = local.key
+  backend "azurerm" {
+    resource_group_name  = "tf-state-resource-group"
+    storage_account_name = "gwtfstatestorageaccount"
+    container_name       = "tfstatecontainer"
+    key                  = "terraform.tfstate"
   }
 }
 
 data "terraform_remote_state" "rancher_server" {
-  backend = "gw-icap-tf-remote-store"
+  backend = "azurerm"
   config = {
-    storage_account_name = local.storage_account_name
-    container_name       = local.container_name
-    key                  = local.key
+    storage_account_name = "gwtfstatestorageaccount"
+    container_name       = "tfstatecontainer"
+    key                  = "terraform.tfstate"
   }
 }
 
