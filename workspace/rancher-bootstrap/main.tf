@@ -4,15 +4,6 @@ provider "azurerm" {
   features {}
 }
 
-terraform {
-  backend "azurerm" {
-    resource_group_name   = "gw-icap-rg-tfstate"
-    storage_account_name  = "gwtfstatestorageaccount"
-    container_name        = "tfstatecontainer"
-    key                   = "terraform.tfstate"
-  }
-}
-
 locals {
   project = "${var.project}-${var.suffix}"
   short_region = substr(var.azure_region, 0, 3)
