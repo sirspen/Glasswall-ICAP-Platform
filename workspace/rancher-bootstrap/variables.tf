@@ -19,7 +19,7 @@ variable "project" {
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "p1"
+  default     = "p2"
 }
 
 variable "azure_region" {
