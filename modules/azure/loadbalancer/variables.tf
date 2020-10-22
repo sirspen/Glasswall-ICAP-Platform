@@ -7,7 +7,7 @@ variable "resource_group_name" {
 variable "location" {
   type        = string
   description = "The Azure Location"
-  default     = "UK South"
+  default     = "UK West"
 }
 
 variable "network_interface_id" {
