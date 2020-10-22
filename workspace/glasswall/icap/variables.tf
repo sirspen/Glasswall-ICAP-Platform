@@ -83,3 +83,8 @@ variable "cluster_subnet_prefix" {
   description = "Subnet CIDR"
   type        = string
 }
+
+variable "node_custom_data" {
+  description = "Custom Data"
+  type        = string
+}

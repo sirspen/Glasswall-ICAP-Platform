@@ -41,3 +41,6 @@ output "rancher_resource_group" {
 output "rancher_network" {
   value = module.network.name
 }
+output "network_id" {
+  value = module.network.id
+}

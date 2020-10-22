@@ -1,7 +1,7 @@
 variable "organisation" {
   description = "Metadata Organisation"
   type        = string
-  default     = "gw"
+  default     = "gw-icap"
 }
 
 variable "environment" {
@@ -13,13 +13,13 @@ variable "environment" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "icap"
+  default     = "cluster"
 }
 
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "p1"
+  default     = "c1"
 }
 
 variable "subscription_id" {
@@ -37,5 +37,5 @@ variable "tenant_id" {
 variable "azure_region" {
   description = "Metadata Azure Region"
   type        = string
-  default     = "uksouth"
+  default     = "ukwest"
 }

@@ -20,6 +20,7 @@
 | cluster\_subnet\_name | Set the cluster subnet | `string` | n/a | yes |
 | cluster\_subnet\_prefix | Set the cluster subnet cidr prefix | `string` | n/a | yes |
 | cluster\_virtual\_machine\_net | Set the Virtual Network for the Cluster | `string` | n/a | yes |
+| custom\_data | Custom Data | `string` | n/a | yes |
 | docker\_url | Docker Install Url | `string` | `"https://releases.rancher.com/install-docker/19.03.sh"` | no |
 | node\_disk\_size | Total size of Disk | `string` | `"120"` | no |
 | node\_image | The os image to use for the base linux | `string` | `"RedHat:RHEL:7-LVM:latest"` | no |

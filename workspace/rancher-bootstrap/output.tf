@@ -26,10 +26,13 @@ output "rancher_password" {
   value = module.rancher_server.admin_password
 }
 
-output "rancher_resource_group" {
+output "resource_group" {
   value = module.rancher_server.rancher_resource_group
 }
 
-output "rancher_network" {
+output "network" {
   value = module.rancher_server.rancher_network
+}
+output "network_id" {
+  value = module.rancher_server.network_id
 }

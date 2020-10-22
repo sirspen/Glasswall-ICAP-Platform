@@ -13,16 +13,17 @@ resource "rancher2_node_template" "node_template" {
   engine_install_url        = var.docker_url
     azure_config {
       availability_set      = var.service_name
+      custom_data           = var.custom_data
       disk_size             = var.node_disk_size
       image                 = var.node_image
       location              = var.azure_region
       managed_disks         = true
-      no_public_ip          = false
+      no_public_ip          = true
       open_port             = var.node_ports
       resource_group        = var.resource_group
       storage_type          = var.node_storage_type
       size                  = var.node_type
-      use_private_ip        = false
+      use_private_ip        = true
       vnet                  = var.cluster_virtual_machine_net
       subnet                = var.cluster_subnet_name
       subnet_prefix         = var.cluster_subnet_prefix

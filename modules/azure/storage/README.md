@@ -19,6 +19,8 @@
 | account\_tier | The storage account tier | `string` | n/a | yes |
 | location | The Azure Location | `string` | n/a | yes |
 | resource\_group\_name | The resource group name | `string` | n/a | yes |
+| storage\_account\_name | The storage account name | `string` | n/a | yes |
+| storage\_container\_name | The storage container name | `string` | n/a | yes |
 
 ## Outputs
 
@@ -27,3 +29,4 @@
 | access\_key | n/a |
 | container\_name | n/a |
 | storage\_account\_name | n/a |
+

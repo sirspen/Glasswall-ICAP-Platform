@@ -31,6 +31,7 @@ resource "rancher2_cluster" "the_cluster" {
   rke_config {
    # cloud_provider  = "azure_cloud_provider"
     cloud_provider {
+      name = "azure"
       azure_cloud_provider {
         tenant_id                      = var.tenant_id
         subscription_id                = var.subscription_id

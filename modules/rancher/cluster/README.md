@@ -35,11 +35,11 @@
 
 | Name | Description |
 |------|-------------|
-| cluster\_network | n/a |
-| cluster\_network\_id | n/a |
-| cluster\_subnet | n/a |
-| id | n/a |
+| cluster\_id | n/a |
+| cluster\_name | n/a |
 | kubernetes\_version | n/a |
-| name | n/a |
+| network | n/a |
+| network\_id | n/a |
 | resource\_group | n/a |
+| subnet | n/a |
 

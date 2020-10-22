@@ -66,6 +66,11 @@ variable "azure_region" {
   type        = string
 }
 
+variable "custom_data" {
+  description = "Custom Data"
+  type        = string
+}
+
 variable "docker_url" {
   description = "Docker Install Url"
   type        = string
