@@ -5,7 +5,12 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "The Azure Location"
   type        = string
+  description = "The Azure Location"
   default     = "UK South"
+}
+
+variable "network_interface_id" {
+  type = string
+  description = "The network interface id to associate with the lb backend pool"
 }
