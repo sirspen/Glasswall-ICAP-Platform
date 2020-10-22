@@ -23,25 +23,3 @@ resource "azurerm_lb" "this" {
   }
 }
 
-resource "azurerm_lb_rule" "this" {
-  resource_group_name            = azurerm_resource_group.this.name
-  loadbalancer_id                = azurerm_lb.this.id
-  name                           = "gw-icap-loadbalancer-rule"
-  protocol                       = "Tcp"
-  frontend_port                  = 1344
-  backend_port                   = 1344
-  frontend_ip_configuration_name = "PublicIPAddress"
-}
-
-resource "azurerm_lb_backend_address_pool" "this" {
-  resource_group_name = azurerm_resource_group.this.name
-  loadbalancer_id     = azurerm_lb.this.id
-  name                = "BackEndAddressPool"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "this" {
-  network_interface_id    = var.network_interface_id
-  ip_configuration_name   = "gw-icap-ip-configuration-association"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.this.id
-}
-

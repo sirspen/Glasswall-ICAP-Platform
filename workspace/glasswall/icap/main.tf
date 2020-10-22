@@ -91,11 +91,6 @@ module "icap_worker_node_pool"{
   node_pool_role_worker         = true
 }
 
-module "load_balancer" {
-  source = "../../../modules/azure/loadbalancer"
-  network_interface_id = module.icap_worker_node_pool.id
-}
-
 data "azurerm_virtual_network" "rancher_server_network" {
   name                = var.rancher_network
   resource_group_name = var.rancher_resource_group
