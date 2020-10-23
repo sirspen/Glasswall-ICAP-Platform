@@ -13,13 +13,13 @@ variable "environment" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "icap"
+  default     = "rancher"
 }
 
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "p2"
+  default     = "icap-proxy-p1"
 }
 
 variable "azure_region" {

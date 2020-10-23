@@ -1,7 +1,7 @@
 variable "organisation" {
   description = "Metadata Organisation"
   type        = string
-  default     = "gw-icap"
+  default     = "gw"
 }
 
 variable "environment" {
@@ -13,13 +13,13 @@ variable "environment" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "cluster"
+  default     = "k8s"
 }
 
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "c2"
+  default     = "icap-proxy-c1"
 }
 
 variable "subscription_id" {
