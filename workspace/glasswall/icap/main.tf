@@ -3,11 +3,6 @@ locals {
   cluster_name = "${var.service_name}-${var.suffix}"
 }
 
-provider "azurerm" {
-  version = "=2.30.0"
-  features {}
-}
-
 module "azure_cloud_credentials"{
   source                    = "../../../modules/rancher/cloud_credentials"
   rancher_admin_url         = var.rancher_admin_url
@@ -65,19 +60,19 @@ module "icap_worker_temp" {
   cluster_subnet_prefix       = var.cluster_subnet_prefix
 }
 
-module "icap_master_node_pool"{
-  source                   = "../../../modules/rancher/node_pool"
-  rancher_admin_url        = var.rancher_admin_url
-  rancher_admin_token      = var.rancher_admin_token
-  service_name             = "${var.service_name}-mstr"
-  cluster_id               = module.icap_cluster.cluster_id
-  node_pool_template_id    = module.icap_master_temp.id
-  resource_group           = module.icap_cluster.resource_group
-  node_pool_nodes_qty           = 1
-  node_pool_role_control_plane  = true
-  node_pool_role_etcd           = true
-  node_pool_role_worker         = false
-}
+#module "icap_master_node_pool"{
+#  source                   = "../../../modules/rancher/node_pool"
+#  rancher_admin_url        = var.rancher_admin_url
+#  rancher_admin_token      = var.rancher_admin_token
+#  service_name             = "${var.service_name}-mstr"
+#  cluster_id               = module.icap_cluster.cluster_id
+#  node_pool_template_id    = module.icap_master_temp.id
+#  resource_group           = module.icap_cluster.resource_group
+#  node_pool_nodes_qty           = 1
+#  node_pool_role_control_plane  = true
+#  node_pool_role_etcd           = true
+#  node_pool_role_worker         = false
+#}
 
 module "icap_worker_node_pool"{
   source                   = "../../../modules/rancher/node_pool"
@@ -88,7 +83,7 @@ module "icap_worker_node_pool"{
   node_pool_template_id    = module.icap_worker_temp.id
   resource_group           = module.icap_cluster.resource_group
   node_pool_nodes_qty      = 1
-  node_pool_role_control_plane  = false
-  node_pool_role_etcd           = false
+  node_pool_role_control_plane  = true
+  node_pool_role_etcd           = true
   node_pool_role_worker         = true
 }

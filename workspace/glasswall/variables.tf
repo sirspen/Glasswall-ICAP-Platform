@@ -19,7 +19,7 @@ variable "project" {
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "c1"
+  default     = "c2"
 }
 
 variable "subscription_id" {

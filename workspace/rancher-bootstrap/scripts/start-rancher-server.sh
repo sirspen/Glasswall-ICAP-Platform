@@ -11,4 +11,6 @@ docker run -d --restart=unless-stopped \
 -v /opt/rancher-data/mysql:/var/lib/mysql \
 -v /opt/rancher-data/rancher:/var/lib/rancher \
 -p 80:80 -p 443:443 \
---privileged rancher/rancher:latest
+--network host \
+--privileged \
+rancher/rancher:latest

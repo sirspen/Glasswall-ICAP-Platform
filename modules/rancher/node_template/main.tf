@@ -28,6 +28,6 @@ resource "rancher2_node_template" "node_template" {
       subnet                = var.cluster_subnet_name
       subnet_prefix         = var.cluster_subnet_prefix
       fault_domain_count    = 2
-      ssh_user              = "az-user"
+      ssh_user              = "azure-user"
     }
 }

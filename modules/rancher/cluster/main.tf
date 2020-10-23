@@ -29,7 +29,7 @@ resource "rancher2_cluster" "the_cluster" {
   description = "Cluster to run the ICAP Service"
 
   rke_config {
-   # cloud_provider  = "azure_cloud_provider"
+    ignore_docker_version = true
     cloud_provider {
       name = "azure"
       azure_cloud_provider {
@@ -48,7 +48,7 @@ resource "rancher2_cluster" "the_cluster" {
     network {
       plugin  = var.cluster_network_plugin
     }
-    services {
+    /*services {
       etcd {
         creation = "6h"
         retention = "24h"
@@ -56,21 +56,13 @@ resource "rancher2_cluster" "the_cluster" {
       kube_api {
         audit_log {
           enabled = true
-          configuration {
-            max_age = 5
-            max_backup = 5
-            max_size = 100
-            path = "-"
-            format = "json"
-            policy = "apiVersion: audit.k8s.io/v1\nkind: Policy\nmetadata:\n  creationTimestamp: null\nomitStages:\n- RequestReceived\nrules:\n- level: RequestResponse\n  resources:\n  - resources:\n    - pods\n"
-          }
         }
       }
     }
     upgrade_strategy {
       drain = true
       max_unavailable_worker = "20%"
-    }
+    }*/
     kubernetes_version = var.kubernetes_version
   }
 }
