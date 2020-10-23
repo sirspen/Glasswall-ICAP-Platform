@@ -13,13 +13,13 @@ variable "environment" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "k8s"
+  default     = "icap-cluster"
 }
 
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "icap-proxy-c1"
+  default     = "c1"
 }
 
 variable "subscription_id" {

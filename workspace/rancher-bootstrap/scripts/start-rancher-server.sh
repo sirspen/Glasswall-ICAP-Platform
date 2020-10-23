@@ -5,7 +5,7 @@ yum -y install docker
 mkdir -p /opt/rancher-data/mysql
 mkdir -p /opt/rancher-data/rancher
 
-systemctl disable firewalld
+#systemctl disable firewalld
 
 service docker start
 

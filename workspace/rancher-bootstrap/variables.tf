@@ -19,7 +19,7 @@ variable "project" {
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "icap-proxy-p1"
+  default     = "p1"
 }
 
 variable "azure_region" {

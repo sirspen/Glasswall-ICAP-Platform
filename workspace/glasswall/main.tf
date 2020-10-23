@@ -27,7 +27,7 @@ data "terraform_remote_state" "rancher_server" {
     resource_group_name  = "tf-state-resource-group"
     storage_account_name = "gwtfstatestorageaccount"
     container_name       = "tfstatecontainer"
-    key                  = "rancher-bootbstrap-terraform.tfstate"
+    key                  = "rancher-server-terraform.tfstate"
   }
 }
 
