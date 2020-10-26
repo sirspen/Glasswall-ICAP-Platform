@@ -67,7 +67,7 @@ module "icap_service" {
   client_secret          = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id        = data.azurerm_key_vault_secret.az-subscription-id.value
   azure_region           = var.azure_region
-  address_space          = ["172.20.0.0/16"]
+  address_space          = ["172.16.0.0/12","192.168.0.0/16"]
   subnet_cidr            = ["172.20.2.0/24"]
   cluster_subnet_prefix  = "172.20.2.0/24"
 }
