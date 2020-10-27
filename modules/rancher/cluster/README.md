@@ -15,7 +15,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| address\_space | Network CIDR | `list(string)` | n/a | yes |
 | azure\_region | The Cloud Region | `string` | n/a | yes |
 | client\_id | Service Principal ClientID | `string` | n/a | yes |
 | client\_secret | Service Principal Secret | `string` | n/a | yes |
@@ -27,9 +26,10 @@
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
 | service\_name | The Service Name | `string` | n/a | yes |
-| subnet\_cidr | Subnet CIDR | `list(string)` | n/a | yes |
+| subnet\_name | Subnet Name | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |
 | tenant\_id | Service Principal TenantID | `string` | n/a | yes |
+| vnet\_name | Virtual Network Name | `string` | n/a | yes |
 
 ## Outputs
 
