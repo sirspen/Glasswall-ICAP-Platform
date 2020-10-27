@@ -25,5 +25,4 @@ variable "dns_a_record_name" {
 variable "list_of_load_balancer_ips" {
   type = list(string)
   description = "The list of ips for the load balancers"
-  default = ["51.141.42.249", "20.49.204.139"]
 }
