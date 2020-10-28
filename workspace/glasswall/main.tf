@@ -62,7 +62,7 @@ module "icap_service" {
   service_name           = local.service_name
   suffix                 = var.suffix
   tenant_id              = var.tenant_id
-  node_custom_data       = file("../../scripts/install-docker.sh")
+  node_custom_data       = file("../../scripts/cloud-init.yaml")
   client_id              = data.azurerm_key_vault_secret.az-client-id.value
   client_secret          = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id        = data.azurerm_key_vault_secret.az-subscription-id.value

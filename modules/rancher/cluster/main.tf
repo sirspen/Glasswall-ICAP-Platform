@@ -1,28 +1,4 @@
 
-module "resource_group" {
-  source                  = "../../azure/resource_group"
-  name                    = var.cluster_name
-  region                  = var.azure_region
-}
-
-module "network" {
-  source                  = "../../azure/network"
-  resource_group          = module.resource_group.name
-  organisation            = var.organisation
-  environment             = var.environment
-  region                  = var.azure_region
-  service_name            = var.cluster_name
-  address_space           = var.address_space
-}
-
-module "subnet" {
-  source                  = "../../azure/subnet"
-  service_name            = var.cluster_name
-  resource_group          = module.resource_group.name
-  virtual_network_name    = module.network.name
-  address_prefixes        = var.subnet_cidr
-}
-
 resource "rancher2_cluster" "the_cluster" {
   provider    = rancher2.admin
   name        = var.cluster_name
@@ -37,9 +13,9 @@ resource "rancher2_cluster" "the_cluster" {
         subscription_id                = var.subscription_id
         aad_client_id                  = var.client_id
         aad_client_secret              = var.client_secret
-        subnet_name                    = module.subnet.name
-        vnet_name                      = module.network.name
-        vnet_resource_group            = module.resource_group.name
+        subnet_name                    = var.subnet_name
+        vnet_name                      = var.virtual_network_name
+        resource_group                 = var.resource_group
       }
         #  primary_availability_set_name =
         #  primary_scale_set_name        =

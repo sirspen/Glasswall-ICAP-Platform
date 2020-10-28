@@ -25,11 +25,12 @@
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
+| resource\_group | n/a | `string` | n/a | yes |
 | service\_name | The Service Name | `string` | n/a | yes |
 | subnet\_name | Subnet Name | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |
 | tenant\_id | Service Principal TenantID | `string` | n/a | yes |
-| vnet\_name | Virtual Network Name | `string` | n/a | yes |
+| virtual\_network\_name | Virtual Network Name | `string` | n/a | yes |
 
 ## Outputs
 
@@ -38,8 +39,4 @@
 | cluster\_id | n/a |
 | cluster\_name | n/a |
 | kubernetes\_version | n/a |
-| network | n/a |
-| network\_id | n/a |
-| resource\_group | n/a |
-| subnet | n/a |
 

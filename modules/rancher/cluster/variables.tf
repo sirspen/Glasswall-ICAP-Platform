@@ -57,16 +57,6 @@ variable "kubernetes_version" {
   default     = "v1.19.2-rancher1-1"
 }
 
-variable "address_space" {
-  description = "Network CIDR"
-  type        = list(string)
-}
-
-variable "subnet_cidr" {
-  description = "Subnet CIDR"
-  type        = list(string)
-}
-
 variable "organisation" {
   description = "Metadata Organisation"
   type        = string
@@ -76,3 +66,20 @@ variable "environment" {
   description = "Metadata Environment"
   type        = string
 }
+
+variable "virtual_network_name" {
+  description = "Virtual Network Name"
+  type        = string
+}
+
+variable "subnet_name" {
+  description = "Subnet Name"
+  type        = string
+}
+
+variable "resource_group" {
+  description = ""
+  type        = string
+}
+
+

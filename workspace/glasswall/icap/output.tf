@@ -8,17 +8,17 @@ output "cluster_id" {
 }
 
 output "resource_group" {
-  value = module.icap_cluster.resource_group
+  value = module.resource_group.name
 }
 
 output "network" {
-  value = module.icap_cluster.network
+  value = module.network.name
 }
 
 output "network_id" {
-  value = module.icap_cluster.network_id
+  value = module.network.id
 }
 
 output "subnet" {
-  value = module.icap_cluster.subnet
+  value = module.subnet.name
 }

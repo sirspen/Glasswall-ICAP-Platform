@@ -98,3 +98,27 @@ variable "lb_probe_id" {
   description = "Load Balancer Probe ID"
   type        = string
 }
+
+
+
+# Common variables
+/*
+organisation
+environment
+service_name
+resource_group
+subnet_id
+public_ip_id
+region
+size
+os_publisher
+os_offer
+os_sku
+os_version
+admin_username
+custom_data_file_path
+public_key_openssh
+lb_backend_address_pool_id
+lb_nat_pool_id
+lb_probe_id
+*/

@@ -1,0 +1,19 @@
+#cloud-config
+runcmd:
+- yum update
+- yum -y install docker iptables-services
+- mkdir -p /opt/rancher-data/mysql
+- mkdir -p /opt/rancher-data/rancher 
+- systemctl stop firewalld
+- systemctl disable firewalld
+- systemctl start iptables
+- systemctl start ip6tables 
+- systemctl enable iptables
+- systemctl enable ip6tables
+- systemctl start docker
+- docker run -d --restart=unless-stopped -v /opt/rancher-data/mysql:/var/lib/mysql -v /opt/rancher-data/rancher:/var/lib/rancher -p 80:80 -p 443:443 --privileged rancher/rancher:latest
+
+#systemctl disable firewalld
+
+
+
