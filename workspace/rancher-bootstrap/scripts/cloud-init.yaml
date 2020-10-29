@@ -1,4 +1,8 @@
 #cloud-config
+users:
+  - default
+  - name: packer
+    inactive: true
 runcmd:
 - yum update
 - yum -y install docker iptables-services
