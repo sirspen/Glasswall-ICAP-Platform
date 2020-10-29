@@ -18,6 +18,7 @@
 |------|-------------|------|---------|:--------:|
 | admin\_username | Virtual Machine Admin Username | `string` | `"azure-user"` | no |
 | custom\_data\_file\_path | Custom data filepath | `string` | n/a | yes |
+| disk\_size | AZ Pipeline Runner VM image name | `string` | `120` | no |
 | environment | Metadata Environment | `string` | n/a | yes |
 | http\_port | HTTP Port | `number` | `80` | no |
 | https\_port | HTTPS Port | `number` | `443` | no |
@@ -32,7 +33,7 @@
 | resource\_group | Azure Resource Group | `string` | n/a | yes |
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
 | service\_type | This is consolidated based on the project, type and suffix | `string` | n/a | yes |
-| size | AZ Pipeline Runner VM image name | `string` | `"Standard_DS1_v2"` | no |
+| size | AZ Pipeline Runner VM image name | `string` | n/a | yes |
 | ssh\_port | SSH Port | `number` | `22` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
 

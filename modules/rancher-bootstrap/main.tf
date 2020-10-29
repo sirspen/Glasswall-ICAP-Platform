@@ -54,6 +54,7 @@ module "rancher_server" {
   organisation            = var.organisation
   environment             = var.environment
   service_name            = local.service_name
+  size                    = "Standard_D2_v2"
   service_type            = "rancher_server"
   os_sku                  = "7-LVM"
   os_offer                = "RHEL"

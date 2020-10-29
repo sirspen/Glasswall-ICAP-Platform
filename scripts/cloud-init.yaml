@@ -6,7 +6,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     lock_passwd: true
     ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5Rwdoc9HTKnfs14hirAjtqPniH2nDAjf9aUHHIzQK7NoOv0tzVNtCT6VLG6xZFzaPVgDfA5RMGkS8rIwwFxh7V0GJVLf+5LsogSiPV4uwZN2r4/xsXIHACV5iGleVx84Kka6oUcnrg0cTR2696DLrjmPx4W6JODFZrZHDIsyjtCrOsjlqu7nTzmRyQMjNwHYBtOj7NwIBThPnRgFnLWjOGY4kBBs0i+MPDHuiqb0TcUmqhcuAKxQj+gj8M/kgvJ23SVH3tI1pV2f9tvEQdM+mk2UrGrPRAsop4CeiegwZzjvgV7+VY6h/q6Ybk9TPQ9NUpI+qCl2HOvnlkMw6v/XUP5rSy5MXwbPuSyvHkL6jt+l3ppRV4u4cmZ80j1bcB7SdP1BrMxeEp5ghH6RRyGfPe4wj4bmhSB2Y/H5HAvhxkfX/CQ7Wjd6u0y7A31Yw/rk3F8HrWd37vSSnwod37O0UA7i14k0ptvqMKCUZT7FNBq8hTBkLlzN7/2+ePdOaUCFSbIEm+LPEf916JTNgbWjrQu4ttIb9I1LPV6BgEPv6eZV2xxaA/Zr4WAXnQueGpNTH+i11E+JppsqIY5S8mv8iI6W5IBLg64DRG7C6i6VZwvlyZNYNX1JnnXpxz6++GnyJpyxmkQ1Hpp5w7nXoQtpzZAprg8iDf52m+UT3ACFziQ==
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrShBmIKGEHG1xTAixLKNZcNXkpmXlsUz9bkV/ArizLorivjOW0LvyjdawBZUlcey+o/tRECV2HnRaALRMSeCI5PzcQ0q65VoWs7Vuv8P0sItaJ1qJFupSOPxF99WfENQ1TZ6p/vNb6VxoRoQkbX2LrsSTsEqfizGIUL21TjbnEj+HcIgiennH28FyJ4GCJjozvymFNZnS71y9Or5DWvkD88RYDlRvcsS0jUN+5Y/5KsDHRaGmjqX79b284RyXF01JpWVuO0q9pUD+5qt7b1Pr/SSMWL4d2aMHRDXBplYwFm+Fj6g1bjYz+/WcVsY1O9AvDMcawx7uIHTX3rYYq61cE1V6JO1FI3kj2QSaP/UPTkDU0JqxZ+nLPtfHUML1gRrZRxXUs9Kwyf4z1jE2OpzVYkvAHhwbGzk4zmBtkNcln9RDAGMia+oBhdNfUjxRJdNgIpK7YeWyQRDgOZ+7eBUP5fuInodHBHdHHOvYlU5E77lWREjI1gyMsbGPHVDkEKEEhcgPWarqsz4Nr+S6XzbqlePq7yZhVRcZH8jbh/NBDo7nPLnleptjqZzWi6pD3LQWnwt5g6+/yDOO0xuexHG6jzFt+YC6gpztXJg4k5xTw6peYvTg6j57M7A3+lQgsqHaHVE060eG+gYpGp3v4EI4+jBu8lsApAoABDY5boI6Bw==
   - name: packer
     inactive: true
 runcmd:
@@ -17,3 +17,4 @@ runcmd:
  - systemctl enable ip6tables
  - systemctl start iptables
  - systemctl start ip6tables
+ - iptables -F
