@@ -37,9 +37,9 @@
 | admin\_user | n/a |
 | linux\_vm\_public\_ips | n/a |
 | network\_id | n/a |
+| public\_key\_openssh | n/a |
 | rancher\_api\_url | n/a |
 | rancher\_network | n/a |
 | rancher\_resource\_group | n/a |
 | tls\_private\_key | n/a |
-| tls\_public\_key | n/a |
 

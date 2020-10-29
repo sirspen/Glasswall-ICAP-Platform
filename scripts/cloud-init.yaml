@@ -1,20 +1,19 @@
 #cloud-config
-ssh_authorized_keys: 
-  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCv2bL4MJTMC0JvYl9HYhb3yum+a1VOMt0HOW6SseNyCM1Y1CI8HNBygSMFBhzjCPQLynevIXjr+c0tCyNvFf1sUoLxPT1eMEpE+1D+zVMlGC3OWWH9rp8h46mGIcSOZHF90NMj8CAgaoVYF6F+fax1fwAwXfO/Vr4Nw1xXXXqmvSUZUzAQe1ukhdyeGWl/oJOC3WZiP7EoQvdl4PLoUkRMlV5JUuhibIXVhvaW4ynbvBWxLaIL1uJqDjmEniR8+y2TZNgOi56iTvjHFaSfUAtcf9Ctvv8BWN75N0CUcfjtW19QlHaMpz9lWI19L+CdZqV3yH9SyNRdDY5lJ76VhNaoZgUhzpghrqUDTh4w3Y05PPmb5jbuf5cF9DTIuDbQxIqx2VbhUPuaDXFVAYcnZIdPYX7tvmb1GGuub91MS+4uKeMAwEbJH/ijEksCg8Qbp5aOC5QE49U9q5H4gG72hXkHt+HtE5AxD+eaikmPzyIqK2Z0ukyuulicD5Qd5macLh2kWxa3aPwGZ4bmpGkN4GfcmN5I2hUBjZXod7fsF5yaeu7LlJsuBRECz4DeoUsXZGJ4/NAP+dTd3Zs27PpAhbiKesrYLUZbIVzrWFmYG5gJtTuhCzJ9ng98EscpnN1Io7VLqIWxB7DJbUS/+c/Bw51sQKBqsDbDjkOMPi55z+F1cQ==
-# Add your ssh key here
-write_files:
-- path: /etc/docker/daemon.json
-  permissions: '0770'
-  content: |
-    {
-      "cluster-store": "consul://127.0.0.1:8500",
-      "cluster-advertise": "eth0:2376"
-    }
+#verify if wheel already has good enough permissions
+users:
+  - default
+  - name: gw-user
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5Rwdoc9HTKnfs14hirAjtqPniH2nDAjf9aUHHIzQK7NoOv0tzVNtCT6VLG6xZFzaPVgDfA5RMGkS8rIwwFxh7V0GJVLf+5LsogSiPV4uwZN2r4/xsXIHACV5iGleVx84Kka6oUcnrg0cTR2696DLrjmPx4W6JODFZrZHDIsyjtCrOsjlqu7nTzmRyQMjNwHYBtOj7NwIBThPnRgFnLWjOGY4kBBs0i+MPDHuiqb0TcUmqhcuAKxQj+gj8M/kgvJ23SVH3tI1pV2f9tvEQdM+mk2UrGrPRAsop4CeiegwZzjvgV7+VY6h/q6Ybk9TPQ9NUpI+qCl2HOvnlkMw6v/XUP5rSy5MXwbPuSyvHkL6jt+l3ppRV4u4cmZ80j1bcB7SdP1BrMxeEp5ghH6RRyGfPe4wj4bmhSB2Y/H5HAvhxkfX/CQ7Wjd6u0y7A31Yw/rk3F8HrWd37vSSnwod37O0UA7i14k0ptvqMKCUZT7FNBq8hTBkLlzN7/2+ePdOaUCFSbIEm+LPEf916JTNgbWjrQu4ttIb9I1LPV6BgEPv6eZV2xxaA/Zr4WAXnQueGpNTH+i11E+JppsqIY5S8mv8iI6W5IBLg64DRG7C6i6VZwvlyZNYNX1JnnXpxz6++GnyJpyxmkQ1Hpp5w7nXoQtpzZAprg8iDf52m+UT3ACFziQ==
+  - name: packer
+    inactive: true
 runcmd:
  - systemctl stop firewalld
  - systemctl disable firewalld
  - yum -y install iptables-services
- - systemctl start iptables
- - systemctl start ip6tables 
  - systemctl enable iptables
  - systemctl enable ip6tables
+ - systemctl start iptables
+ - systemctl start ip6tables

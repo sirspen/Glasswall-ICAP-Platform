@@ -2,6 +2,10 @@ output "tls_private_key" {
   value = module.rancher_server.tls_private_key
 }
 
+output "public_key_openssh" {
+  value = module.rancher_server.public_key_openssh
+}
+
 output "linux_vm_public_ips" {
   value = module.rancher_server.linux_vm_public_ips
 }

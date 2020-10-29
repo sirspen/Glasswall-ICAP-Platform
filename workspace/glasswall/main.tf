@@ -53,20 +53,20 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
 
 module "icap_service" {
   source                 = "./icap"
-  organisation           = var.organisation
-  environment            = var.environment
-  rancher_admin_url      = local.rancher_api_url
   rancher_admin_token    = data.terraform_remote_state.rancher_server.outputs.rancher_admin_token
   rancher_network        = data.terraform_remote_state.rancher_server.outputs.network
   rancher_resource_group = data.terraform_remote_state.rancher_server.outputs.resource_group
-  service_name           = local.service_name
-  suffix                 = var.suffix
-  tenant_id              = var.tenant_id
-  node_custom_data       = file("../../scripts/cloud-init.yaml")
   client_id              = data.azurerm_key_vault_secret.az-client-id.value
   client_secret          = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id        = data.azurerm_key_vault_secret.az-subscription-id.value
+  rancher_admin_url      = local.rancher_api_url
+  service_name           = local.service_name
+  organisation           = var.organisation
+  environment            = var.environment
+  suffix                 = var.suffix
+  tenant_id              = var.tenant_id
   azure_region           = var.azure_region
+  node_custom_data       = file("../../scripts/cloud-init.yaml")
   address_space          = ["172.16.0.0/12","192.168.0.0/16"]
   subnet_cidr            = ["172.20.2.0/24"]
   cluster_subnet_prefix  = "172.20.2.0/24"
