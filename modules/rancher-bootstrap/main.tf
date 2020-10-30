@@ -103,11 +103,4 @@ resource "rancher2_bootstrap" "admin" {
   provider = rancher2.bootstrap
   password = random_password.password.result
   depends_on = [time_sleep.wait_300_seconds]
-
-  provisioner "remote-exec" {
-    inline = [
-      "cd ../rancher-bootstrap/src",
-      "make example"
-    ]
-  }
 }
