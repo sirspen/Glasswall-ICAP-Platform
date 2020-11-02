@@ -3,7 +3,7 @@ module "git_server" {
   resource_group          = module.resource_group.name
   organisation            = var.organisation
   environment             = var.environment
-  service_name            = local.service_name
+  service_name            = "git-${local.service_name}"
   service_type            = "git_server"
   os_sku                  = "7-LVM"
   os_offer                = "RHEL"
@@ -13,4 +13,12 @@ module "git_server" {
   subnet_id               = module.subnet.id
   public_ip_id            = module.public_ip.id
   public_key_openssh      = tls_private_key.ssh.public_key_openssh
+}
+
+resource "azurerm_dns_a_record" "git_server" {
+  name                = local.service_name
+  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
+  resource_group_name = "gw-icap-rg-dns"
+  ttl                 = 300
+  records             = [module.git_server.linux_vm_public_ips]
 }
