@@ -1,3 +1,13 @@
+module "public_ip" {
+  source                  = "../azure/public_ip"
+  resource_group          = module.resource_group.name
+  region                  = var.azure_region
+  service_name            = local.service_name
+  service_type            = "rancher_server"
+  organisation            = var.organisation
+  environment             = var.environment
+}
+
 resource "azurerm_dns_a_record" "rancher_server" {
   name                = local.service_name
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name

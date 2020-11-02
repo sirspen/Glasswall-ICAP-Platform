@@ -37,16 +37,6 @@ module "subnet" {
   address_prefixes        = ["10.10.2.0/24"]
 }
 
-module "public_ip" {
-  source                  = "../azure/public_ip"
-  resource_group          = module.resource_group.name
-  region                  = var.azure_region
-  service_name            = local.service_name
-  service_type            = "rancher_server"
-  organisation            = var.organisation
-  environment             = var.environment
-}
-
 data "azurerm_dns_zone" "curlywurly_zone" {
   name                = "icap-proxy.curlywurly.me"
   resource_group_name = "gw-icap-rg-dns"
