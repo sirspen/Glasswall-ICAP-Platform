@@ -15,8 +15,8 @@ variable "service_name" {
   type        = string
 }
 
-variable "service_type" {
-  description = "This is consolidated based on the project, type and suffix"
+variable "service_role" {
+  description = "This is the instance role, used to identity a master or worker node"
   type        = string
 }
 
@@ -30,10 +30,10 @@ variable "subnet_id" {
   type        = string
 }
 
-variable "public_ip_id" {
-  description = "ID from Public IP module"
+/*variable "subnet_name" {
+  description = "Name from Subnet module"
   type        = string
-}
+}*/
 
 variable "region" {
   description = "Azure Region"
@@ -89,10 +89,10 @@ variable "lb_backend_address_pool_id" {
   type        = string
 }
 
-variable "lb_nat_pool_id" {
+/*variable "lb_nat_pool_id" {
   description = "Load Balancer NAT Pool"
   type        = string
-}
+}*/
 
 variable "lb_probe_id" {
   description = "Load Balancer Probe ID"

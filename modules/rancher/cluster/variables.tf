@@ -78,7 +78,13 @@ variable "subnet_name" {
 }
 
 variable "resource_group" {
-  description = ""
+  description = "the resource group"
+  type        = string
+}
+
+
+variable "scaleset_name" {
+  description = "The scale set name"
   type        = string
 }
 

@@ -7,5 +7,5 @@ output "probe_id" {
 }
 
 output "bap_id" {
-  value = azurerm_lb_probe.lb_bap.id
+  value = azurerm_lb_backend_address_pool.lb_bap.id
 }

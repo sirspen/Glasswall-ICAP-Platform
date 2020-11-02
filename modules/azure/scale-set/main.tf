@@ -38,6 +38,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset" {
   }
 
   storage_profile_data_disk {
+    lun           = 0
     caching       = "ReadWrite"
     create_option = "FromImage"
     disk_size_gb  = 120
@@ -53,7 +54,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset" {
 
     ssh_keys {
       path     = "/home/${var.admin_username}/.ssh/authorized_keys"
-      key_data = file(public_key_openssh)
+      key_data = file(var.public_key_openssh)
     }
   }
 
@@ -64,11 +65,11 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset" {
     ip_configuration {
       name                                   = "${var.service_name}-ip-config"
       primary                                = true
-      subnet_id                              = var.subnet_name
+      subnet_id                              = var.subnet_id
     }
   }
 
   tags = {
-    environment = var.environment
+    roles = var.service_role
   }
 }
