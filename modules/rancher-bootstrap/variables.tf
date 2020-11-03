@@ -30,8 +30,3 @@ variable "custom_data_file_path" {
   description = "Bootstrap the virtual machine with this file"
   type        = string
 }
-
-variable "custom_git_server_data_file_path" {
-  description = "Bootstrap the gitserver virtual machine with this file"
-  type        = string
-}
