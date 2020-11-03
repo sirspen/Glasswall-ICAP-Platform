@@ -21,6 +21,7 @@
 |------|-------------|------|---------|:--------:|
 | azure\_region | Set the Azure Region | `string` | n/a | yes |
 | custom\_data\_file\_path | Bootstrap the virtual machine with this file | `string` | n/a | yes |
+| custom\_git\_server\_data\_file\_path | Bootstrap the gitserver virtual machine with this file | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | project | Metadata Project | `string` | n/a | yes |

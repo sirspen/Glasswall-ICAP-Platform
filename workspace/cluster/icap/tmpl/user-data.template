@@ -51,10 +51,10 @@ write_files:
     echo "IS_BOTH=$IS_BOTH"
     echo "K8S_ROLES=$K8S_ROLES"
 
-    yum update
-    curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
-    curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
-    usermod -aG docker azure-user
+    #yum update
+    #curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
+    #curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
+    #usermod -aG docker azure-user
 
     docker run -d --privileged --restart=unless-stopped --net=host \
     -v /etc/kubernetes:/etc/kubernetes \
