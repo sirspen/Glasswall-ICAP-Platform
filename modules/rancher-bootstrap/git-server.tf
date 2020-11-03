@@ -40,12 +40,12 @@ module "git_server" {
   os_offer       = "RHEL"
   os_publisher   = "RedHat"
   region         = var.azure_region
-  custom_data_file_path = templatefile("${path.module}/tmpl/git-server-cloud-init.template", {
+  custom_data_file_path = base64encode(templatefile("${path.module}/tmpl/git-server-cloud-init.template", {
     docker_username      = data.azurerm_key_vault_secret.docker-username.value
     docker_password      = data.azurerm_key_vault_secret.docker-password.value
     docker_org           = data.azurerm_key_vault_secret.docker-org.value
     docker_gitserver_tag = "1.0"
-  })
+  }))
   subnet_id          = module.subnet.id
   public_ip_id       = module.git_server_public_ip.id
   public_key_openssh = tls_private_key.ssh.public_key_openssh

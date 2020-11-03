@@ -55,7 +55,7 @@ resource "random_password" "password" {
 }
 
 resource "rancher2_bootstrap" "admin" {
-  provider   = rancher2.bootstrap
-  password   = random_password.password.result
-  depends_on = [time_sleep.wait_300_seconds]
+  provider     = rancher2.bootstrap
+  password     = random_password.password.result
+  depends_on   = [time_sleep.wait_300_seconds]
 }

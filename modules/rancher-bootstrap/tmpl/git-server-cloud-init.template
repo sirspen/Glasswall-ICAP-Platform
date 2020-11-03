@@ -11,8 +11,8 @@ runcmd:
   - systemctl enable ip6tables
   - systemctl start docker
   - sudo docker login --username ${docker_username} --password "${docker_password}" docker.io
-  - sudo docker pull ${docker_org}/gitserver:${docker_gitserver_tag}
-  - docker run -d -v /home/azure-user/initial:/var/lib/initial -p 80:8080 ${docker_org}/gitserver:${docker_gitserver_tag}
+  - sudo docker pull ${docker_org}/git-server:${docker_gitserver_tag}
+  - docker run -d -v /home/azure-user/initial:/var/lib/initial -p 80:8080 ${docker_org}/git-server:${docker_gitserver_tag}
 
 #systemctl disable firewalld
 

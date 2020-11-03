@@ -28,5 +28,4 @@ module "rancher_server" {
   suffix                           = var.suffix
   azure_region                     = var.azure_region
   custom_data_file_path            = filebase64("./scripts/cloud-init.yaml")
-  custom_git_server_data_file_path = filebase64("./scripts/git-server-cloud-init.yaml")
 }
