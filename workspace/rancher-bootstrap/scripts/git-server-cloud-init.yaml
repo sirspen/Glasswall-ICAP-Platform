@@ -1,0 +1,20 @@
+#cloud-config
+runcmd:
+  - yum update
+  - yum -y install docker iptables-services
+  - mkdir -p initial
+  - systemctl stop firewalld
+  - systemctl disable firewalld
+  - systemctl start iptables
+  - systemctl start ip6tables
+  - systemctl enable iptables
+  - systemctl enable ip6tables
+  - systemctl start docker
+  - sudo docker login --username khooviraj --password "" docker.io
+  - sudo docker pull khooviraj/gitserver:1.0
+  - docker run -d -v /home/azure-user/initial:/var/lib/initial -p 80:8080 khooviraj/gitserver:1.0
+
+#systemctl disable firewalld
+
+
+
