@@ -16,6 +16,7 @@ resource "rancher2_cluster" "the_cluster" {
         subnet_name                    = var.subnet_name
         vnet_name                      = var.virtual_network_name
         resource_group                 = var.resource_group
+        primary_scale_set_name         = var.scaleset_name
       }
         #  primary_availability_set_name =
         #  primary_scale_set_name        =
@@ -41,4 +42,10 @@ resource "rancher2_cluster" "the_cluster" {
     }*/
     kubernetes_version = var.kubernetes_version
   }
+}
+
+resource "rancher2_token" "the_cluster" {
+  cluster_id    = rancher2_cluster.the_cluster.id
+  description   = "api token for agents to use to join cluster"
+  renew         = false
 }

@@ -9,6 +9,7 @@
 
 | Name | Version |
 |------|---------|
+| rancher2 | 1.10.3 |
 | rancher2.admin | 1.10.3 |
 
 ## Inputs
@@ -25,7 +26,8 @@
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
-| resource\_group | n/a | `string` | n/a | yes |
+| resource\_group | the resource group | `string` | n/a | yes |
+| scaleset\_name | The scale set name | `string` | n/a | yes |
 | service\_name | The Service Name | `string` | n/a | yes |
 | subnet\_name | Subnet Name | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |
@@ -36,7 +38,12 @@
 
 | Name | Description |
 |------|-------------|
+| access\_key | n/a |
 | cluster\_id | n/a |
 | cluster\_name | n/a |
 | kubernetes\_version | n/a |
+| secret\_key | n/a |
+| token | n/a |
+| token\_enabled | n/a |
+| token\_name | n/a |
 
