@@ -2,7 +2,7 @@ module "git_server_public_ip" {
   source                  = "../azure/public_ip"
   resource_group          = module.resource_group.name
   region                  = var.azure_region
-  service_name            = "git-${local.service_name}"
+  service_name            = local.git_service_name
   service_type            = "git_server"
   organisation            = var.organisation
   environment             = var.environment
@@ -13,7 +13,7 @@ module "git_server" {
   resource_group          = module.resource_group.name
   organisation            = var.organisation
   environment             = var.environment
-  service_name            = "git-${local.service_name}"
+  service_name            = local.git_service_name
   service_type            = "git_server"
   os_sku                  = "7-LVM"
   os_offer                = "RHEL"
@@ -26,7 +26,7 @@ module "git_server" {
 }
 
 resource "azurerm_dns_a_record" "git_server" {
-  name                = local.service_name
+  name                = local.git_service_name
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
   resource_group_name = "gw-icap-rg-dns"
   ttl                 = 300
