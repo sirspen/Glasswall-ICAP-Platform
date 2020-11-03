@@ -33,7 +33,7 @@
 | resource\_group | Azure Resource Group | `string` | n/a | yes |
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
 | service\_type | This is consolidated based on the project, type and suffix | `string` | n/a | yes |
-| size | AZ Pipeline Runner VM image name | `string` | n/a | yes |
+| size | AZ Pipeline Runner VM image name | `string` | `"Standard_DS1_v2"` | no |
 | ssh\_port | SSH Port | `number` | `22` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
 

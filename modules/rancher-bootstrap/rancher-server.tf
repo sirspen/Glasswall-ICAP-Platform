@@ -26,6 +26,7 @@ module "rancher_server" {
   os_sku                  = "7-LVM"
   os_offer                = "RHEL"
   os_publisher            = "RedHat"
+  size                    = "Standard_DS2_v2"
   region                  = var.azure_region
   custom_data_file_path   = var.custom_data_file_path
   subnet_id               = module.subnet.id

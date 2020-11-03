@@ -44,6 +44,7 @@ variable "region" {
 variable "size" {
   description = "AZ Pipeline Runner VM image name"
   type        = string
+  default     = "Standard_DS1_v2"
 }
 
 variable "disk_size" {
