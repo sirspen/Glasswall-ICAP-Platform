@@ -2,7 +2,7 @@ module "git_server_public_ip" {
   source                  = "../azure/public_ip"
   resource_group          = module.resource_group.name
   region                  = var.azure_region
-  service_name            = local.service_name
+  service_name            = "git-${local.service_name}"
   service_type            = "git_server"
   organisation            = var.organisation
   environment             = var.environment
