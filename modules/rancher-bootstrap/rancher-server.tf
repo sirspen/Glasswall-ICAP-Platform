@@ -1,11 +1,11 @@
 module "public_ip" {
-  source                  = "../azure/public_ip"
-  resource_group          = module.resource_group.name
-  region                  = var.azure_region
-  service_name            = local.service_name
-  service_type            = "rancher_server"
-  organisation            = var.organisation
-  environment             = var.environment
+  source         = "../azure/public_ip"
+  resource_group = module.resource_group.name
+  region         = var.azure_region
+  service_name   = local.service_name
+  service_type   = "rancher_server"
+  organisation   = var.organisation
+  environment    = var.environment
 }
 
 resource "azurerm_dns_a_record" "rancher_server" {
@@ -35,7 +35,7 @@ module "rancher_server" {
 }
 
 resource "time_sleep" "wait_300_seconds" {
-  depends_on = [module.rancher_server]
+  depends_on      = [module.rancher_server]
   create_duration = "300s"
 }
 
@@ -44,18 +44,18 @@ provider "rancher2" {
   #api_url = "https://${azurerm_dns_a_record.rancher_server.fqdn}"
   api_url   = "https://${local.service_name}.${data.azurerm_dns_zone.curlywurly_zone.name}"
   bootstrap = true
-  insecure = true # FIXME: Box should use proper cert
-  retries = 100
+  insecure  = true # FIXME: Box should use proper cert
+  retries   = 100
 }
 
 resource "random_password" "password" {
-  length = 16
-  special = true
+  length           = 16
+  special          = true
   override_special = "_%@"
 }
 
 resource "rancher2_bootstrap" "admin" {
-  provider = rancher2.bootstrap
-  password = random_password.password.result
+  provider   = rancher2.bootstrap
+  password   = random_password.password.result
   depends_on = [time_sleep.wait_300_seconds]
 }
