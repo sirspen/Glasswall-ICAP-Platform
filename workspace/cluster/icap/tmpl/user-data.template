@@ -60,8 +60,6 @@ write_files:
     --server ${rancher_server_url} \
     --token ${crt_cluster_token} \
     --ca-checksum $CA_CHECKSUM \
-    --address $PUBLIC_IP \
-    --internal-address $PRIVATE_IP \
     $K8S_ROLES
 
 runcmd:
@@ -73,9 +71,9 @@ runcmd:
  - systemctl disable firewalld
  - yum -y install iptables-services
  - systemctl enable iptables
+ - systemctl enable docker
  - systemctl enable ip6tables
  - systemctl start iptables
  - systemctl start ip6tables
- - iptables -F 
  - systemctl restart docker
  - /usr/local/bin/rancher-start.sh
