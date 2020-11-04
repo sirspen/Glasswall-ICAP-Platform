@@ -57,7 +57,7 @@ write_files:
     -v /etc/kubernetes:/etc/kubernetes \
     -v /var/run:/var/run \
     rancher/rancher-agent:${rancher_agent_version} \
-    --server https://${rancher_server_url} \
+    --server ${rancher_server_url} \
     --token ${crt_cluster_token} \
     --ca-checksum $CA_CHECKSUM \
     --address $PUBLIC_IP \
@@ -65,12 +65,17 @@ write_files:
     $K8S_ROLES
 
 runcmd:
- - yum update
+ - yum update -y
  - curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
  - curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
  - usermod -aG docker azure-user
  - systemctl stop firewalld
  - systemctl disable firewalld
+ - yum -y install iptables-services
+ - systemctl enable iptables
+ - systemctl enable ip6tables
+ - systemctl start iptables
+ - systemctl start ip6tables
  - iptables -F 
  - systemctl restart docker
  - /usr/local/bin/rancher-start.sh
