@@ -27,15 +27,47 @@ resource "azurerm_lb" "lb" {
   }
 }
 
-resource "azurerm_lb_backend_address_pool" "lb_bap" {
-  resource_group_name = var.resource_group
-  loadbalancer_id     = azurerm_lb.lb.id
-  name                = "BackEndAddressPool"
+resource "azurerm_lb_rule" "ingress_rule" {
+  name                            = "ingress-rule"
+  #location                        = var.azure_region
+  resource_group_name             = var.resource_group
+  loadbalancer_id                 = azurerm_lb.lb.id                            
+  frontend_ip_configuration_name  = "PublicIPAddress"     
+  protocol                        = "Tcp"
+  frontend_port                   = 443
+  backend_port                    = 443
+  probe_id                        = azurerm_lb_probe.ingress_probe.id
+  backend_address_pool_id         = azurerm_lb_backend_address_pool.lb_bap.id
 }
 
-resource "azurerm_lb_probe" "lb_probe" {
+resource "azurerm_lb_rule" "k8sapi_rule" {
+  name                            = "master-ingress-lbrule"
+  #location                       = var.azure_region
+  resource_group_name             = var.resource_group
+  loadbalancer_id                 = azurerm_lb.lb.id                            
+  frontend_ip_configuration_name  = "PublicIPAddress"     
+  protocol                        = "Tcp"
+  frontend_port                   = 6443
+  backend_port                    = 6443
+  probe_id                        = azurerm_lb_probe.k8sapi_probe.id
+  backend_address_pool_id         = azurerm_lb_backend_address_pool.lb_bap.id
+}
+resource "azurerm_lb_backend_address_pool" "lb_bap" {
+  resource_group_name             = var.resource_group
+  loadbalancer_id                 = azurerm_lb.lb.id
+  name                            = "BackEndAddressPool"
+}
+
+resource "azurerm_lb_probe" "ingress_probe" {
+  resource_group_name             = var.resource_group
+  loadbalancer_id                 = azurerm_lb.lb.id
+  name                            = "https-up"
+  port                            = 443
+}
+
+resource "azurerm_lb_probe" "k8sapi_probe" {
   resource_group_name = var.resource_group
   loadbalancer_id     = azurerm_lb.lb.id
-  name                = "tcp-running-probe"
-  port                = var.lb_probe_port
+  name                = "k8sapi-up"
+  port                = 6443
 }

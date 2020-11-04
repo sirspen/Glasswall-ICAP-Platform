@@ -74,8 +74,8 @@ variable "admin_username" {
   default     = "azure-user"
 }
 
-variable "custom_data_file_path" {
-  description = "Custom data filepath"
+variable "custom_data" {
+  description = "Custom data"
   type        = string
 }
 
@@ -86,7 +86,8 @@ variable "public_key_openssh" {
 
 variable "lb_backend_address_pool_id" {
   description = "Load Balancer Backend Address Pool"
-  type        = string
+  type        = list(string)
+  default     = [null]
 }
 
 /*variable "lb_nat_pool_id" {
@@ -97,8 +98,14 @@ variable "lb_backend_address_pool_id" {
 variable "lb_probe_id" {
   description = "Load Balancer Probe ID"
   type        = string
+  default     = null
 }
 
+variable "loadbalancer" {
+  description = "Turn on Load Balancer capability"
+  type        = string
+  default     = false
+}
 
 
 # Common variables

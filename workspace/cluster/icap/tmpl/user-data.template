@@ -32,9 +32,9 @@ write_files:
 
     PRIVATE_IP=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq '.network.interface[0].ipv4.ipAddress[0].privateIpAddress')
     PUBLIC_IP=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq '.network.interface[0].ipv4.ipAddress[0].publicIpAddress')
-    IS_WORKER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep role:worker | wc -l)
-    IS_MASTER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep role:master | wc -l)
-    IS_BOTH=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep role:both | wc -l)
+    IS_WORKER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep roles:worker | wc -l)
+    IS_MASTER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep roles:master | wc -l)
+    IS_BOTH=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep roles:both | wc -l)
 
     if [ $IS_MASTER = 1 ]; then
       K8S_ROLES="--etcd --controlplane"
@@ -51,24 +51,26 @@ write_files:
     echo "IS_BOTH=$IS_BOTH"
     echo "K8S_ROLES=$K8S_ROLES"
 
-    #yum update
-    #curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
-    #curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
-    #usermod -aG docker azure-user
+    CA_CHECKSUM=$(curl --insecure -s -H "Authorization: Bearer ${rancher_agent_token}" ${rancher_server_url}/v3/settings/cacerts | jq -r .value | sha256sum | awk '{ print $1}')
 
     docker run -d --privileged --restart=unless-stopped --net=host \
     -v /etc/kubernetes:/etc/kubernetes \
     -v /var/run:/var/run \
     rancher/rancher-agent:${rancher_agent_version} \
-    --server ${rancher_server_url} \
-    --token ${rancher_agent_token} \
-    --ca-checksum ${rancher_ca_checksum} \
+    --server https://${rancher_server_url} \
+    --token ${crt_cluster_token} \
+    --ca-checksum $CA_CHECKSUM \
     --address $PUBLIC_IP \
     --internal-address $PRIVATE_IP \
     $K8S_ROLES
+
 runcmd:
  - yum update
  - curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
  - curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
  - usermod -aG docker azure-user
+ - systemctl stop firewalld
+ - systemctl disable firewalld
+ - iptables -F 
+ - systemctl restart docker
  - /usr/local/bin/rancher-start.sh

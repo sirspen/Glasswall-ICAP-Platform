@@ -22,3 +22,4 @@ output "network_id" {
 output "subnet" {
   value = module.subnet.name
 }
+

@@ -13,10 +13,11 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | admin\_username | Virtual Machine Admin Username | `string` | `"azure-user"` | no |
-| custom\_data\_file\_path | Custom data filepath | `string` | n/a | yes |
+| custom\_data | Custom data | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
-| lb\_backend\_address\_pool\_id | Load Balancer Backend Address Pool | `string` | n/a | yes |
-| lb\_probe\_id | Load Balancer Probe ID | `string` | n/a | yes |
+| lb\_backend\_address\_pool\_id | Load Balancer Backend Address Pool | `list(string)` | <pre>[<br>  null<br>]</pre> | no |
+| lb\_probe\_id | Load Balancer Probe ID | `string` | `null` | no |
+| loadbalancer | Turn on Load Balancer capability | `string` | `false` | no |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | os\_offer | Linux OS Offer | `string` | n/a | yes |
 | os\_publisher | Linux OS Publisher | `string` | n/a | yes |
@@ -36,4 +37,6 @@ No requirements.
 |------|-------------|
 | id | n/a |
 | name | n/a |
+| no\_lbid | n/a |
+| no\_lbname | n/a |
 

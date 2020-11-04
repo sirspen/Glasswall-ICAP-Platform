@@ -45,6 +45,7 @@ resource "rancher2_cluster" "the_cluster" {
 }
 
 resource "rancher2_token" "the_cluster" {
+  provider      = rancher2.admin
   cluster_id    = rancher2_cluster.the_cluster.id
   description   = "api token for agents to use to join cluster"
   renew         = false

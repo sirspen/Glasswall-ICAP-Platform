@@ -30,6 +30,10 @@ output "admin_token_id" {
   value = rancher2_bootstrap.admin.token_id
 }
 
+output "rancher_internal_api_url" {
+  value = azurerm_dns_a_record.rancher_internal_server.fqdn
+}
+
 output "rancher_api_url" {
   value = azurerm_dns_a_record.rancher_server.fqdn
 }

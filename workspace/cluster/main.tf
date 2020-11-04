@@ -18,9 +18,10 @@ provider "azurerm" {
 locals {
   short_region    = substr(var.azure_region, 0, 3)
   service_name    = "${var.organisation}-${var.project}-${var.environment}-${local.short_region}"
-  rancher_api_url = "https://${data.terraform_remote_state.rancher_server.outputs.rancher_api_url}"
+  rancher_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
+  rancher_internal_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
   rancher_network         = data.terraform_remote_state.rancher_server.outputs.network
-  rancher_server_url      = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
+  rancher_server_url      = data.terraform_remote_state.rancher_server.outputs.rancher_server_url
   rancher_admin_token     = data.terraform_remote_state.rancher_server.outputs.rancher_admin_token
   public_key_openssh      = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
   rancher_network_id      = data.terraform_remote_state.rancher_server.outputs.network_id
@@ -64,6 +65,7 @@ module "icap_service" {
   rancher_resource_group = local.rancher_resource_group
   public_key_openssh     = local.public_key_openssh
   rancher_network_id     = local.rancher_network_id
+  rancher_internal_api_url = local.rancher_internal_api_url
   rancher_admin_url      = local.rancher_api_url
   service_name           = local.service_name
   client_id              = data.azurerm_key_vault_secret.az-client-id.value

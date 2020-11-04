@@ -9,7 +9,6 @@
 
 | Name | Version |
 |------|---------|
-| rancher2 | 1.10.3 |
 | rancher2.admin | 1.10.3 |
 
 ## Inputs
@@ -41,6 +40,9 @@
 | access\_key | n/a |
 | cluster\_id | n/a |
 | cluster\_name | n/a |
+| crt\_cluster\_id | n/a |
+| crt\_cluster\_node\_command | n/a |
+| crt\_cluster\_token | n/a |
 | kubernetes\_version | n/a |
 | secret\_key | n/a |
 | token | n/a |

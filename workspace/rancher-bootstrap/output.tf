@@ -15,7 +15,19 @@ output "rancher_admin_token" {
 }
 
 output "rancher_api_url" {
-  value = module.rancher_server.rancher_api_url
+  value = "https://${trimsuffix(module.rancher_server.rancher_api_url, ".")}"
+}
+
+output "rancher_internal_api_url" {
+  value = "https://${trimsuffix(module.rancher_server.rancher_internal_api_url, ".")}"
+}
+
+output "rancher_internal_server_url" {
+  value = trimsuffix(module.rancher_server.rancher_internal_api_url, ".") 
+}
+
+output "rancher_server_url" {
+  value = trimsuffix(module.rancher_server.rancher_api_url, ".") 
 }
 
 output "rancher_token_id" {

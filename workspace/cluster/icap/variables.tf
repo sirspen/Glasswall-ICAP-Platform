@@ -15,6 +15,12 @@ variable "rancher_admin_url" {
   type        = string
 }
 
+# Rancher API Url
+variable "rancher_internal_api_url" {
+  description = "The Rancher API"
+  type        = string
+}
+
 #Rancher API Admin Token
 variable "rancher_admin_token" {
   description = "The Rancher Admin Token"

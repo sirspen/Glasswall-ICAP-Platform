@@ -16,6 +16,14 @@ resource "azurerm_dns_a_record" "rancher_server" {
   records             = [module.rancher_server.linux_vm_public_ips]
 }
 
+resource "azurerm_dns_a_record" "rancher_internal_server" {
+  name                = "${local.service_name}-int"
+  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
+  resource_group_name = "gw-icap-rg-dns"
+  ttl                 = 300
+  records             = [module.rancher_server.linux_vm_private_ips]
+}
+
 module "rancher_server" {
   source                  = "../azure/vm"
   resource_group          = module.resource_group.name

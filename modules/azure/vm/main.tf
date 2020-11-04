@@ -114,7 +114,7 @@ resource "azurerm_linux_virtual_machine" "the_machine" {
   computer_name                   = var.service_name
   admin_username                  = var.admin_username
   custom_data                     = var.custom_data_file_path
-
+  encryption_at_host_enabled      = false
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"

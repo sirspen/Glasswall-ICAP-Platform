@@ -92,6 +92,7 @@ data "template_file" "master_scaleset_nodes" {
   }
 }*/
 
+
 module "master_scaleset" {
     source                      = "../../../modules/azure/scale-set"
     depends_on                  = [module.icap_cluster]
@@ -109,17 +110,19 @@ module "master_scaleset" {
     os_version                  = var.os_version
     admin_username              = "azure-user"
     #custom_data_file_path      = data.template_file.master_scaleset_nodes.rendered
-    custom_data_file_path       = templatefile("${path.module}/tmpl/user-data.template",{
-      cluster_name              = "${local.cluster_name}"
+    custom_data                 = templatefile("${path.module}/tmpl/user-data.template",{
+      cluster_name              = local.cluster_name
       rancher_agent_version     = "v2.5.1"
-      rancher_server_url        = var.rancher_admin_url
+      rancher_server_url        = var.rancher_internal_api_url
       rancher_agent_token       = module.icap_cluster.token
+      crt_cluster_token         = module.icap_cluster.crt_cluster_token
       node_pool_role            = "master"
       public_key_openssh        = var.public_key_openssh
       rancher_ca_checksum       = ""
     })
     public_key_openssh          = var.public_key_openssh
-    lb_backend_address_pool_id  = module.lb.bap_id
+    loadbalancer                = true
+    lb_backend_address_pool_id  = [module.lb.bap_id]
     lb_probe_id                 = module.lb.probe_id
   }
 /*
@@ -141,7 +144,7 @@ module "worker_scaleset" {
     depends_on                  = [module.icap_cluster]
     organisation                = var.organisation
     environment                 = var.environment
-    service_name                = "${local.cluster_name}-master"
+    service_name                = "${local.cluster_name}-worker"
     service_role                = "worker"
     resource_group              = module.resource_group.name
     subnet_id                   = module.subnet.id
@@ -152,17 +155,17 @@ module "worker_scaleset" {
     os_sku                      = var.os_sku
     os_version                  = var.os_version
     admin_username              = "azure-user"
-    custom_data_file_path       = templatefile("${path.module}/tmpl/user-data.template",{
-      cluster_name                  = "${local.cluster_name}"
+    custom_data                 = templatefile("${path.module}/tmpl/user-data.template",{
+      cluster_name                  = local.cluster_name
       rancher_agent_version         = "v2.5.1"
       rancher_server_url            = var.rancher_admin_url
       rancher_agent_token           = module.icap_cluster.token
+      crt_cluster_token             = module.icap_cluster.crt_cluster_token
       node_pool_role                = "worker"
       public_key_openssh            = var.public_key_openssh
       rancher_ca_checksum           = ""
     })
     #custom_data_file_path      = data.template_file.worker_scaleset_nodes.rendered
     public_key_openssh          = var.public_key_openssh
-    lb_backend_address_pool_id  = module.lb.bap_id
-    lb_probe_id                 = module.lb.probe_id
+    loadbalancer                = false
   }

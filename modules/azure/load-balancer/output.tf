@@ -3,7 +3,7 @@ output "id" {
 }
 
 output "probe_id" {
-  value = azurerm_lb_probe.lb_probe.id
+  value = azurerm_lb_probe.ingress_probe.id
 }
 
 output "bap_id" {

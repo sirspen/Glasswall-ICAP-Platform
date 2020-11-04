@@ -12,7 +12,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| azure\_region | Azure Region | `string` | `"euwest"` | no |
+| azure\_region | Azure Region | `string` | n/a | yes |
 | lb\_probe\_port | ID from Public IP module | `string` | `6443` | no |
 | resource\_group | Azure Resource Group | `string` | n/a | yes |
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
