@@ -30,11 +30,12 @@ write_files:
     # rancher_server_url
     # rancher_agent_token
 
-    PRIVATE_IP=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq '.network.interface[0].ipv4.ipAddress[0].privateIpAddress')
-    PUBLIC_IP=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq '.network.interface[0].ipv4.ipAddress[0].publicIpAddress')
-    IS_WORKER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep roles:worker | wc -l)
-    IS_MASTER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep roles:master | wc -l)
-    IS_BOTH=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq .compute.tags | grep roles:both | wc -l)
+    HOSTNAME=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq -r .compute.name)
+    PRIVATE_IP=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq -r '.network.interface[0].ipv4.ipAddress[0].privateIpAddress')
+    PUBLIC_IP=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq -r '.network.interface[0].ipv4.ipAddress[0].publicIpAddress')
+    IS_WORKER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq -r .compute.tags | grep roles:worker | wc -l)
+    IS_MASTER=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq -r .compute.tags | grep roles:master | wc -l)
+    IS_BOTH=$(curl -H Metadata:True "http://169.254.169.254/metadata/instance?api-version=2019-03-11&format=json" | jq -r .compute.tags | grep roles:both | wc -l)
 
     if [ $IS_MASTER = 1 ]; then
       K8S_ROLES="--etcd --controlplane"
@@ -60,6 +61,7 @@ write_files:
     --server ${rancher_server_url} \
     --token ${crt_cluster_token} \
     --ca-checksum $CA_CHECKSUM \
+    --address eth0 \
     $K8S_ROLES
 
 runcmd:
@@ -75,5 +77,6 @@ runcmd:
  - systemctl enable ip6tables
  - systemctl start iptables
  - systemctl start ip6tables
+ - iptables -F
  - systemctl restart docker
  - /usr/local/bin/rancher-start.sh

@@ -17,6 +17,8 @@ resource "rancher2_cluster" "the_cluster" {
         vnet_name                      = var.virtual_network_name
         resource_group                 = var.resource_group
         primary_scale_set_name         = var.scaleset_name
+        vm_type                        = "vmss"
+        use_instance_metadata          = true
       }
         #  primary_availability_set_name =
         #  primary_scale_set_name        =
