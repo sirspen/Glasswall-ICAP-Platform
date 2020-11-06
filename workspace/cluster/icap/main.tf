@@ -2,63 +2,6 @@ locals {
   cluster_name            = "${var.service_name}-${var.suffix}"
 }
 
-module "resource_group" {
-  source                  = "../../../modules/azure/resource_group"
-  name                    = local.cluster_name
-  region                  = var.azure_region
-}
-
-module "network" {
-  source                  = "../../../modules/azure/network"
-  resource_group          = module.resource_group.name
-  organisation            = var.organisation
-  environment             = var.environment
-  region                  = var.azure_region
-  service_name            = local.cluster_name
-  address_space           = var.address_space
-}
-
-module "subnet" {
-  source                  = "../../../modules/azure/subnet"
-  resource_group          = module.resource_group.name
-  virtual_network_name    = module.network.name
-  service_name            = local.cluster_name
-  address_prefixes        = var.subnet_cidr
-}
-
-resource "azurerm_virtual_network_peering" "rancher_server" {
-  name                        = "peerRanchertoICAP"
-  resource_group_name         = var.rancher_resource_group
-  virtual_network_name        = var.rancher_network
-  remote_virtual_network_id   = module.network.id
-}
-
-resource "azurerm_virtual_network_peering" "icap_cluster" {
-  name                        = "peerICAPtoRancher"
-  resource_group_name         = module.resource_group.name
-  virtual_network_name        = module.network.name
-  remote_virtual_network_id   = var.rancher_network_id
-}
-
-
-module "azure_cloud_credentials"{
-  source                      = "../../../modules/rancher/cloud_credentials"
-  rancher_admin_url           = var.rancher_admin_url
-  rancher_admin_token         = var.rancher_admin_token
-  credential_name             = local.cluster_name
-  client_id                   = var.client_id
-  client_secret               = var.client_secret
-  subscription_id             = var.subscription_id
-}
-
-module "lb" {
-  source                      = "../../../modules/azure/load-balancer"
-  azure_region                = var.azure_region
-  service_name                = var.service_name
-  resource_group              = module.resource_group.name
-  lb_probe_port               = 6443
-}
-
 module "icap_cluster" {
   source                      = "../../../modules/rancher/cluster"
   organisation                = var.organisation
@@ -72,9 +15,9 @@ module "icap_cluster" {
   tenant_id                   = var.tenant_id
   client_secret               = var.client_secret
   subscription_id             = var.subscription_id
-  resource_group              = module.resource_group.name
-  virtual_network_name        = module.network.name
-  subnet_name                 = module.subnet.name
+  resource_group              = var.cluster_resource_group
+  virtual_network_name        = var.cluster_virtual_network_name
+  subnet_name                 = var.cluster_subnet_name
 # scaleset_name               = module.scaleset.name
   scaleset_name               = "${local.cluster_name}-master"
 }
@@ -100,10 +43,10 @@ module "master_scaleset" {
     environment                 = var.environment
     service_name                = "${local.cluster_name}-master"
     service_role                = "master"
-    resource_group              = module.resource_group.name
-    subnet_id                   = module.subnet.id
+    resource_group              = var.cluster_resource_group
+    subnet_id                   = var.cluster_subnet_id
     region                      = var.azure_region
-    size                        = "Standard_D1_v2"
+    size                        = "Standard_DS2_v2"
     os_publisher                = var.os_publisher
     os_offer                    = var.os_offer
     os_sku                      = var.os_sku
@@ -121,9 +64,7 @@ module "master_scaleset" {
       rancher_ca_checksum       = ""
     })
     public_key_openssh          = var.public_key_openssh
-    loadbalancer                = true
-    lb_backend_address_pool_id  = [module.lb.bap_id]
-    lb_probe_id                 = module.lb.probe_id
+    loadbalancer                = false
   }
 /*
 data "template_file" "worker_scaleset_nodes" {
@@ -146,14 +87,15 @@ module "worker_scaleset" {
     environment                 = var.environment
     service_name                = "${local.cluster_name}-worker"
     service_role                = "worker"
-    resource_group              = module.resource_group.name
-    subnet_id                   = module.subnet.id
+    resource_group              = var.cluster_resource_group
+    subnet_id                   = var.cluster_subnet_id
     region                      = var.azure_region
-    size                        = "Standard_D2_v2"
+    size                        = "Standard_DS2_v2"
     os_publisher                = var.os_publisher
     os_offer                    = var.os_offer
     os_sku                      = var.os_sku
     os_version                  = var.os_version
+    sku_capacity                = 3
     admin_username              = "azure-user"
     custom_data                 = templatefile("${path.module}/tmpl/user-data.template",{
       cluster_name                  = local.cluster_name
@@ -167,5 +109,7 @@ module "worker_scaleset" {
     })
     #custom_data_file_path      = data.template_file.worker_scaleset_nodes.rendered
     public_key_openssh          = var.public_key_openssh
-    loadbalancer                = false
+    loadbalancer                = true
+    lb_backend_address_pool_id  = [var.worker_lb_bap_id]
+    lb_probe_id                 = var.worker_lb_probe_id
   }

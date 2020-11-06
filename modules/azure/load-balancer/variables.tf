@@ -14,7 +14,6 @@ variable "resource_group" {
 variable "lb_probe_port" {
   description = "ID from Public IP module"
   type        = string
-  default     = 6443
 }
 
 variable "azure_region" {

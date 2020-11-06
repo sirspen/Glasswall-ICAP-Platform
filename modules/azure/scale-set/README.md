@@ -29,6 +29,7 @@ No requirements.
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
 | service\_role | This is the instance role, used to identity a master or worker node | `string` | n/a | yes |
 | size | AZ Pipeline Runner VM image name | `string` | `"Standard_DS1_v2"` | no |
+| sku\_capacity | Total capacity to begin with | `string` | `"1"` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
 
 ## Outputs

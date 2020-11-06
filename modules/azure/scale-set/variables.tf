@@ -68,6 +68,12 @@ variable "os_version" {
   default     = "latest"
 }
 
+variable "sku_capacity" {
+  description = "Total capacity to begin with"
+  type        = string
+  default     = "1"
+}
+
 variable "admin_username" {
   description = "Virtual Machine Admin Username"
   type        = string
@@ -89,12 +95,12 @@ variable "lb_backend_address_pool_id" {
   type        = list(string)
   default     = [null]
 }
-
-/*variable "lb_nat_pool_id" {
+/*
+variable "lb_nat_pool_id" {
   description = "Load Balancer NAT Pool"
   type        = string
-}*/
-
+}
+*/
 variable "lb_probe_id" {
   description = "Load Balancer Probe ID"
   type        = string

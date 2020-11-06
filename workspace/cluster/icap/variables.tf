@@ -75,14 +75,9 @@ variable "subscription_id" {
   type        = string
 }
 
-variable "address_space" {
-  description = "Network CIDR"
-  type        = list(string)
-}
-
-variable "subnet_cidr" {
-  description = "Subnet CIDR"
-  type        = list(string)
+variable "cluster_subnet_id" {
+  description = "Subnet ID"
+  type        = string
 }
 
 variable "cluster_subnet_prefix" {
@@ -117,5 +112,35 @@ variable "os_sku" {
 
 variable "os_version" {
   description = "OS Version"
+  type        = string
+}
+
+variable "worker_lb_bap_id" {
+  description = "Worker loadbalancer backend id"
+  type        = string
+}
+
+variable "worker_lb_probe_id" {
+  description = "Worker loadbalancer probe id"
+  type        = string
+}
+
+variable "worker_lb_id" {
+  description = "Worker loadbalancer id"
+  type        = string
+}
+
+variable "cluster_virtual_network_name" {
+  description = "Virtual Network Name"
+  type        = string
+}
+
+variable "cluster_subnet_name" {
+  description = "Subnet Name"
+  type        = string
+}
+
+variable "cluster_resource_group" {
+  description = "the resource group"
   type        = string
 }
