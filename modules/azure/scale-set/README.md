@@ -31,6 +31,8 @@ No requirements.
 | size | AZ Pipeline Runner VM image name | `string` | `"Standard_DS1_v2"` | no |
 | sku\_capacity | Total capacity to begin with | `string` | `"1"` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
+| tag\_cluster\_asg\_state | Enable or Disable the cluster asg | `string` | n/a | yes |
+| tag\_cluster\_name | This the cluster name to integrate with the cluster-autoscaler | `string` | n/a | yes |
 
 ## Outputs
 

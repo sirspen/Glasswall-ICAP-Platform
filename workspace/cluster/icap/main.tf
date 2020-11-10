@@ -42,6 +42,8 @@ module "master_scaleset" {
     organisation                = var.organisation
     environment                 = var.environment
     service_name                = "${local.cluster_name}-master"
+    tag_cluster_name            = local.cluster_name
+    tag_cluster_asg_state       = "disabled"
     service_role                = "master"
     resource_group              = var.cluster_resource_group
     subnet_id                   = var.cluster_subnet_id
@@ -86,6 +88,8 @@ module "worker_scaleset" {
     organisation                = var.organisation
     environment                 = var.environment
     service_name                = "${local.cluster_name}-worker"
+    tag_cluster_name            = local.cluster_name
+    tag_cluster_asg_state       = "enabled"
     service_role                = "worker"
     resource_group              = var.cluster_resource_group
     subnet_id                   = var.cluster_subnet_id

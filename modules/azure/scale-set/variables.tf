@@ -15,6 +15,16 @@ variable "service_name" {
   type        = string
 }
 
+variable "tag_cluster_name" {
+  description = "This the cluster name to integrate with the cluster-autoscaler"
+  type        = string
+}
+
+variable "tag_cluster_asg_state" {
+  description = "Enable or Disable the cluster asg"
+  type        = string
+}
+
 variable "service_role" {
   description = "This is the instance role, used to identity a master or worker node"
   type        = string
