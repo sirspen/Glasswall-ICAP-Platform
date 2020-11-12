@@ -29,10 +29,10 @@ variable "security_group_rules" {
     protocol                                    = string
     source_port_range                           = string
     destination_port_range                      = string
-    source_application_security_group_ids       = list(string)
-    destination_application_security_group_ids  = list(string)
     source_address_prefix                       = string
     destination_address_prefix                  = string
+    source_application_security_group_ids       = list(string)
+    destination_application_security_group_ids  = list(string)
   }))
   default = {
     ssh = {

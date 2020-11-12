@@ -24,7 +24,7 @@ module "security_group" {
   service_name        = var.service_name
   location            = var.region
   resource_group_name = var.resource_group
-  security_rule       = var.security_group_rules
+  security_group_rules = var.security_group_rules
 }
 
 # Connect the security group to the network interface
