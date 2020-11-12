@@ -174,14 +174,3 @@ variable "cluster_resource_group" {
   description = "the resource group"
   type        = string
 }
-
-variable "admin_username" {
-  description = "Virtual Machine Admin Username"
-  type        = string
-  default     = "azure-user"
-}
-
-variable "custom_data_file_path" {
-  description = "Custom data filepath"
-  type        = string
-}

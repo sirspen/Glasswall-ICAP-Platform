@@ -19,62 +19,18 @@ resource "azurerm_network_interface" "net_nic" {
   }
 }
 
-
-# Create Network Security Group and rule
-resource "azurerm_network_security_group" "net_sg" {
-  name                = var.service_name
+module "security_group" {
+  source              = "../security-group"
+  service_name        = var.service_name
   location            = var.region
   resource_group_name = var.resource_group
-
-  security_rule {
-    name                       = "SSH"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = var.ssh_port
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "HTTP"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = var.http_port
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "HTTPS"
-    priority                   = 1003
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = var.https_port
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  tags = {
-    org          = var.organisation
-    environment  = var.environment
-    service_name = var.service_name
-  }
+  security_rule       = var.security_group_rules
 }
-
-
 
 # Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "machine_sga" {
   network_interface_id      = azurerm_network_interface.net_nic.id
-  network_security_group_id = azurerm_network_security_group.net_sg.id
+  network_security_group_id = module.security_group.main.id
 }
 
 # Generate random text for a unique storage account name

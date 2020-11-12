@@ -24,6 +24,12 @@ resource "azurerm_dns_a_record" "rancher_internal_server" {
   records             = [module.rancher_server.linux_vm_private_ips]
 }
 
+resource "azurerm_application_security_group" "rancher_server" {
+  name                = "${local.service_name}-asg"
+  location            = var.azure_region
+  resource_group_name = module.resource_group.name
+}
+
 module "rancher_server" {
   source                  = "../azure/vm"
   resource_group          = module.resource_group.name

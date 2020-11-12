@@ -1,18 +1,11 @@
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >= 0.13 |
-| rancher2 | 1.10.3 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| azurerm | n/a |
-| rancher2.bootstrap | 1.10.3 |
-| random | n/a |
-| time | n/a |
 | tls | n/a |
 
 ## Inputs
@@ -30,21 +23,7 @@
 
 | Name | Description |
 |------|-------------|
-| admin\_password | n/a |
-| admin\_token | n/a |
-| admin\_token\_id | n/a |
-| admin\_url | n/a |
-| admin\_user | n/a |
-| gitserver\_asg | n/a |
-| gitserver\_security\_group\_id | n/a |
 | linux\_vm\_public\_ips | n/a |
-| network\_id | n/a |
-| public\_key\_openssh | n/a |
-| rancher\_api\_url | n/a |
-| rancher\_asg | n/a |
-| rancher\_internal\_api\_url | n/a |
-| rancher\_network | n/a |
-| rancher\_resource\_group | n/a |
-| rancher\_security\_group\_id | n/a |
 | tls\_private\_key | n/a |
+| tls\_public\_key | n/a |
 

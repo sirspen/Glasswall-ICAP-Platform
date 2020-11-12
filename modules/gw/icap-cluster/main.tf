@@ -3,7 +3,7 @@ locals {
 }
 
 module "icap_cluster" {
-  source                      = "../../../modules/rancher/cluster"
+  source                      = "../../rancher/cluster"
   organisation                = var.organisation
   environment                 = var.environment
   rancher_admin_url           = var.rancher_admin_url
@@ -37,7 +37,7 @@ data "template_file" "master_scaleset_nodes" {
 
 
 module "master_scaleset" {
-    source                      = "../../../modules/azure/scale-set"
+    source                      = "../../azure/scale-set"
     depends_on                  = [module.icap_cluster]
     organisation                = var.organisation
     environment                 = var.environment
@@ -53,7 +53,9 @@ module "master_scaleset" {
     os_offer                    = var.os_offer
     os_sku                      = var.os_sku
     os_version                  = var.os_version
-    admin_username              = "azure-user"
+    size                        = var.master_scaleset_size
+    sku_capacity                = var.master_scaleset_sku_capacity
+    admin_username              = var.master_scaleset_admin_user
     #custom_data_file_path      = data.template_file.master_scaleset_nodes.rendered
     custom_data                 = templatefile("${path.module}/tmpl/user-data.template",{
       cluster_name              = local.cluster_name
@@ -83,7 +85,7 @@ data "template_file" "worker_scaleset_nodes" {
 }*/
 
 module "worker_scaleset" {
-    source                      = "../../../modules/azure/scale-set"
+    source                      = "../../azure/scale-set"
     depends_on                  = [module.icap_cluster]
     organisation                = var.organisation
     environment                 = var.environment
