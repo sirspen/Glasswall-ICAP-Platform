@@ -1,8 +1,8 @@
-output "resource_group" {
+output "resource_group_name" {
   value = module.resource_group.name
 }
 
-output "network" {
+output "network_name" {
   value = module.network.name
 }
 
@@ -10,12 +10,12 @@ output "network_id" {
   value = module.network.id
 }
 
-output "subnet" {
+output "subnet_name" {
   value = module.subnet.name
 }
 
-output "cloud_credentials_id" {
-  value = module.azure_cloud_credentials.id
+output "subnet_id" {
+  value = module.subnet.id
 }
 
 output "worker_lb_id" {

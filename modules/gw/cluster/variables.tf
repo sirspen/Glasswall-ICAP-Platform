@@ -75,13 +75,13 @@ variable "subscription_id" {
   type        = string
 }
 
-variable "cluster_subnet_id" {
-  description = "Subnet ID"
-  type        = string
+variable "cluster_subnet_cidr" {
+  description = "Subnet CIDR"
+  type        = list(string)
 }
 
 variable "cluster_subnet_prefix" {
-  description = "Subnet CIDR"
+  description = "Subnet Prefix"
   type        = string
 }
 
@@ -145,43 +145,17 @@ variable "worker_scaleset_sku_capacity" {
   type        = string
 }
 
-variable "worker_lb_bap_id" {
-  description = "Worker loadbalancer backend id"
+variable "cluster_address_space" {
+  description = "Address Space"
+  type        = list(string)
+}
+
+variable "cluster_backend_port" {
+  description = "Backend Port"
   type        = string
 }
 
-variable "worker_lb_probe_id" {
-  description = "Worker loadbalancer probe id"
-  type        = string
-}
-
-variable "worker_lb_id" {
-  description = "Worker loadbalancer id"
-  type        = string
-}
-
-variable "cluster_virtual_network_name" {
-  description = "Virtual Network Name"
-  type        = string
-}
-
-variable "cluster_subnet_name" {
-  description = "Subnet Name"
-  type        = string
-}
-
-variable "cluster_resource_group" {
-  description = "the resource group"
-  type        = string
-}
-
-variable "admin_username" {
-  description = "Virtual Machine Admin Username"
-  type        = string
-  default     = "azure-user"
-}
-
-variable "custom_data_file_path" {
-  description = "Custom data filepath"
+variable "cluster_public_port" {
+  description = "Public Port"
   type        = string
 }
