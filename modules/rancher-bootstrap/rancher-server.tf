@@ -46,6 +46,41 @@ module "rancher_server" {
   subnet_id               = module.subnet.id
   public_ip_id            = module.public_ip.id
   public_key_openssh      = tls_private_key.ssh.public_key_openssh
+  security_group_rules = {
+   ssh = {
+      name                                      = "ssh"
+      priority                                  = "1001"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "22"
+      destination_port_range                    = "22"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+  },
+  https = {
+      name                                      = "https"
+      priority                                  = "1002"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "443"
+      destination_port_range                    = "443"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+    },
+  http = {
+      name                                      = "http"
+      priority                                  = "1003"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "80"
+      destination_port_range                    = "80"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+    }
+  }
 }
 
 resource "time_sleep" "wait_300_seconds" {
