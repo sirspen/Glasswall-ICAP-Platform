@@ -8,8 +8,10 @@ terraform {
 }
 
 locals {
-  service_name             = "${var.organisation}-${var.project}-${var.environment}"
-  rancher_admin_url        = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
+  short_region            = substr(var.azure_region, 0, 3)
+  service_name            = "${var.organisation}-${var.project}-${var.environment}-${local.short_region}"
+  service_name_nodash     = "${var.organisation}icapcluster${var.environment}${local.short_region}"
+  rancher_api_url         = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
   rancher_internal_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
   rancher_network          = data.terraform_remote_state.rancher_server.outputs.network
   rancher_server_url       = data.terraform_remote_state.rancher_server.outputs.rancher_server_url
