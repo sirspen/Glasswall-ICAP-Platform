@@ -37,7 +37,7 @@ variable "azure_region" {
 variable "address_space" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["172.16.0.0/12","192.168.0.0/16"]
+  default     = ["172.16.0.0/12", "192.168.0.0/16"]
 }
 
 variable "subnet_cidr" {
