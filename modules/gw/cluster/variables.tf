@@ -75,13 +75,13 @@ variable "subscription_id" {
   type        = string
 }
 
-variable "cluster_subnet_id" {
-  description = "Subnet ID"
-  type        = string
+variable "cluster_subnet_cidr" {
+  description = "Subnet CIDR"
+  type        = list(string)
 }
 
 variable "cluster_subnet_prefix" {
-  description = "Subnet CIDR"
+  description = "Subnet Prefix"
   type        = string
 }
 
@@ -115,32 +115,47 @@ variable "os_version" {
   type        = string
 }
 
-variable "worker_lb_bap_id" {
-  description = "Worker loadbalancer backend id"
+variable "master_scaleset_size" {
+  description = "The Instance Size"
   type        = string
 }
 
-variable "worker_lb_probe_id" {
-  description = "Worker loadbalancer probe id"
+variable "master_scaleset_admin_user" {
+  description = "The Instance Admin User"
   type        = string
 }
 
-variable "worker_lb_id" {
-  description = "Worker loadbalancer id"
+variable "master_scaleset_sku_capacity" {
+  description = "Total instances to begin with"
   type        = string
 }
 
-variable "cluster_virtual_network_name" {
-  description = "Virtual Network Name"
+variable "worker_scaleset_size" {
+  description = "The Instance Size"
   type        = string
 }
 
-variable "cluster_subnet_name" {
-  description = "Subnet Name"
+variable "worker_scaleset_admin_user" {
+  description = "The Instance Size"
   type        = string
 }
 
-variable "cluster_resource_group" {
-  description = "the resource group"
+variable "worker_scaleset_sku_capacity" {
+  description = "The Instance Size"
+  type        = string
+}
+
+variable "cluster_address_space" {
+  description = "Address Space"
+  type        = list(string)
+}
+
+variable "cluster_backend_port" {
+  description = "Backend Port"
+  type        = string
+}
+
+variable "cluster_public_port" {
+  description = "Public Port"
   type        = string
 }

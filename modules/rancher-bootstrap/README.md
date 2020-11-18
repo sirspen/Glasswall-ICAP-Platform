@@ -35,12 +35,16 @@
 | admin\_token\_id | n/a |
 | admin\_url | n/a |
 | admin\_user | n/a |
+| gitserver\_asg | n/a |
+| gitserver\_security\_group\_id | n/a |
 | linux\_vm\_public\_ips | n/a |
 | network\_id | n/a |
 | public\_key\_openssh | n/a |
 | rancher\_api\_url | n/a |
+| rancher\_asg | n/a |
 | rancher\_internal\_api\_url | n/a |
 | rancher\_network | n/a |
 | rancher\_resource\_group | n/a |
+| rancher\_security\_group\_id | n/a |
 | tls\_private\_key | n/a |
 

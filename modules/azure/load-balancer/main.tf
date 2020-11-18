@@ -1,12 +1,4 @@
-/*
-module "loadbalancer {
-  source ../this-folder
-  service_name = var.service_name
-  azure_region = var.azure_region
 
-}"
-
-*/
 resource "azurerm_public_ip" "public_ip" {
   name                = "${var.service_name}-public-ip"
   location            = var.azure_region
