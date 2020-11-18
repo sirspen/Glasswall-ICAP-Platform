@@ -31,6 +31,7 @@
 | public\_key\_openssh | SSH Public Key | `string` | n/a | yes |
 | region | Azure Region | `string` | `"euwest"` | no |
 | resource\_group | Azure Resource Group | `string` | n/a | yes |
+| security\_group\_rules | n/a | <pre>map(object({<br>    name                                        = string<br>    priority                                    = string<br>    direction                                   = string<br>    access                                      = string<br>    protocol                                    = string<br>    source_port_range                           = string<br>    destination_port_range                      = string<br>    source_address_prefix                       = list(string)<br>    destination_address_prefix                  = list(string)<br>  }))</pre> | <pre>{<br>  "http": {<br>    "access": "Allow",<br>    "destination_address_prefix": "*",<br>    "destination_port_range": "80",<br>    "direction": "Inbound",<br>    "name": "http",<br>    "priority": "1003",<br>    "protocol": "tcp",<br>    "source_address_prefix": "*",<br>    "source_port_range": "80"<br>  },<br>  "https": {<br>    "access": "Allow",<br>    "destination_address_prefix": "*",<br>    "destination_port_range": "443",<br>    "direction": "Inbound",<br>    "name": "https",<br>    "priority": "1002",<br>    "protocol": "tcp",<br>    "source_address_prefix": "*",<br>    "source_port_range": "443"<br>  },<br>  "ssh": {<br>    "access": "Allow",<br>    "destination_address_prefix": "*",<br>    "destination_port_range": "22",<br>    "direction": "Inbound",<br>    "name": "ssh",<br>    "priority": "1001",<br>    "protocol": "tcp",<br>    "source_address_prefix": "*",<br>    "source_port_range": "22"<br>  }<br>}</pre> | no |
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
 | service\_type | This is consolidated based on the project, type and suffix | `string` | n/a | yes |
 | size | AZ Pipeline Runner VM image name | `string` | `"Standard_DS1_v2"` | no |
@@ -43,4 +44,5 @@
 |------|-------------|
 | linux\_vm\_private\_ips | n/a |
 | linux\_vm\_public\_ips | n/a |
+| security\_group\_id | n/a |
 

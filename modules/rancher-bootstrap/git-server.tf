@@ -27,6 +27,11 @@ data "azurerm_key_vault_secret" "docker-org" {
   name         = "Docker-PAT-org"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
+resource "azurerm_application_security_group" "git_server" {
+  name                = "${local.git_service_name}-asg"
+  location            = var.azure_region
+  resource_group_name = module.resource_group.name
+}
 
 module "git_server" {
   source         = "../azure/vm"
@@ -49,6 +54,41 @@ module "git_server" {
   subnet_id          = module.subnet.id
   public_ip_id       = module.git_server_public_ip.id
   public_key_openssh = tls_private_key.ssh.public_key_openssh
+  security_group_rules = {
+   ssh = {
+      name                                      = "ssh"
+      priority                                  = "1001"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "22"
+      destination_port_range                    = "22"
+      source_application_security_group_ids     = [ azurerm_application_security_group.rancher_server.id ]
+      destination_application_security_group_ids = [ azurerm_application_security_group.gitserver.id ]
+  },
+  https = {
+      name                                      = "https"
+      priority                                  = "1002"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "443"
+      destination_port_range                    = "443"
+      source_application_security_group_ids     = [ azurerm_application_security_group.rancher_server.id ]
+      destination_application_security_group_ids = [ azurerm_application_security_group.gitserver.id ]
+    },
+  http = {
+      name                                      = "http"
+      priority                                  = "1003"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "80"
+      destination_port_range                    = "80"
+      source_application_security_group_ids     = [ azurerm_application_security_group.rancher_server.id ]
+      destination_application_security_group_ids = [ azurerm_application_security_group.gitserver.id ]
+    }
+  }
 }
 
 resource "azurerm_dns_a_record" "git_server" {

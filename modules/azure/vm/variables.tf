@@ -108,3 +108,70 @@ variable "public_key_openssh" {
   description = "SSH Public Key"
   type        = string
 }
+
+
+variable "admin_username" {
+  description = "Virtual Machine Admin Username"
+  type        = string
+  default     = "azure-user"
+}
+
+variable "custom_data_file_path" {
+  description = "Custom data filepath"
+  type        = string
+}
+
+
+variable "public_key_openssh" {
+  description = "SSH Public Key"
+  type        = string
+}
+
+variable "security_group_rules"{
+  type =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = list(string)
+    destination_address_prefix                  = list(string)
+  }))
+  default = {
+   ssh = {
+      name                                      = "ssh"
+      priority                                  = "1001"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "22"
+      destination_port_range                    = "22"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+  },
+  https = {
+      name                                      = "https"
+      priority                                  = "1002"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "443"
+      destination_port_range                    = "443"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+    },
+  http = {
+      name                                      = "http"
+      priority                                  = "1003"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "80"
+      destination_port_range                    = "80"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+    }
+  }
+}

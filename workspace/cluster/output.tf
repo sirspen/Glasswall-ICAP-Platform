@@ -1,40 +1,39 @@
-
-output "cluster_name" {
-  value = module.icap_service.cluster_name
+output "r1_cluster_name" {
+  value = module.icap_cluster_r1.cluster_name
 }
 
-output "resource_group" {
-  value = module.resource_group.name
+output "r1_resource_group" {
+  value = module.icap_cluster_r1.resource_group_name
 }
 
-output "network" {
-  value = module.network.name
+output "r1_network_name" {
+  value = module.icap_cluster_r1.network_name
 }
 
-output "network_id" {
-  value = module.network.id
+output "r1_network_id" {
+  value = module.icap_cluster_r1.network_id
 }
 
-output "subnet" {
-  value = module.subnet.name
+output "r1_subnet_name" {
+  value = module.icap_cluster_r1.subnet_name
 }
 
-output "primary_access_key" {
-  value = module.storage_account.primary_access_key
+output "r2_cluster_name" {
+  value = module.icap_cluster_r2.cluster_name
 }
 
-output "primary_access_region" {
-  value = module.storage_account.primary_access_region
+output "r2_resource_group" {
+  value = module.icap_cluster_r2.resource_group_name
 }
 
-output "secondary_access_key" {
-  value = module.storage_account.secondary_access_key
+output "r2_network_name" {
+  value = module.icap_cluster_r2.network_name
 }
 
-output "secondary_access_region" {
-  value = module.storage_account.secondary_access_region
+output "r2_network_id" {
+  value = module.icap_cluster_r2.network_id
 }
 
-output "storage_account_name" {
-  value = module.storage_account.storage_account_name
+output "r2_subnet_name" {
+  value = module.icap_cluster_r2.subnet_name
 }
