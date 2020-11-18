@@ -32,14 +32,14 @@ module "subnet" {
 }
 
 resource "azurerm_virtual_network_peering" "rancher_server" {
-  name                        = "peerRanchertoICAP"
+  name                        = "${var.suffix}PeerRanchertoICAP"
   resource_group_name         = var.rancher_resource_group
   virtual_network_name        = var.rancher_network
   remote_virtual_network_id   = module.network.id
 }
 
 resource "azurerm_virtual_network_peering" "icap_cluster" {
-  name                        = "peerICAPtoRancher"
+  name                        = "${var.suffix}PeerICAPtoRancher"
   resource_group_name         = module.resource_group.name
   virtual_network_name        = module.network.name
   remote_virtual_network_id   = var.rancher_network_id
@@ -77,7 +77,7 @@ resource "azurerm_lb_rule" "worker_ingress_rule_1" {
   protocol                        = "Tcp"
   frontend_port                   = var.public_port
   backend_port                    = var.backend_port
-  probe_id                        = azurerm_lb_probe.worker_ingress_probe
+  probe_id                        = azurerm_lb_probe.worker_ingress_probe.id
   backend_address_pool_id         = azurerm_lb_backend_address_pool.worker_lbap.id
 }
 

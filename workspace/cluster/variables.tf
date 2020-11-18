@@ -48,7 +48,7 @@ variable "cluster_address_space_r1" {
 variable "cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["172.16.0.0/12", "192.168.0.0/16"]
+  default     = ["172.32.0.0/12", "192.169.0.0/16"]
 }
 
 variable "cluster_subnet_cidr_r1" {

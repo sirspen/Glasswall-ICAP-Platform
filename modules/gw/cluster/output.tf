@@ -54,6 +54,6 @@ output "cluster_token_enabled" {
   value = module.cluster.token_enabled
 }
 
-output "cluster_lb_dnsname" {
-  value = azurerm_dns_a_record.main.fqdn
+output "cluster_worker_dns_name" {
+  value = module.infra.worker_dns_name
 }

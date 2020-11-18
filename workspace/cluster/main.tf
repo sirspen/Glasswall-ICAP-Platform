@@ -70,7 +70,7 @@ module "icap_cluster_r1" {
   rancher_admin_token          = local.rancher_admin_token
   rancher_network              = local.rancher_network
   rancher_resource_group       = local.rancher_resource_group
-  service_name                 = "${local.service_name}-${local.short_region_r1}"
+  service_name                 = local.service_name
   suffix                       = "r1"
   azure_region                 = var.azure_region_r1
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
@@ -88,12 +88,12 @@ module "icap_cluster_r1" {
   os_offer                     = var.os_offer
   os_sku                       = var.os_sku
   os_version                   = var.os_version
-  master_scaleset_size         = "Standard_DS2_v2"
+  master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
-  master_scaleset_sku_capacity = 3
-  worker_scaleset_size         = "Standard_DS2_v2"
+  master_scaleset_sku_capacity = 2
+  worker_scaleset_size         = "Standard_DS4_v2"
   worker_scaleset_admin_user   = "azure-user"
-  worker_scaleset_sku_capacity = 3
+  worker_scaleset_sku_capacity = 2
 }
 
 module "icap_cluster_r2" {
@@ -106,8 +106,8 @@ module "icap_cluster_r2" {
   rancher_network              = local.rancher_network
   rancher_resource_group       = local.rancher_resource_group
   suffix                       = "r2"
-  service_name                 = "${local.service_name}-${local.short_region_r2}"
-    azure_region               = var.azure_region_r2
+  service_name                 = local.service_name
+  azure_region                 = var.azure_region_r2
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
@@ -126,10 +126,10 @@ module "icap_cluster_r2" {
   os_offer                     = var.os_offer
   os_sku                       = var.os_sku
   os_version                   = var.os_version
-  master_scaleset_size         = "Standard_DS2_v2"
+  master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
-  master_scaleset_sku_capacity = 3
-  worker_scaleset_size         = "Standard_DS2_v2"
+  master_scaleset_sku_capacity = 2
+  worker_scaleset_size         = "Standard_DS4_v2"
   worker_scaleset_admin_user   = "azure-user"
-  worker_scaleset_sku_capacity = 3
+  worker_scaleset_sku_capacity = 2
 }

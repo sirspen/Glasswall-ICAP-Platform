@@ -38,10 +38,10 @@ output "r2_subnet_name" {
   value = module.icap_cluster_r2.subnet_name
 }
 
-output "r1_icap_service_dns_name" {
-  value = module.icap_cluster_r1.cluster_lb_dnsname
+output "r1_cluster_worker_lb_dns_name" {
+  value = module.icap_cluster_r1.cluster_worker_dns_name
 }
 
-output "r2_icap_service_dns_name" {
-  value = module.icap_cluster_r2.cluster_lb_dnsname
+output "r2_cluster_worker_lb_dns_name" {
+  value = module.icap_cluster_r2.cluster_worker_dns_name
 }
