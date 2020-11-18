@@ -8,9 +8,11 @@ terraform {
 }
 
 locals {
-  short_region            = substr(var.azure_region, 0, 3)
-  service_name            = "${var.organisation}-${var.project}-${var.environment}-${local.short_region}"
-  service_name_nodash     = "${var.organisation}icapcluster${var.environment}${local.short_region}"
+  short_region_r1            = substr(var.azure_region_r1, 0, 3)
+  short_region_r2            = substr(var.azure_region_r2, 0, 3)
+  service_name            = "${var.organisation}-${var.project}-${var.environment}"
+  service_name_nodash_r1     = "${var.organisation}icap${var.environment}${local.short_region_r1}"
+  service_name_nodash_r2     = "${var.organisation}icap${var.environment}${local.short_region_r2}"
   rancher_api_url         = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
   rancher_internal_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
   rancher_network          = data.terraform_remote_state.rancher_server.outputs.network
@@ -59,27 +61,27 @@ provider "azurerm" {
   tenant_id       = var.tenant_id
 }
 
-module "icap_cluster_c1" {
+module "icap_cluster_r1" {
   source                       = "../../modules/gw/cluster"
   organisation                 = var.organisation
   environment                  = var.environment
-  rancher_admin_url            = local.rancher_admin_url
+  rancher_admin_url            = local.rancher_api_url
   rancher_internal_api_url     = local.rancher_internal_api_url
   rancher_admin_token          = local.rancher_admin_token
   rancher_network              = local.rancher_network
   rancher_resource_group       = local.rancher_resource_group
-  service_name                 = local.service_name
-  suffix                       = "c1"
-  azure_region                 = "northeurope"
+  service_name                 = "${local.service_name}-${local.short_region_r1}"
+  suffix                       = "r1"
+  azure_region                 = var.azure_region_r1
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
   tenant_id                    = var.tenant_id
   cluster_backend_port         = var.backend_port
   cluster_public_port          = var.public_port
-  cluster_address_space        = ["172.16.0.0/12", "192.168.0.0/16"]
-  cluster_subnet_cidr          = ["172.30.0.0/16"]
-  cluster_subnet_prefix        = "172.30.2.0/24"
+  cluster_address_space        = var.cluster_address_space_r1
+  cluster_subnet_cidr          = var.cluster_subnet_cidr_r1
+  cluster_subnet_prefix        = var.cluster_subnet_prefix_r1
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
   os_publisher                 = var.os_publisher
@@ -94,27 +96,30 @@ module "icap_cluster_c1" {
   worker_scaleset_sku_capacity = 3
 }
 
-module "icap_cluster_c2" {
+module "icap_cluster_r2" {
   source                       = "../../modules/gw/cluster"
   organisation                 = var.organisation
   environment                  = var.environment
-  rancher_admin_url            = local.rancher_admin_url
+  rancher_admin_url            = local.rancher_api_url
   rancher_internal_api_url     = local.rancher_internal_api_url
   rancher_admin_token          = local.rancher_admin_token
   rancher_network              = local.rancher_network
   rancher_resource_group       = local.rancher_resource_group
-  service_name                 = local.service_name
-  suffix                       = "c2"
-  azure_region                 = "ukwest"
+  suffix                       = "r2"
+  service_name                 = "${local.service_name}-${local.short_region_r2}"
+    azure_region               = var.azure_region_r2
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
   tenant_id                    = var.tenant_id
   cluster_backend_port         = var.backend_port
   cluster_public_port          = var.public_port
-  cluster_address_space        = ["172.32.0.0/12", "192.168.0.0/16"]
-  cluster_subnet_cidr          = ["172.46.0.0/16"]
-  cluster_subnet_prefix        = "172.46.2.0/24"
+  cluster_address_space        = var.cluster_address_space_r2
+  cluster_subnet_cidr          = var.cluster_subnet_cidr_r2
+  cluster_subnet_prefix        = var.cluster_subnet_prefix_r2
+  #cluster_address_space        = ["172.32.0.0/12", "192.168.0.0/16"]
+  #cluster_subnet_cidr          = ["172.46.0.0/16"]
+  #cluster_subnet_prefix        = "172.46.2.0/24"
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
   os_publisher                 = var.os_publisher
