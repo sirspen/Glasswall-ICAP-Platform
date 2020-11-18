@@ -54,6 +54,11 @@ output "cluster_token_enabled" {
   value = module.cluster.token_enabled
 }
 
-output "cluster_worker_dns_name" {
-  value = module.infra.worker_dns_name
+output "cluster_worker_lb_dns_name" {
+  value = module.infra.worker_lb_dns_name
 }
+
+output "worker_lb_ip_address" {
+  value = module.infra.worker_lb_ip_address
+}
+

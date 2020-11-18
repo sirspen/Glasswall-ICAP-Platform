@@ -1,6 +1,6 @@
 locals {
   short_region = substr(var.azure_region, 0, 3)
-  cluster_name = "${var.service_name}-${local.short_region}-${var.suffix}"
+  cluster_name = "${var.service_name}-${var.suffix}-${local.short_region}"
 }
 
 module "azure_cloud_credentials" {
@@ -22,7 +22,7 @@ module "infra" {
   rancher_internal_api_url = var.rancher_internal_api_url
   rancher_admin_token      = var.rancher_admin_token
   suffix                   = var.suffix
-  service_name             = var.service_name
+  service_name             = "${var.service_name}-${var.suffix}-${local.short_region}"
   azure_region             = var.azure_region
   client_id                = var.client_id
   tenant_id                = var.tenant_id
@@ -68,7 +68,7 @@ module "master_scaleset" {
   environment           = var.environment
   service_name          = "${local.cluster_name}-master"
   tag_cluster_name      = local.cluster_name
-  tag_cluster_asg_state = "disabled"
+  tag_cluster_asg_state = "enabled"
   service_role          = "master"
   resource_group        = module.infra.resource_group_name
   subnet_id             = module.infra.subnet_id

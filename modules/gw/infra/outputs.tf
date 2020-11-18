@@ -34,6 +34,11 @@ output "worker_ingress_rule_1_id" {
   value = azurerm_lb_rule.worker_ingress_rule_1.id  
 }
 
-output "worker_dns_name" {
+output "worker_lb_dns_name" {
   value = azurerm_dns_a_record.main.fqdn
 }
+
+output "worker_lb_ip_address" {
+  value = module.worker_lb.public_ip_address
+}
+
