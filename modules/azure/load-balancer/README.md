@@ -22,4 +22,5 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | id | n/a |
+| public\_ip\_address | n/a |
 

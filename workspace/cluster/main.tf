@@ -115,16 +115,6 @@ module "azure_cloud_credentials"{
   subscription_id             = data.azurerm_key_vault_secret.az-subscription-id.value
 }
 
-module "storage_account" {
-  source                   = "../../modules/azure/storage-account"
-  service_name             = local.service_name_nodash
-  resource_group_name      = module.resource_group.name
-  azure_region             = var.azure_region
-  account_kind             = "StorageV2"
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
 module "worker_lb" {
   source                      = "../../modules/azure/load-balancer"
   azure_region                = var.azure_region
@@ -158,6 +148,20 @@ resource "azurerm_lb_rule" "ingress_rule_1" {
   probe_id                        = azurerm_lb_probe.ingress_probe_1.id
   backend_address_pool_id         = azurerm_lb_backend_address_pool.lb_bap_1.id
 }
+
+data "azurerm_dns_zone" "curlywurly_zone" {
+  name                = "icap-proxy.curlywurly.me"
+  resource_group_name = "gw-icap-rg-dns"
+}
+
+resource "azurerm_dns_a_record" "icap_service_dns" {
+  name                = local.service_name
+  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
+  resource_group_name = "gw-icap-rg-dns"
+  ttl                 = 300
+  records             = [module.worker_lb.public_ip_address]
+}
+
 /*
 resource "azurerm_lb_backend_address_pool" "lb_bap_2" {
   resource_group_name             = module.resource_group.name

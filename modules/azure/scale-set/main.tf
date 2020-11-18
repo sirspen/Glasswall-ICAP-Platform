@@ -5,6 +5,18 @@ resource "azurerm_network_security_group" "net_sg" {
   resource_group_name = var.resource_group
 
   security_rule {
+    name                       = "icapNodePort"
+    priority                   = 1004
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = 32323
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
     name                       = "k8s"
     priority                   = 1001
     direction                  = "Inbound"
