@@ -25,7 +25,7 @@ module "network" {
   resource_group = module.resource_group.name
   region         = var.azure_region
   service_name   = local.service_name
-  address_space  = ["10.10.0.0/16"]
+  address_space  = var.network_addresses
   organisation   = var.organisation
   environment    = var.environment
 }
@@ -35,7 +35,7 @@ module "subnet" {
   service_name         = local.service_name
   resource_group       = module.resource_group.name
   virtual_network_name = module.network.name
-  address_prefixes     = ["10.10.2.0/24"]
+  address_prefixes     = var.subnet_address_prefixes
 }
 
 data "azurerm_dns_zone" "curlywurly_zone" {

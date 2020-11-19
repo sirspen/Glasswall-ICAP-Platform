@@ -63,8 +63,10 @@ module "git_server" {
       protocol                                  = "tcp"
       source_port_range                         = "22"
       destination_port_range                    = "22"
+      source_address_prefix                     = var.subnet_prefix
+      destination_address_prefix                = var.subnet_prefix
       source_application_security_group_ids     = [ azurerm_application_security_group.rancher_server.id ]
-      destination_application_security_group_ids = [ azurerm_application_security_group.gitserver.id ]
+      destination_application_security_group_ids = [ azurerm_application_security_group.git_server.id ]
   },
   https = {
       name                                      = "https"
@@ -74,8 +76,10 @@ module "git_server" {
       protocol                                  = "tcp"
       source_port_range                         = "443"
       destination_port_range                    = "443"
+      source_address_prefix                     = var.subnet_prefix
+      destination_address_prefix                = var.subnet_prefix
       source_application_security_group_ids     = [ azurerm_application_security_group.rancher_server.id ]
-      destination_application_security_group_ids = [ azurerm_application_security_group.gitserver.id ]
+      destination_application_security_group_ids = [ azurerm_application_security_group.git_server.id ]
     },
   http = {
       name                                      = "http"
@@ -85,8 +89,10 @@ module "git_server" {
       protocol                                  = "tcp"
       source_port_range                         = "80"
       destination_port_range                    = "80"
+      source_address_prefix                     = var.subnet_prefix
+      destination_address_prefix                = var.subnet_prefix
       source_application_security_group_ids     = [ azurerm_application_security_group.rancher_server.id ]
-      destination_application_security_group_ids = [ azurerm_application_security_group.gitserver.id ]
+      destination_application_security_group_ids = [ azurerm_application_security_group.git_server.id ]
     }
   }
 }

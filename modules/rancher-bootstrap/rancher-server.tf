@@ -57,6 +57,8 @@ module "rancher_server" {
       destination_port_range                    = "22"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
+      destination_application_security_group_ids= ["*"]
+      source_application_security_group_ids     = ["*"]
   },
   https = {
       name                                      = "https"
@@ -68,6 +70,8 @@ module "rancher_server" {
       destination_port_range                    = "443"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
+      destination_application_security_group_ids= ["*"]
+      source_application_security_group_ids     = ["*"]
     },
   http = {
       name                                      = "http"
@@ -79,6 +83,8 @@ module "rancher_server" {
       destination_port_range                    = "80"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
+      destination_application_security_group_ids= ["*"]
+      source_application_security_group_ids     = ["*"]
     }
   }
 }

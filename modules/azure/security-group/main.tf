@@ -6,7 +6,7 @@ resource "azurerm_network_security_group" "main" {
     resource_group_name             = var.resource_group_name
     security_rule                   = []
   tags = {
-    service_name = local.service_name
+    service_name = var.service_name
   }
 }
 
@@ -25,7 +25,4 @@ resource "azurerm_network_security_rule" "main" {
     destination_application_security_group_ids = each.value.destination_application_security_group_ids
     source_address_prefix       = each.value.source_address_prefix
     destination_address_prefix  = each.value.destination_address_prefix
-  tags = {
-    service_name = local.service_name
-  }
 }

@@ -30,3 +30,21 @@ variable "custom_data_file_path" {
   description = "Bootstrap the virtual machine with this file"
   type        = string
 }
+
+variable "network_addresses" {
+  description = "Network Addresses"
+  type        = list(string)
+  default     = ["10.10.0.0/16"]
+}
+
+variable "subnet_address_prefixes" {
+  description = "Subnet CIDR"
+  type        = list(string)
+  default     = ["10.10.2.0/24"]
+}
+
+variable "subnet_prefix" {
+  description = "Subnet Prefix"
+  type        = string
+  default     = "10.10.2.0/24"
+}

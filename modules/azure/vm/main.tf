@@ -22,7 +22,7 @@ resource "azurerm_network_interface" "net_nic" {
 module "security_group" {
   source              = "../security-group"
   service_name        = var.service_name
-  location            = var.region
+  azure_region        = var.region
   resource_group_name = var.resource_group
   security_group_rules = var.security_group_rules
 }
@@ -30,7 +30,7 @@ module "security_group" {
 # Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "machine_sga" {
   network_interface_id      = azurerm_network_interface.net_nic.id
-  network_security_group_id = module.security_group.main.id
+  network_security_group_id = module.security_group.id
 }
 
 # Generate random text for a unique storage account name

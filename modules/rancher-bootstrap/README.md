@@ -22,8 +22,11 @@
 | azure\_region | Set the Azure Region | `string` | n/a | yes |
 | custom\_data\_file\_path | Bootstrap the virtual machine with this file | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
+| network\_addresses | Network Addresses | `list(string)` | <pre>[<br>  "10.10.0.0/16"<br>]</pre> | no |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | project | Metadata Project | `string` | n/a | yes |
+| subnet\_address\_prefixes | Subnet CIDR | `list(string)` | <pre>[<br>  "10.10.2.0/24"<br>]</pre> | no |
+| subnet\_prefix | Subnet Prefix | `string` | `"10.10.2.0/24"` | no |
 | suffix | Metadata Project Suffix (so that we can create multiple instances) | `string` | n/a | yes |
 
 ## Outputs
