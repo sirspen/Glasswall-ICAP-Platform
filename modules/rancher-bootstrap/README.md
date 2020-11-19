@@ -10,6 +10,7 @@
 | Name | Version |
 |------|---------|
 | azurerm | n/a |
+| rancher2 | 1.10.3 |
 | rancher2.bootstrap | 1.10.3 |
 | random | n/a |
 | time | n/a |
