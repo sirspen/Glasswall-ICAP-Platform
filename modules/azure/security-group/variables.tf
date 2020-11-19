@@ -31,8 +31,6 @@ variable "security_group_rules" {
     destination_port_range                      = string
     source_address_prefix                       = string
     destination_address_prefix                  = string
-    source_application_security_group_ids       = list(string)
-    destination_application_security_group_ids  = list(string)
   }))
   default = {
     ssh = {
@@ -45,8 +43,6 @@ variable "security_group_rules" {
       destination_port_range                      = "22"
       source_address_prefix                       = "*"
       destination_address_prefix                  = "*"
-      source_application_security_group_ids       = ["*"]
-      destination_application_security_group_ids  = ["*"]
     }
   }
 }

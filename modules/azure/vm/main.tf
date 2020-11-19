@@ -58,8 +58,6 @@ resource "azurerm_storage_account" "storage_account" {
   }
 }
 
-
-
 resource "azurerm_linux_virtual_machine" "the_machine" {
   resource_group_name             = var.resource_group
   name                            = var.service_name

@@ -24,12 +24,6 @@ resource "azurerm_dns_a_record" "rancher_internal_server" {
   records             = [module.rancher_server.linux_vm_private_ips]
 }
 
-resource "azurerm_application_security_group" "rancher_server" {
-  name                = "${local.service_name}-asg"
-  location            = var.azure_region
-  resource_group_name = module.resource_group.name
-}
-
 module "rancher_server" {
   source                  = "../azure/vm"
   resource_group          = module.resource_group.name
@@ -53,12 +47,10 @@ module "rancher_server" {
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
-      source_port_range                         = "22"
+      source_port_range                         = "*"
       destination_port_range                    = "22"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-      destination_application_security_group_ids= ["*"]
-      source_application_security_group_ids     = ["*"]
   },
   https = {
       name                                      = "https"
@@ -66,12 +58,10 @@ module "rancher_server" {
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
-      source_port_range                         = "443"
+      source_port_range                         = "*"
       destination_port_range                    = "443"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-      destination_application_security_group_ids= ["*"]
-      source_application_security_group_ids     = ["*"]
     },
   http = {
       name                                      = "http"
@@ -79,12 +69,10 @@ module "rancher_server" {
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
-      source_port_range                         = "80"
+      source_port_range                         = "*"
       destination_port_range                    = "80"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-      destination_application_security_group_ids= ["*"]
-      source_application_security_group_ids     = ["*"]
     }
   }
 }

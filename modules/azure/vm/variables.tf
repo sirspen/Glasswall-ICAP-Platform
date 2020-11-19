@@ -120,8 +120,6 @@ variable "security_group_rules"{
     destination_port_range                      = string
     source_address_prefix                       = string
     destination_address_prefix                  = string
-    source_application_security_group_ids       = list(string)
-    destination_application_security_group_ids  = list(string)
   }))
   default = {
    ssh = {
@@ -130,12 +128,10 @@ variable "security_group_rules"{
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
-      source_port_range                         = "22"
+      source_port_range                         = "*"
       destination_port_range                    = "22"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-      destination_application_security_group_ids= ["*"]
-      source_application_security_group_ids     = ["*"]
   },
   https = {
       name                                      = "https"
@@ -143,12 +139,10 @@ variable "security_group_rules"{
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
-      source_port_range                         = "443"
+      source_port_range                         = "*"
       destination_port_range                    = "443"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-      destination_application_security_group_ids= ["*"]
-      source_application_security_group_ids     = ["*"]
     },
   http = {
       name                                      = "http"
@@ -156,12 +150,10 @@ variable "security_group_rules"{
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
-      source_port_range                         = "80"
+      source_port_range                         = "*"
       destination_port_range                    = "80"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-      destination_application_security_group_ids= ["*"]
-      source_application_security_group_ids     = ["*"]
     }
   }
 }

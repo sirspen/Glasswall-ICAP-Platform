@@ -1,7 +1,7 @@
 
 
 resource "azurerm_network_security_group" "main" {
-    name                            = var.service_name
+    name                            = "${var.service_name}-nsg"
     location                        = var.azure_region
     resource_group_name             = var.resource_group_name
     security_rule                   = []
@@ -21,8 +21,6 @@ resource "azurerm_network_security_rule" "main" {
     protocol                    = each.value.protocol
     source_port_range           = each.value.source_port_range
     destination_port_range      = each.value.destination_port_range
-    source_application_security_group_ids = each.value.source_application_security_group_ids
-    destination_application_security_group_ids = each.value.destination_application_security_group_ids
     source_address_prefix       = each.value.source_address_prefix
     destination_address_prefix  = each.value.destination_address_prefix
 }

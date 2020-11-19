@@ -6,14 +6,6 @@ output "gitserver_security_group_id" {
   value = module.git_server.security_group_id
 }
 
-output "rancher_asg" {
-  value = azurerm_application_security_group.rancher_server.id
-}
-
-output "gitserver_asg" {
-  value = azurerm_application_security_group.rancher_server.id
-}
-
 output "linux_vm_public_ips" {
   value = module.rancher_server.linux_vm_public_ips
 }

@@ -45,16 +45,6 @@ variable "destination_port_range" {
   type        = string
 }
 
-variable "source_sg_ids" {
-  description = "The source security group"
-  type        = list(string)
-}
-
-variable "destination_sg_ids" {
-  description = "The destination security group"
-  type        = list(string)
-}
-
 variable "resource_group_name" {
   description = "The resource group name"
   type        = string
