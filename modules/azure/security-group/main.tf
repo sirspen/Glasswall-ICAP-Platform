@@ -4,7 +4,7 @@ resource "azurerm_network_security_group" "main" {
     name                            = "${var.service_name}-nsg"
     location                        = var.azure_region
     resource_group_name             = var.resource_group_name
-    security_rule                   = []
+    #security_rule                   = []
   tags = {
     service_name = var.service_name
   }
