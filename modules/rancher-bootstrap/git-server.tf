@@ -58,8 +58,8 @@ module "git_server" {
       protocol                                  = "tcp"
       source_port_range                         = "*"
       destination_port_range                    = "22"
-      source_address_prefix                     = var.subnet_prefix
-      destination_address_prefix                = var.subnet_prefix
+      source_address_prefix                     = "${module.rancher_server.linux_vm_public_ips}/32"
+      destination_address_prefix                = "${module.git_server.linux_vm_public_ips}/32"
   },
   https = {
       name                                      = "https"
@@ -69,8 +69,8 @@ module "git_server" {
       protocol                                  = "tcp"
       source_port_range                         = "*"
       destination_port_range                    = "443"
-      source_address_prefix                     = var.subnet_prefix
-      destination_address_prefix                = var.subnet_prefix
+      source_address_prefix                     = "${module.rancher_server.linux_vm_public_ips}/32"
+      destination_address_prefix                = "${module.git_server.linux_vm_public_ips}/32"
     },
   http = {
       name                                      = "http"
@@ -80,8 +80,8 @@ module "git_server" {
       protocol                                  = "tcp"
       source_port_range                         = "*"
       destination_port_range                    = "80"
-      source_address_prefix                     = var.subnet_prefix
-      destination_address_prefix                = var.subnet_prefix
+      source_address_prefix                     = "${module.rancher_server.linux_vm_public_ips}/32"
+      destination_address_prefix                = "${module.git_server.linux_vm_public_ips}/32"
     }
   }
 }
