@@ -20,10 +20,10 @@ resource "azurerm_network_interface" "net_nic" {
 }
 
 module "security_group" {
-  source              = "../security-group"
-  service_name        = var.service_name
-  azure_region        = var.region
-  resource_group_name = var.resource_group
+  source               = "../security-group"
+  service_name         = "${var.service_name}-vm"
+  azure_region         = var.region
+  resource_group_name  = var.resource_group
   security_group_rules = var.security_group_rules
 }
 
@@ -92,5 +92,4 @@ resource "azurerm_linux_virtual_machine" "the_machine" {
     environment  = var.environment
     service_name = var.service_name
   }
-
 }

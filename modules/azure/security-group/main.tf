@@ -1,5 +1,3 @@
-
-
 resource "azurerm_network_security_group" "main" {
     name                            = "${var.service_name}-nsg"
     location                        = var.azure_region

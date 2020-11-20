@@ -1,49 +1,33 @@
-variable "service_name" {
-  description = "This is a consolidated name based on org, environment, region"
-  type        = string
-}
 
-variable "priority" {
-  description = "The level of the security group, priorities overide each other"
-  type        = number
-}
 
-variable "direction" {
-  description = "Inbound or Outbound"
-  type        = string
-  validation {
-    condition     = var.direction == "Inbound" || var.direction == "Outbound"
-    error_message = "Direction should be either Inbound or Outbound not ${var.direction}"
+variable "security_group_rules" {
+  description = "The rules to add as an object"
+  type        =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = string
+    destination_address_prefix                  = string
+  }))
+  default = {
+    ssh = {
+      name                                        = "RestrictedToSSH"
+      priority                                    = 100
+      direction                                   = "Inbound"
+      access                                      = "Disallow"
+      protocol                                    = "Tcp"
+      source_port_range                           = "22"
+      destination_port_range                      = "22"
+      source_address_prefix                       = "*"
+      destination_address_prefix                  = "*"
+    }
   }
 }
 
-variable "access" {
-  description = "Allow or Disallow"
-  type        = string
-  validation {
-    condition     = var.direction == "Allow" || var.direction == "Disallow"
-    error_message = "Access should be either Allow or Disallow not ${var.direction}"
-  }
-}
-
-variable "protocol" {
-  description       = "Tcp, Udp, Icmp, or *"
-  type              = string
-  validation {
-    condition       = var.protocol == "Tcp" || var.protocol == "Udp" || var.protocol == "Icmp" || var.protocol == "*"
-    error_message   = "Access should be either Allow or Disallow not ${var.direction}"
-  }
-}
-
-variable "source_port_range" {
-  description = "The source port range"
-  type        = string
-}
-
-variable "destination_port_range" {
-  description = "The destination port range"
-  type        = string
-}
 
 variable "resource_group_name" {
   description = "The resource group name"

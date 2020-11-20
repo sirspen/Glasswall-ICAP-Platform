@@ -51,37 +51,26 @@ module "git_server" {
   public_key_openssh = tls_private_key.ssh.public_key_openssh
   security_group_rules = {
    ssh = {
-      name                                      = "ssh"
-      priority                                  = "1001"
-      direction                                 = "Inbound"
-      access                                    = "Allow"
-      protocol                                  = "tcp"
-      source_port_range                         = "*"
-      destination_port_range                    = "22"
-      source_address_prefix                     = "${module.rancher_server.linux_vm_public_ips}/32"
-      destination_address_prefix                = "${module.git_server.linux_vm_public_ips}/32"
-  },
-  https = {
-      name                                      = "https"
-      priority                                  = "1002"
-      direction                                 = "Inbound"
-      access                                    = "Allow"
-      protocol                                  = "tcp"
-      source_port_range                         = "*"
-      destination_port_range                    = "443"
-      source_address_prefix                     = "${module.rancher_server.linux_vm_public_ips}/32"
-      destination_address_prefix                = "${module.git_server.linux_vm_public_ips}/32"
-    },
-  http = {
-      name                                      = "http"
+      name                                      = "git_ssh"
       priority                                  = "1003"
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
       source_port_range                         = "*"
+      destination_port_range                    = "22"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
+  },
+  http = {
+      name                                      = "git_http"
+      priority                                  = "1004"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "*"
       destination_port_range                    = "80"
-      source_address_prefix                     = "${module.rancher_server.linux_vm_public_ips}/32"
-      destination_address_prefix                = "${module.git_server.linux_vm_public_ips}/32"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = "*"
     }
   }
 }
@@ -92,4 +81,34 @@ resource "azurerm_dns_a_record" "git_server" {
   resource_group_name = "gw-icap-rg-dns"
   ttl                 = 300
   records             = [module.git_server.linux_vm_public_ips]
+}
+
+module "security_group_rules" {
+  source                      = "../azure/security-group-rules"
+  network_security_group_name = module.security_group.name
+  resource_group_name         = module.resource_group.name
+  security_group_rules        = {
+   ssh = {
+      name                                      = "git_ssh"
+      priority                                  = "1003"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "*"
+      destination_port_range                    = "22"
+      source_address_prefix                     = module.rancher_server.linux_vm_private_ips
+      destination_address_prefix                = module.git_server.linux_vm_private_ips
+  },
+  http = {
+      name                                      = "git_http"
+      priority                                  = "1004"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "*"
+      destination_port_range                    = "80"
+      source_address_prefix                     = module.rancher_server.linux_vm_private_ips
+      destination_address_prefix                = module.git_server.linux_vm_private_ips
+    }
+  }
 }

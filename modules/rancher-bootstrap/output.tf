@@ -1,13 +1,17 @@
 output "rancher_security_group_id" {
-  value = module.rancher_server.security_group_id
+  value = module.security_group.id
 }
 
 output "gitserver_security_group_id" {
-  value = module.git_server.security_group_id
+  value = module.security_group.id
 }
 
 output "linux_vm_public_ips" {
   value = module.rancher_server.linux_vm_public_ips
+}
+
+output "linux_vm_private_ips" {
+  value = module.rancher_server.linux_vm_private_ips
 }
 
 output "tls_private_key" {

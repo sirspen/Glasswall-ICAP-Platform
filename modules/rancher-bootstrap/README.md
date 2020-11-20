@@ -39,6 +39,7 @@
 | admin\_url | n/a |
 | admin\_user | n/a |
 | gitserver\_security\_group\_id | n/a |
+| linux\_vm\_private\_ips | n/a |
 | linux\_vm\_public\_ips | n/a |
 | network\_id | n/a |
 | public\_key\_openssh | n/a |

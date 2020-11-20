@@ -53,24 +53,6 @@ variable "disk_size" {
   default     = 120
 }
 
-variable "ssh_port" {
-  description = "SSH Port"
-  type        = number
-  default     = 22
-}
-
-variable "https_port" {
-  description = "HTTPS Port"
-  type        = number
-  default     = 443
-}
-
-variable "http_port" {
-  description = "HTTP Port"
-  type        = number
-  default     = 80
-}
-
 variable "os_publisher" {
   description = "Linux OS Publisher"
   type        = string

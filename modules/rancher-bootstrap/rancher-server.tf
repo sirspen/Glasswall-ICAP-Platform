@@ -17,11 +17,11 @@ resource "azurerm_dns_a_record" "rancher_server" {
 }
 
 resource "azurerm_dns_a_record" "rancher_internal_server" {
-  name                = "${local.service_name}-int"
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
-  ttl                 = 300
-  records             = [module.rancher_server.linux_vm_private_ips]
+  name                    = "${local.service_name}-int"
+  zone_name               = data.azurerm_dns_zone.curlywurly_zone.name
+  resource_group_name     = "gw-icap-rg-dns"
+  ttl                     = 300
+  records                 = [module.rancher_server.linux_vm_private_ips]
 }
 
 module "rancher_server" {
@@ -41,8 +41,8 @@ module "rancher_server" {
   public_ip_id            = module.public_ip.id
   public_key_openssh      = tls_private_key.ssh.public_key_openssh
   security_group_rules = {
-   ssh = {
-      name                                      = "ssh"
+   rancher_ssh = {
+      name                                      = "rancher_ssh"
       priority                                  = "1001"
       direction                                 = "Inbound"
       access                                    = "Allow"
@@ -53,7 +53,7 @@ module "rancher_server" {
       destination_address_prefix                = "*"
   },
   https = {
-      name                                      = "https"
+      name                                      = "rancher_https"
       priority                                  = "1002"
       direction                                 = "Inbound"
       access                                    = "Allow"
@@ -62,19 +62,45 @@ module "rancher_server" {
       destination_port_range                    = "443"
       source_address_prefix                     = "*"
       destination_address_prefix                = "*"
-    },
-  http = {
-      name                                      = "http"
-      priority                                  = "1003"
+    }
+  }
+}
+
+module "security_group" {
+  depends_on          = [module.rancher_server]
+  source              = "../azure/security-group"
+  service_name        = "${local.service_name}-sub"
+  azure_region        = var.azure_region
+  resource_group_name = module.resource_group.name
+  security_group_rules = {
+   rancher_ssh = {
+      name                                      = "rancher_ssh"
+      priority                                  = "1001"
       direction                                 = "Inbound"
       access                                    = "Allow"
       protocol                                  = "tcp"
       source_port_range                         = "*"
-      destination_port_range                    = "80"
+      destination_port_range                    = "22"
       source_address_prefix                     = "*"
-      destination_address_prefix                = "*"
+      destination_address_prefix                = module.rancher_server.linux_vm_private_ips
+  },
+  https = {
+      name                                      = "rancher_https"
+      priority                                  = "1002"
+      direction                                 = "Inbound"
+      access                                    = "Allow"
+      protocol                                  = "tcp"
+      source_port_range                         = "*"
+      destination_port_range                    = "443"
+      source_address_prefix                     = "*"
+      destination_address_prefix                = module.rancher_server.linux_vm_private_ips
     }
   }
+}
+
+resource "azurerm_subnet_network_security_group_association" "main" {
+  subnet_id                 = module.subnet.id
+  network_security_group_id = module.security_group.id
 }
 
 resource "time_sleep" "wait_300_seconds" {
