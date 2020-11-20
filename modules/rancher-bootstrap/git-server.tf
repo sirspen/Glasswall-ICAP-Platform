@@ -80,7 +80,7 @@ resource "azurerm_dns_a_record" "git_server" {
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
   resource_group_name = "gw-icap-rg-dns"
   ttl                 = 300
-  records             = [module.git_server.linux_vm_public_ips]
+  records             = [module.git_server.linux_vm_private_ips]
 }
 
 module "security_group_rules" {
@@ -96,8 +96,8 @@ module "security_group_rules" {
       protocol                                  = "tcp"
       source_port_range                         = "*"
       destination_port_range                    = "22"
-      source_address_prefix                     = module.rancher_server.linux_vm_private_ips
-      destination_address_prefix                = module.git_server.linux_vm_private_ips
+      #source_address_prefix                     = module.rancher_server.linux_vm_private_ips
+      #destination_address_prefix                = module.git_server.linux_vm_private_ips
   },
   http = {
       name                                      = "git_http"
@@ -107,8 +107,8 @@ module "security_group_rules" {
       protocol                                  = "tcp"
       source_port_range                         = "*"
       destination_port_range                    = "80"
-      source_address_prefix                     = module.rancher_server.linux_vm_private_ips
-      destination_address_prefix                = module.git_server.linux_vm_private_ips
+      #source_address_prefix                     = module.rancher_server.linux_vm_private_ips
+      #destination_address_prefix                = module.git_server.linux_vm_private_ips
     }
   }
 }
