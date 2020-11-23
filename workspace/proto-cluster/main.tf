@@ -10,17 +10,17 @@ terraform {
 locals {
   short_region_r1            = substr(var.azure_region_r1, 0, 3)
   short_region_r2            = substr(var.azure_region_r2, 0, 3)
-  service_name             = "${var.organisation}-${var.project}-${var.environment}"
+  service_name               = "${var.organisation}-${var.project}-${var.environment}"
   service_name_nodash_r1     = "${var.organisation}icap${var.environment}${local.short_region_r1}"
   service_name_nodash_r2     = "${var.organisation}icap${var.environment}${local.short_region_r2}"
-  rancher_api_url          = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
-  rancher_internal_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
-  rancher_network          = data.terraform_remote_state.rancher_server.outputs.network
-  rancher_server_url       = data.terraform_remote_state.rancher_server.outputs.rancher_server_url
-  rancher_admin_token      = data.terraform_remote_state.rancher_server.outputs.rancher_admin_token
-  rancher_network_id       = data.terraform_remote_state.rancher_server.outputs.network_id
-  rancher_resource_group   = data.terraform_remote_state.rancher_server.outputs.resource_group
-  public_key_openssh       = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
+  rancher_api_url            = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
+  rancher_internal_api_url   = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
+  rancher_network            = data.terraform_remote_state.rancher_server.outputs.network
+  rancher_server_url         = data.terraform_remote_state.rancher_server.outputs.rancher_server_url
+  rancher_admin_token        = data.terraform_remote_state.rancher_server.outputs.rancher_admin_token
+  rancher_network_id         = data.terraform_remote_state.rancher_server.outputs.network_id
+  rancher_resource_group     = data.terraform_remote_state.rancher_server.outputs.resource_group
+  public_key_openssh         = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
 }
 
 data "terraform_remote_state" "rancher_server" {
