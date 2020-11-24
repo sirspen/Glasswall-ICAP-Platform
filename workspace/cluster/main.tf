@@ -97,7 +97,7 @@ module "icap_cluster_r1" {
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 2
   providers = {
-    rancher2.admin = rancher2.admin
+    rancher2.adm = rancher2.admin
   }
 }
 
@@ -149,7 +149,20 @@ module "catalog" {
   cluster_id = module.icap_cluster_r1.cluster_id
   rancher_admin_url = local.rancher_api_url
   rancher_admin_token = local.rancher_admin_token
+  rancher_admin_url       = local.rancher_api_url
+  rancher_admin_token     = local.rancher_admin_token
   providers = {
-    rancher2.admin = rancher2.admin
+    rancher2.adm = rancher2.admin
+  }
+}
+
+module "app" {
+  source                  = "../../modules/gw/adaptation"
+  rancher_admin_url       = local.rancher_api_url
+  rancher_admin_token     = local.rancher_admin_token
+  catalogue_name = module.catalog.catalogue_name
+  cluster_ids = [module.icap_cluster_proto_z1.cluster_id]
+  providers = {
+    rancher2.adm = rancher2.admin
   }
 }
