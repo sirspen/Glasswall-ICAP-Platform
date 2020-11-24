@@ -14,8 +14,11 @@ resource "rancher2_multi_cluster_app" "icapadaptation" {
 resource "rancher2_multi_cluster_app" "rabbitmq" {
   catalog_name = var.catalogue_name
   name         = "rabbitmq"
-  targets {
-    project_id = var.cluster_ids
+  dynamic "targets" {
+    for_each = var.cluster_ids
+    content {
+      project_id = targets.value
+    }
   }
   template_name = "icap-rabbitmq"
   roles         = ["cluster-owner"]
