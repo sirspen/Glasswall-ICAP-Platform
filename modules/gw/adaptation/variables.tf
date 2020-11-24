@@ -12,10 +12,10 @@ variable "rancher_admin_token" {
 
 variable "catalogue_name" {
   description = "The catalogue name"
-  type = string
+  type        = string
 }
 
 variable "cluster_ids" {
   description = "A list of cluster ids"
-  type = list(string)
+  type        = list(string)
 }
