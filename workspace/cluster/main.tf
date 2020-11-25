@@ -101,6 +101,7 @@ module "icap_cluster_r1" {
   }
 }
 
+<<<<<<< HEAD:workspace/cluster/main.tf
 module "icap_cluster_r2" {
   source                       = "../../modules/gw/cluster"
   organisation                 = var.organisation
@@ -140,6 +141,19 @@ module "icap_cluster_r2" {
   providers = {
     rancher2.admin = rancher2.admin
   }
+
+resource "rancher2_project" "icap-service" {
+  name             = "icapservice"
+  cluster_id       = module.icap_cluster_proto_z1.cluster_id
+  wait_for_cluster = true
+  provider = rancher2.admin
+
+}
+
+data "rancher2_project" "system" {
+  cluster_id = module.icap_cluster_proto_z1.cluster_id
+  name = "System"
+  provider = rancher2.admin
 }
 
 module "catalog" {
@@ -156,13 +170,15 @@ module "catalog" {
   }
 }
 
-module "app" {
-  source                  = "../../modules/gw/adaptation"
+module "adaptation" {
+  source                  = "../../modules/gw/adaptation-components"
   rancher_admin_url       = local.rancher_api_url
   rancher_admin_token     = local.rancher_admin_token
   catalogue_name = module.catalog.catalogue_name
-  cluster_ids = [module.icap_cluster_proto_z1.cluster_id]
   providers = {
     rancher2.adm = rancher2.admin
   }
+  project_ids = [rancher2_project.icap-service.id]
+  system_project_ids = [data.rancher2_project.system.id]
 }
+

@@ -15,7 +15,12 @@ variable "catalogue_name" {
   type        = string
 }
 
-variable "cluster_ids" {
-  description = "A list of cluster ids"
+variable "project_ids" {
+  description = "A list of app project ids"
+  type        = list(string)
+}
+
+variable "system_project_ids" {
+  description = "A list of system project ids"
   type        = list(string)
 }
