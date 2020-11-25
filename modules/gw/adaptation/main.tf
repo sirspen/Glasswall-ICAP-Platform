@@ -11,6 +11,18 @@ data "rancher2_project" "system" {
   name = "System"
 }
 
+resource "rancher2_namespace" "icap-adaptation" {
+  provider    = rancher2.adm
+  name = "icap-adaptation"
+  project_id = rancher2_project.icap-service.id
+}
+
+resource "rancher2_namespace" "rabbitmq" {
+  provider    = rancher2.adm
+  name = "rabbitmq"
+  project_id = rancher2_project.icap-service.id
+}
+
 resource "rancher2_multi_cluster_app" "systemclusterrole" {
   provider    = rancher2.adm
   catalog_name = var.catalogue_name
@@ -20,6 +32,9 @@ resource "rancher2_multi_cluster_app" "systemclusterrole" {
   }
   template_name = "systemclusterrole"
   roles         = ["cluster-owner"]
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "rancher2_multi_cluster_app" "rabbitmq" {
@@ -31,6 +46,9 @@ resource "rancher2_multi_cluster_app" "rabbitmq" {
   }
   template_name = "icap-rabbitmq"
   roles         = ["project-owner"]
+  timeouts {
+    create = "1m"
+  }
 }
 
 resource "rancher2_multi_cluster_app" "icapadaptation" {
@@ -42,4 +60,7 @@ resource "rancher2_multi_cluster_app" "icapadaptation" {
   }
   template_name = "icap-adaptation"
   roles         = ["project-owner"]
+  timeouts {
+    create = "1m"
+  }
 }
