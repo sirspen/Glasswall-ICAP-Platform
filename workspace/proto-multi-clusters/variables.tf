@@ -111,3 +111,24 @@ variable "os_version" {
   type        = string
   default     = "latest"
 }
+
+variable "cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalogue_name = string
+    template_name = string
+  }))
+  default = {
+    namespace = "icap-adaptation"
+    catalogue_name = "catalogue"
+  }
+}
+
+variable "cluster_catalogues" {
+  type = map(object({
+    helm_charts_repo_url = string
+    helm_charts_repo_branch = string
+
+  }))
+}

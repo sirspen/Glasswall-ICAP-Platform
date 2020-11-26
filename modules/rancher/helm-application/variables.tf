@@ -1,23 +1,11 @@
-# Rancher API Url
-variable "rancher_admin_url" {
-  description = "The Rancher API"
-  type        = string
-}
-
-#Rancher API Admin Token
-variable "rancher_admin_token" {
-  description = "The Rancher Admin Token"
-  type        = string
-}
-
 variable "catalogue_name" {
   description = "The catalogue name"
   type        = string
 }
 
-variable "project_ids" {
+variable "project_id" {
   description = "A list of projects ids"
-  type        = set(string)
+  type        = string
 }
 
 variable "template_name" {
