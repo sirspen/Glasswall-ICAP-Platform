@@ -13,29 +13,53 @@ module "azure_cloud_credentials" {
   subscription_id     = var.subscription_id
 }
 
-# this module creates the resource group, network, subnet, peering connection.
-module "infra" {
-  source                   = "../infra"
-  organisation             = var.organisation
-  environment              = var.environment
-  rancher_admin_url        = var.rancher_admin_url
-  rancher_internal_api_url = var.rancher_internal_api_url
-  rancher_admin_token      = var.rancher_admin_token
-  suffix                   = var.suffix
-  service_name             = "${var.service_name}-${local.short_region}"
-  azure_region             = var.azure_region
-  client_id                = var.client_id
-  tenant_id                = var.tenant_id
-  client_secret            = var.client_secret
-  subscription_id          = var.subscription_id
-  cluster_address_space    = var.cluster_address_space
-  cluster_subnet_cidr      = var.cluster_subnet_cidr
-  public_key_openssh       = var.public_key_openssh
-  rancher_resource_group   = var.rancher_resource_group
-  rancher_network_id       = var.rancher_network_id
-  rancher_network          = var.rancher_network
-  backend_port             = var.cluster_backend_port
-  public_port              = var.cluster_public_port
+module "master_lb" {
+  source                      = "../../azure/internal-load-balancer"
+  azure_region                = var.azure_region
+  service_name                = local.service_name
+  resource_group              = module.resource_group.name
+  lb_probe_port               = "6443"
+  subnet_id                   = module.subnet.id
+}
+
+resource "azurerm_lb_backend_address_pool" "master_lbap" {
+  resource_group_name             = module.resource_group.name
+  loadbalancer_id                 = module.master_lb.id
+  name                            = "MasterNodePool"
+}
+
+resource "azurerm_lb_probe" "master_ingress_probe" {
+  depends_on                      = [module.master_lb]
+  resource_group_name             = module.resource_group.name
+  loadbalancer_id                 = module.master_lb.id
+  name                            = "MasterNodesUp"
+  port                            = "6443"
+}
+
+resource "azurerm_lb_rule" "master_ingress_rule_1" {
+  depends_on                      = [ azurerm_lb_probe.master_ingress_probe, azurerm_lb_backend_address_pool.master_lbap ]    
+  name                            = "MasterIngressRule-1"
+  resource_group_name             = module.resource_group.name
+  loadbalancer_id                 = module.master_lb.id                           
+  frontend_ip_configuration_name  = "Internal"     
+  protocol                        = "Tcp"
+  frontend_port                   = "6443"
+  backend_port                    = "6443"
+  probe_id                        = azurerm_lb_probe.master_ingress_probe.id
+  backend_address_pool_id         = azurerm_lb_backend_address_pool.master_lbap.id
+}
+
+data "azurerm_dns_zone" "curlywurly_zone" {
+  name                = "icap-proxy.curlywurly.me"
+  resource_group_name = "gw-icap-rg-dns"
+}
+
+resource "azurerm_dns_a_record" "main_master" {
+  name                = "${local.service_name}-k8s-${var.suffix}"
+  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
+  resource_group_name = "gw-icap-rg-dns"
+  ttl                 = 300
+  records             = [module.master_lb.private_ip_address]
 }
 
 module "cluster" {

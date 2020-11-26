@@ -9,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| rancher2.admin | 1.10.3 |
+| rancher2 | 1.10.3 |
 
 ## Inputs
 

@@ -1,5 +1,5 @@
 resource "rancher2_cluster" "main" {
-  provider    = rancher2.admin
+  provider    = rancher2
   name        = var.cluster_name
   description = "Cluster to run the ICAP Service"
 
@@ -15,9 +15,10 @@ resource "rancher2_cluster" "main" {
         subnet_name                    = var.subnet_name
         vnet_name                      = var.virtual_network_name
         resource_group                 = var.resource_group_name
-        primary_scale_set_name         = var.scaleset_name
+        primary_scale_set_name         = "${var.cluster_name}-master"
         vm_type                        = "vmss"
         use_instance_metadata          = true
+        load_balancer_sku              = "standard"
       }
         #  primary_availability_set_name =
         #  primary_scale_set_name        =
@@ -26,8 +27,11 @@ resource "rancher2_cluster" "main" {
     network {
       plugin  = var.cluster_network_plugin
     }
-    /*services {
-      etcd {
+    services {
+      kubelet{
+        cluster_domain = var.master_dns_name
+      }
+      /*etcd {
         creation = "6h"
         retention = "24h"
       }
@@ -35,18 +39,18 @@ resource "rancher2_cluster" "main" {
         audit_log {
           enabled = true
         }
-      }
+      }*/
     }
     upgrade_strategy {
       drain = true
       max_unavailable_worker = "20%"
-    }*/
+    }
     kubernetes_version = var.kubernetes_version
   }
 }
 
 resource "rancher2_token" "main" {
-  provider      = rancher2.admin
+  provider      = rancher2
   cluster_id    = rancher2_cluster.main.id
   description   = "api token for agents to use to join cluster"
   renew         = false
@@ -54,11 +58,11 @@ resource "rancher2_token" "main" {
 
 module "master_scaleset" {
   source                = "../../azure/scale-set"
-  depends_on            = [rancher2_cluster]
+  depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
-  service_name          = "${local.cluster_name}-master"
-  tag_cluster_name      = local.cluster_name
+  service_name          = "${var.cluster_name}-master"
+  tag_cluster_name      = var.cluster_name
   tag_cluster_asg_state = "enabled"
   service_role          = "master"
   resource_group        = var.resource_group_name
@@ -75,7 +79,7 @@ module "master_scaleset" {
   admin_username        = var.master_scaleset_admin_user
 
   custom_data = templatefile("${path.module}/tmpl/user-data.template", {
-    cluster_name          = local.cluster_name
+    cluster_name          = var.cluster_name
     rancher_agent_version = "v2.5.1"
     rancher_server_url    = var.rancher_internal_api_url
     rancher_agent_token   = rancher2_token.main.token
@@ -85,16 +89,31 @@ module "master_scaleset" {
     rancher_ca_checksum   = ""
   })
   public_key_openssh = var.public_key_openssh
-  loadbalancer       = false
+  security_group_rules = {
+    k8s = {
+      name                       = "icapNodePort"
+      priority                   = 1004
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 6443
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  }
+  loadbalancer               = true
+  lb_backend_address_pool_id = var.master_lb_backend_address_pool_id
+  lb_probe_id                = var.master_lb_probe_id 
 }
 
 module "worker_scaleset" {
   source                = "../../azure/scale-set"
-  depends_on            = [module.cluster.main]
+  depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
-  service_name          = "${local.cluster_name}-worker"
-  tag_cluster_name      = local.cluster_name
+  service_name          = "${var.cluster_name}-worker"
+  tag_cluster_name      = var.cluster_name
   tag_cluster_asg_state = "enabled"
   service_role          = "worker"
 
@@ -112,7 +131,7 @@ module "worker_scaleset" {
   admin_username        = var.worker_scaleset_admin_user
 
   custom_data = templatefile("${path.module}/tmpl/user-data.template", {
-    cluster_name          = local.cluster_name
+    cluster_name          = var.cluster_name
     rancher_agent_version = "v2.5.1"
     rancher_server_url    = var.rancher_admin_url
     rancher_agent_token   = rancher2_token.main.token
@@ -121,9 +140,43 @@ module "worker_scaleset" {
     public_key_openssh    = var.public_key_openssh
     rancher_ca_checksum   = ""
   })
-
+  security_group_rules = {
+    icap = {
+      name                       = "icapNodePort"
+      priority                   = 1004
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32323
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  }
   public_key_openssh         = var.public_key_openssh
   loadbalancer               = true
-  lb_backend_address_pool_id = [module.infra.worker_lbap_id]
-  lb_probe_id                = module.infra.worker_ingress_probe_id
+  lb_backend_address_pool_id = var.worker_lb_backend_address_pool_id
+  lb_probe_id                = var.worker_lb_probe_id 
 }
+
+data "rancher2_project" "system" {
+  provider         = rancher2
+  cluster_id       = rancher2_cluster.main.id
+  name             = "System"
+}
+
+resource "rancher2_project" "main" {
+  provider         = rancher2
+  name             = var.rancher_projects
+  cluster_id       = rancher2_cluster.main.id
+  wait_for_cluster = true
+}
+/*
+module "clusters_apps"{
+  source = "../helm-application"
+  for_each    = var.cluster_apps 
+  namespace   = each.value.namespace
+  project_id = rancher2_project.main.id
+
+}
+*/

@@ -25,7 +25,7 @@ variable "tenant_id" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "icap-proto"
+  default     = "icap"
 }
 
 variable "azure_region_r1" {
@@ -42,38 +42,38 @@ variable "azure_region_r2" {
 variable "cluster_address_space_r1" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["181.16.0.0/12", "192.168.0.0/16"]
+  default     = ["182.16.0.0/12", "192.167.0.0/16"]
 }
 
 variable "cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["181.32.0.0/12", "192.169.0.0/16"]
+  default     = ["182.32.0.0/12", "192.169.0.0/16"]
 }
 
 variable "cluster_subnet_cidr_r1" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["181.30.0.0/16"]
+  default     = ["182.30.0.0/16"]
 
 }
 
 variable "cluster_subnet_cidr_r2" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["181.46.0.0/16"]
+  default     = ["182.46.0.0/16"]
 }
 
 variable "cluster_subnet_prefix_r1" {
   description = "Subnet CIDR"
   type        = string
-  default     = "181.30.3.0/24"
+  default     = "182.30.3.0/24"
 }
 
 variable "cluster_subnet_prefix_r2" {
   description = "Subnet CIDR"
   type        = string
-  default     = "181.46.2.0/24"
+  default     = "182.46.2.0/24"
 }
 
 variable "public_port" {
