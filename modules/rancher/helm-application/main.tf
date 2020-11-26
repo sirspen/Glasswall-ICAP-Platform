@@ -1,18 +1,16 @@
-resource "rancher2_namespace" "application_namespace" {
-  provider    = rancher2.adm
-  name = var.namespace
-  for_each = var.project_ids
-  project_id = each.value
+resource "rancher2_namespace" "main" {
+  provider    = rancher2
+  name        = var.namespace
+  project_id  = var.project_id
 }
 
 resource "rancher2_app" "helm_app" {
-  provider    = rancher2.adm
-  catalog_name = var.catalogue_name
-  name         = var.template_name
-  for_each = var.project_ids
-  project_id = each.value
-  target_namespace = rancher2_namespace.application_namespace[each.key].id
-  template_name = var.template_name
+  provider          = rancher2
+  catalog_name      = var.catalog_name
+  name              = var.template_name
+  project_id        = var.project_id
+  target_namespace  = rancher2_namespace.main.name
+  template_name     = var.template_name
   timeouts {
     create = "1m" #TODO remove timeout
   }

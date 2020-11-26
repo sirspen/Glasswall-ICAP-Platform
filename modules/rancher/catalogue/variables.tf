@@ -1,3 +1,8 @@
+variable "name" {
+  description = "The catalogue name"
+  type        = string
+}
+
 variable "helm_charts_repo_url" {
   description = "The repo url to the helm charts"
   type        = string

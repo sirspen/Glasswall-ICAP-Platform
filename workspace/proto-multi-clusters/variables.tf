@@ -112,7 +112,25 @@ variable "os_version" {
   default     = "latest"
 }
 
-variable "cluster_apps" {
+variable "admin_cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalogue_name = string
+    template_name = string
+  }))
+}
+
+variable "filedrop_cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalogue_name = string
+    template_name = string
+  }))
+}
+
+variable "icap_cluster_apps" {
   description = "A list of apps"
   type = map(object({
     namespace = string
@@ -120,15 +138,27 @@ variable "cluster_apps" {
     template_name = string
   }))
   default = {
-    namespace = "icap-adaptation"
-    catalogue_name = "catalogue"
+    adaptation = {
+      namespace       = "icap-adaptation"
+      catalogue_name  = "catalogue"
+      template_name   = "icap-adaptation"
+    },
+    rabbitmq = {
+      namespace       = "icap-rabbitmq"
+      catalogue_name  = "catalogue"
+      template_name   = "icap-rabbitmq"
+    },
+    system = {
+      namespace       = "kube-system"
+      catalogue_name  = "catalogue"
+      template_name   = "systemclusterrole" 
+    }
   }
 }
 
-variable "cluster_catalogues" {
+variable "cluster_catalogs" {
   type = map(object({
     helm_charts_repo_url = string
     helm_charts_repo_branch = string
-
   }))
 }

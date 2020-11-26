@@ -1,10 +1,10 @@
-variable "catalogue_name" {
-  description = "The catalogue name"
+variable "catalog_name" {
+  description = "The catalog name"
   type        = string
 }
 
 variable "project_id" {
-  description = "A list of projects ids"
+  description = "The project id"
   type        = string
 }
 

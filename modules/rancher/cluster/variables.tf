@@ -182,11 +182,3 @@ variable "cluster_apps" {
     template_name = string
   }))
 }
-
-variable "cluster_catalogues" {
-  type = map(object({
-    helm_charts_repo_url = string
-    helm_charts_repo_branch = string
-
-  }))
-}

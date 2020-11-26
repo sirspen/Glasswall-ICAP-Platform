@@ -9,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| rancher2.adm | 1.10.3 |
+| rancher2 | 1.10.3 |
 
 ## Inputs
 
@@ -17,8 +17,7 @@
 |------|-------------|------|---------|:--------:|
 | helm\_charts\_repo\_branch | The branch name of the repo to the helm charts | `string` | n/a | yes |
 | helm\_charts\_repo\_url | The repo url to the helm charts | `string` | n/a | yes |
-| rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
-| rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
+| name | The catalogue name | `string` | n/a | yes |
 
 ## Outputs
 

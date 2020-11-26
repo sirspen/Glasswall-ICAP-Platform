@@ -125,6 +125,13 @@ module "icap_clusters" {
   worker_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
   organisation                 = var.organisation
   environment                  = var.environment
+  cluster_apps                 = var.icap_cluster_apps
+  cluster_catalogs             = {
+    catalogue = {
+      helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
+      helm_charts_repo_branch = "add-image-registry"
+    }
+  }
   rancher_admin_url            = local.rancher_api_url
   rancher_internal_api_url     = local.rancher_internal_api_url
   rancher_admin_token          = local.rancher_admin_token

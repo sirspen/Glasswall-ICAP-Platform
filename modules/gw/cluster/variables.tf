@@ -176,3 +176,19 @@ variable "rancher_projects" {
   description = "The Projects to create on a base k8s Cluster"
   type        = string
 }
+
+variable "cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalogue_name = string
+    template_name = string
+  }))
+}
+
+variable "cluster_catalogs" {
+  type = map(object({
+    helm_charts_repo_url = string
+    helm_charts_repo_branch = string
+  }))
+}

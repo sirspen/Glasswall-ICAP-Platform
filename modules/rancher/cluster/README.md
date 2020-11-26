@@ -18,6 +18,7 @@
 | azure\_region | The cloud region | `string` | n/a | yes |
 | client\_id | Service Principal ClientID | `string` | n/a | yes |
 | client\_secret | Service Principal Secret | `string` | n/a | yes |
+| cluster\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalogue_name = string<br>    template_name = string<br>  }))</pre> | n/a | yes |
 | cluster\_name | This is the name of the cluster | `string` | n/a | yes |
 | cluster\_network\_plugin | Set the network plugin | `string` | `"canal"` | no |
 | environment | Metadata Environment | `string` | n/a | yes |
