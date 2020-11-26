@@ -15,8 +15,6 @@ module "azure_cloud_credentials" {
 
 module "setting" {
   source            = "../../rancher/setting"
-  rancher_admin_url    = var.rancher_admin_url
-  rancher_admin_token  = var.rancher_admin_token
   setting_name      = "server-url"
   setting_value     = var.rancher_internal_api_url
 }
