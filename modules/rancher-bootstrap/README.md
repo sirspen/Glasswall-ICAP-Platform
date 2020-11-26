@@ -38,6 +38,8 @@
 | admin\_token\_id | n/a |
 | admin\_url | n/a |
 | admin\_user | n/a |
+| git\_server\_public\_ips | n/a |
+| git\_server\_url | n/a |
 | gitserver\_security\_group\_id | n/a |
 | linux\_vm\_private\_ips | n/a |
 | linux\_vm\_public\_ips | n/a |
