@@ -15,9 +15,9 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
   resource_group_name = var.resource_group
 
   # automatic rolling upgrade
-  automatic_os_upgrade = false
-  upgrade_policy_mode  = "Manual"
-
+  automatic_os_upgrade  = false
+  upgrade_policy_mode   = "Manual"
+  single_placement_group= false
   #rolling_upgrade_policy {
   #  max_batch_instance_percent              = 20
   #  max_unhealthy_instance_percent          = 20
@@ -97,9 +97,9 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
   resource_group_name = var.resource_group
 
   # automatic rolling upgrade
-  automatic_os_upgrade = false
-  upgrade_policy_mode  = "Manual"
-
+  automatic_os_upgrade  = false
+  upgrade_policy_mode   = "Manual"
+  single_placement_group= false
   #rolling_upgrade_policy {
   #  max_batch_instance_percent              = 20
   #  max_unhealthy_instance_percent          = 20
