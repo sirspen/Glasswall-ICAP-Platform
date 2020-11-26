@@ -171,3 +171,8 @@ variable "cluster_public_port" {
   description = "Public Port"
   type        = string
 }
+
+variable "rancher_projects" {
+  description = "The Projects to create on a base k8s Cluster"
+  type        = string
+}

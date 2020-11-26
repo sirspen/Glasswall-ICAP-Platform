@@ -57,6 +57,23 @@ output "rancher_resource_group" {
 output "rancher_network" {
   value = module.network.name
 }
+
 output "network_id" {
   value = module.network.id
+}
+
+output "network_name" {
+  value = module.network.name
+}
+
+output "network_id" {
+  value = module.network.id
+}
+
+output "subnet_name" {
+  value = module.subnet.name
+}
+
+output "subnet_id" {
+  value = module.subnet.id
 }

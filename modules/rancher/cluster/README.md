@@ -9,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| rancher2.admin | 1.10.3 |
+| rancher2 | 1.10.3 |
 
 ## Inputs
 
@@ -22,6 +22,9 @@
 | cluster\_network\_plugin | Set the network plugin | `string` | `"canal"` | no |
 | environment | Metadata Environment | `string` | n/a | yes |
 | kubernetes\_version | The Kubernetes version | `string` | `"v1.19.2-rancher1-1"` | no |
+| master\_dns\_name | The K8S Master DNS Name | `string` | n/a | yes |
+| master\_lb\_backend\_address\_pool\_id | The K8S Worker Scaleset admin user | `list(string)` | n/a | yes |
+| master\_lb\_probe\_id | The K8S Worker LB Probe ID from Infra module | `string` | n/a | yes |
 | master\_scaleset\_admin\_user | The K8S Master Scaleset admin user | `string` | n/a | yes |
 | master\_scaleset\_size | The K8S Master Scaleset size | `string` | n/a | yes |
 | master\_scaleset\_sku\_capacity | The K8S Master Scaleset sku capacity | `string` | n/a | yes |
@@ -34,8 +37,8 @@
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher admin API | `string` | n/a | yes |
 | rancher\_internal\_api\_url | The Rancher internal API url | `string` | n/a | yes |
-| resource\_group | the resource group | `string` | n/a | yes |
-| scaleset\_name | The scale set name | `string` | n/a | yes |
+| rancher\_projects | The Projects to create on a base k8s Cluster | `string` | n/a | yes |
+| resource\_group\_name | The Resource Group | `string` | n/a | yes |
 | subnet\_id | The Subnet ID for the ScaleSet | `string` | n/a | yes |
 | subnet\_name | The Subnet Name for the cluster config | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |
@@ -58,7 +61,9 @@
 | crt\_cluster\_node\_command | n/a |
 | crt\_cluster\_token | n/a |
 | kubernetes\_version | n/a |
+| project\_id | n/a |
 | secret\_key | n/a |
+| system\_id | n/a |
 | token | n/a |
 | token\_enabled | n/a |
 | token\_name | n/a |

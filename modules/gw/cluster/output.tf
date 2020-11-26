@@ -17,6 +17,20 @@ output "network_id" {
 output "subnet_name" {
   value = module.infra.subnet_name
 }
+
+output "system_ids" {
+  value = [
+    for cluster in module.cluster:
+    cluster.system_id
+  ]
+}
+
+output "project_ids" {
+  value = [
+    for cluster in module.cluster:
+    cluster.project_id
+  ]
+}
 /*
 output "cluster_name" {
   value = module.cluster.cluster_name

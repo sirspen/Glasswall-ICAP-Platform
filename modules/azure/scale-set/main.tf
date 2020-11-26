@@ -1,60 +1,11 @@
 # Create Network Security Group and rule
-resource "azurerm_network_security_group" "net_sg" {
-  name                = var.service_name
-  location            = var.region
-  resource_group_name = var.resource_group
 
-  security_rule {
-    name                       = "icapNodePort"
-    priority                   = 1004
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = 32323
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "k8s"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = 6443
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "HTTP"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = 80
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "HTTPS"
-    priority                   = 1003
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = 443
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  tags = {
-    service_name = var.service_name
-  }
+module "security_group" {
+  source               = "../security-group"
+  service_name         = "${var.service_name}-vmss"
+  azure_region         = var.region
+  resource_group_name  = var.resource_group
+  security_group_rules = var.security_group_rules
 }
 
 resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
@@ -129,7 +80,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
       subnet_id                              = var.subnet_id
       load_balancer_backend_address_pool_ids = var.lb_backend_address_pool_id
     }
-      network_security_group_id              = azurerm_network_security_group.net_sg.id
+      network_security_group_id              = module.security_group.id
   }
 
   tags = {
@@ -209,7 +160,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
       subnet_id                              = var.subnet_id      
     }
 
-    network_security_group_id                = azurerm_network_security_group.net_sg.id
+    network_security_group_id                = module.security_group.id
 
   }
 

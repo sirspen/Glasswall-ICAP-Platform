@@ -41,3 +41,11 @@ output "secret_key" {
 output "token_enabled" {
   value = rancher2_token.main.enabled
 }
+
+output "system_id" {
+  value = data.rancher2_project.system.id
+}
+
+output "project_id" {
+  value = rancher2_project.main.id
+}

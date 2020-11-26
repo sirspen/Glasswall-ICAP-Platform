@@ -123,6 +123,20 @@ variable "loadbalancer" {
   default     = false
 }
 
+variable "security_group_rules" {
+  description = "The rules to add as an object"
+  type        =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = string
+    destination_address_prefix                  = string
+  }))
+}
 
 # Common variables
 /*
