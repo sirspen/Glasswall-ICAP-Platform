@@ -108,8 +108,8 @@ module "icap_clusters" {
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
   rancher_projects             = each.value.rancher_projects
-  cluster_backend_port         = each.value.backend_port
-  cluster_public_port          = each.value.public_port
+  cluster_backend_port         = each.value.cluster_backend_port
+  cluster_public_port          = each.value.cluster_public_port
   cluster_address_space        = each.value.cluster_address_space
   cluster_subnet_cidr          = each.value.cluster_subnet_cidr
   cluster_subnet_prefix        = each.value.cluster_subnet_prefix
