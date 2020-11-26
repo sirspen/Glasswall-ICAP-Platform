@@ -8,7 +8,7 @@
 
 # Azure Node Pool
 resource "rancher2_node_pool" "node_pool" {
-  provider              = rancher2.admin
+  provider              = rancher2
   cluster_id            = var.cluster_id
   name                  = var.service_name
   hostname_prefix       = "rke-${random_id.node_pool.hex}-"

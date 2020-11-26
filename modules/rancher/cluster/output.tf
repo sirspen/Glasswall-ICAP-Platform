@@ -1,21 +1,21 @@
 output "cluster_name" {
-  value = rancher2_cluster.the_cluster.name
+  value = rancher2_cluster.main.name
 }
 
 output "cluster_id" {
-  value = rancher2_cluster.the_cluster.id
+  value = rancher2_cluster.main.id
 }
 
 output "crt_cluster_token" {
-  value = rancher2_cluster.the_cluster.cluster_registration_token.0.token
+  value = rancher2_cluster.main.cluster_registration_token.0.token
 }
 
 output "crt_cluster_id" {
-  value = rancher2_cluster.the_cluster.cluster_registration_token.0.cluster_id
+  value = rancher2_cluster.main.cluster_registration_token.0.cluster_id
 }
 
 output "crt_cluster_node_command" {
-  value = rancher2_cluster.the_cluster.cluster_registration_token.0.node_command
+  value = rancher2_cluster.main.cluster_registration_token.0.node_command
 }
 
 output "kubernetes_version" {
@@ -23,21 +23,29 @@ output "kubernetes_version" {
 }
 
 output "token_name" {
-  value = rancher2_token.the_cluster.name
+  value = rancher2_token.main.name
 }
 
 output "token" {
-  value = rancher2_token.the_cluster.token
+  value = rancher2_token.main.token
 }
 
 output "access_key" {
-  value = rancher2_token.the_cluster.access_key
+  value = rancher2_token.main.access_key
 }
 
 output "secret_key" {
-  value = rancher2_token.the_cluster.secret_key
+  value = rancher2_token.main.secret_key
 }
 
 output "token_enabled" {
-  value = rancher2_token.the_cluster.enabled
+  value = rancher2_token.main.enabled
+}
+
+output "system_id" {
+  value = data.rancher2_project.system.id
+}
+
+output "project_id" {
+  value = rancher2_project.main.id
 }

@@ -37,28 +37,6 @@ variable "suffix" {
   type        = string
 }
 
-
-variable "os_publisher" {
-  description = "Linux OS Publisher"
-  type        = string
-}
-
-variable "os_offer" {
-  description = "Linux OS Offer"
-  type        = string
-}
-
-variable "os_sku" {
-  description = "Linux OS SKU"
-  type        = string
-}
-
-variable "os_version" {
-  description = "Linux OS Version"
-  type        = string
-  default     = "latest"
-}
-
 variable "azure_region" {
   description = "The cloud region"
   type        = string

@@ -42,11 +42,14 @@
 | linux\_vm\_private\_ips | n/a |
 | linux\_vm\_public\_ips | n/a |
 | network\_id | n/a |
+| network\_name | n/a |
 | public\_key\_openssh | n/a |
 | rancher\_api\_url | n/a |
 | rancher\_internal\_api\_url | n/a |
 | rancher\_network | n/a |
 | rancher\_resource\_group | n/a |
 | rancher\_security\_group\_id | n/a |
+| subnet\_id | n/a |
+| subnet\_name | n/a |
 | tls\_private\_key | n/a |
 
