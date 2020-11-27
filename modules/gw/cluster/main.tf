@@ -20,9 +20,9 @@ module "setting" {
 }
 
 module "catalog" {
-    source                  = "../../rancher/setting"
+    source                  = "../../rancher/catalogue"
     for_each                = var.cluster_catalogs
-    name                    = each.value.name
+    name                    = each.key
     helm_charts_repo_url    = each.value.helm_charts_repo_url
     helm_charts_repo_branch = each.value.helm_charts_repo_branch
 }

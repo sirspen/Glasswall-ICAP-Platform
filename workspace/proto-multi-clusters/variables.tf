@@ -7,7 +7,11 @@ variable "organisation" {
 variable "environment" {
   description = "Metadata Environment"
   type        = string
-  default     = "proto"
+}
+
+variable "branch" {
+  description = "The source branch to link with the backend for other modules in the same branch"
+  type        = string
 }
 
 variable "subscription_id" {
@@ -42,38 +46,38 @@ variable "azure_region_r2" {
 variable "cluster_address_space_r1" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["182.16.0.0/12", "192.167.0.0/16"]
+  default     = ["172.22.0.0/16"]
 }
 
 variable "cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["182.32.0.0/12", "192.169.0.0/16"]
+  default     = ["172.23.0.0/16"]
 }
 
 variable "cluster_subnet_cidr_r1" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["182.30.0.0/16"]
+  default     = ["172.22.0.0/16"]
 
 }
 
 variable "cluster_subnet_cidr_r2" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["182.46.0.0/16"]
+  default     = ["172.23.0.0/16"]
 }
 
 variable "cluster_subnet_prefix_r1" {
   description = "Subnet CIDR"
   type        = string
-  default     = "182.30.3.0/24"
+  default     = "172.22.0.0/22"
 }
 
 variable "cluster_subnet_prefix_r2" {
   description = "Subnet CIDR"
   type        = string
-  default     = "182.46.2.0/24"
+  default     = "172.23.0.0/22"
 }
 
 variable "public_port" {
@@ -112,53 +116,62 @@ variable "os_version" {
   default     = "latest"
 }
 
-variable "admin_cluster_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace = string
-    catalogue_name = string
-    template_name = string
-  }))
-}
-
-variable "filedrop_cluster_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace = string
-    catalogue_name = string
-    template_name = string
-  }))
-}
-
 variable "icap_cluster_apps" {
   description = "A list of apps"
   type = map(object({
     namespace = string
-    catalogue_name = string
+    catalog_name = string
     template_name = string
   }))
   default = {
     adaptation = {
       namespace       = "icap-adaptation"
-      catalogue_name  = "catalogue"
+      catalog_name  = "icap_catalog"
       template_name   = "icap-adaptation"
     },
     rabbitmq = {
       namespace       = "icap-rabbitmq"
-      catalogue_name  = "catalogue"
+      catalog_name  = "icap_catalog"
       template_name   = "icap-rabbitmq"
     },
     system = {
       namespace       = "kube-system"
-      catalogue_name  = "catalogue"
+      catalog_name  = "icap_catalog"
       template_name   = "systemclusterrole" 
     }
   }
 }
 
+variable "admin_cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalog_name = string
+    template_name = string
+  }))
+  default = {
+    system = {
+      namespace       = "kube-system"
+      catalog_name    = "admin_catalog"
+      template_name   = "systemclusterrole" 
+    }
+  }
+}
+
+/*
+variable "filedrop_cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalog_name = string
+    template_name = string
+  }))
+}
+*/
+/*
 variable "cluster_catalogs" {
   type = map(object({
     helm_charts_repo_url = string
     helm_charts_repo_branch = string
   }))
-}
+}*/

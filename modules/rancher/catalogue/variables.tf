@@ -1,5 +1,5 @@
 variable "name" {
-  description = "The catalogue name"
+  description = "The catalog name"
   type        = string
 }
 

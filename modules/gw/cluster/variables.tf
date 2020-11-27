@@ -181,7 +181,7 @@ variable "cluster_apps" {
   description = "A list of apps"
   type = map(object({
     namespace = string
-    catalogue_name = string
+    catalog_name = string
     template_name = string
   }))
 }

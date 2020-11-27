@@ -76,7 +76,7 @@ resource "azurerm_lb_rule" "master_ingress_rule_1" {
   name                            = "MasterIngressRule-1"
   resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.master_lb.id                           
-  frontend_ip_configuration_name  = "Internal"     
+  frontend_ip_configuration_name  = "Private"     
   protocol                        = "Tcp"
   frontend_port                   = "6443"
   backend_port                    = "6443"
@@ -112,7 +112,7 @@ resource "azurerm_lb_rule" "worker_ingress_rule_1" {
   #location                       = var.azure_region
   resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.worker_lb.id                           
-  frontend_ip_configuration_name  = "PublicIPAddress"     
+  frontend_ip_configuration_name  = "Public"     
   protocol                        = "Tcp"
   frontend_port                   = var.public_port
   backend_port                    = var.backend_port

@@ -17,7 +17,7 @@
 |------|-------------|------|---------|:--------:|
 | helm\_charts\_repo\_branch | The branch name of the repo to the helm charts | `string` | n/a | yes |
 | helm\_charts\_repo\_url | The repo url to the helm charts | `string` | n/a | yes |
-| name | The catalogue name | `string` | n/a | yes |
+| name | The catalog name | `string` | n/a | yes |
 
 ## Outputs
 

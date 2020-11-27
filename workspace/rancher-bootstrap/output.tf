@@ -57,6 +57,19 @@ output "resource_group" {
 output "network" {
   value = module.rancher_server.rancher_network
 }
+
+output "subnet_name" {
+  value = module.rancher_server.subnet_name
+}
+
+output "subnet_id" {
+  value = module.rancher_server.subnet_id
+}
+
+output "region" {
+  value = var.azure_region
+}
+
 output "network_id" {
   value = module.rancher_server.network_id
 }

@@ -11,11 +11,11 @@ resource "rancher2_project" "main" {
   wait_for_cluster = true
 }
 
-module "clusters_apps"{
+module "cluster_apps" {
   source = "../helm-application"
   for_each         = var.cluster_apps
   namespace        = each.value.namespace
-  catalogue_name   = each.value.catalog_name
+  catalog_name     = each.value.catalog_name
   template_name    = each.value.template_name
   project_id       = rancher2_project.main.id
 }

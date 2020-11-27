@@ -7,7 +7,6 @@ variable "organisation" {
 variable "environment" {
   description = "Metadata Environment"
   type        = string
-  default     = "proto"
 }
 
 variable "project" {
@@ -19,7 +18,6 @@ variable "project" {
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "z1"
 }
 
 variable "azure_region" {

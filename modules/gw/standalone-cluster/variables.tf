@@ -44,21 +44,9 @@ variable "service_name" {
   type        = string
 }
 
-
-variable "cluster_quantity" {
-  description = "Quantity of clusters in Region"
-  type        = number
-}
-
 variable "suffix" {
   description = "The Suffix"
   type        = string
-}
-
-variable "infra_module" {
-  description = "The Suffix"
-  type        = string
-  default     = 0
 }
 
 variable "azure_region" {
@@ -87,6 +75,27 @@ variable "subscription_id" {
   type        = string
 }
 
+variable "cluster_resource_group_name" {
+  description = "Subnet Name"
+  type        = string
+}
+
+variable "cluster_network_name" {
+  description = "Subnet Name"
+  type        = string
+}
+
+variable "cluster_subnet_name" {
+  description = "Subnet Name"
+  type        = string
+}
+
+variable "cluster_subnet_id" {
+  description = "Subnet ID"
+  type        = string
+}
+
+/*
 variable "cluster_subnet_cidr" {
   description = "Subnet CIDR"
   type        = list(string)
@@ -96,7 +105,7 @@ variable "cluster_subnet_prefix" {
   description = "Subnet Prefix"
   type        = string
 }
-
+*/
 variable "public_key_openssh" {
   description = "The Node SSH key"
   type        = string
@@ -156,11 +165,11 @@ variable "worker_scaleset_sku_capacity" {
   description = "The Instance Size"
   type        = string
 }
-
+/*
 variable "cluster_address_space" {
   description = "Address Space"
   type        = list(string)
-}
+}*/
 
 variable "cluster_backend_port" {
   description = "Backend Port"
@@ -175,4 +184,20 @@ variable "cluster_public_port" {
 variable "rancher_projects" {
   description = "The Projects to create on a base k8s Cluster"
   type        = string
+}
+
+variable "cluster_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalog_name = string
+    template_name = string
+  }))
+}
+
+variable "cluster_catalogs" {
+  type = map(object({
+    helm_charts_repo_url = string
+    helm_charts_repo_branch = string
+  }))
 }
