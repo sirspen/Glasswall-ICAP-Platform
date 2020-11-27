@@ -16,7 +16,7 @@ terraform {
     resource_group_name  = "tf-state-resource-group"
     storage_account_name = "gwtfstatestorageaccount"
     container_name       = "tfstatecontainer"
-    key                  = "gw-rancher-protocluster-develop-terraform.tfstate"
+    key                  = "gw-rancher-develop-terraform.tfstate"
   }
 }
 
