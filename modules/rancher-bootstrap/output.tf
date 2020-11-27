@@ -74,10 +74,6 @@ output "network_name" {
   value = module.network.name
 }
 
-output "network_id" {
-  value = module.network.id
-}
-
 output "subnet_name" {
   value = module.subnet.name
 }
