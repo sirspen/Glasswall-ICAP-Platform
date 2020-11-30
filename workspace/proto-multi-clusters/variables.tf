@@ -137,7 +137,8 @@ variable "icap_cluster_apps" {
     system = {
       namespace       = "kube-system"
       catalog_name  = "icap-catalog"
-      template_name   = "systemclusterrole" 
+      template_name   = "systemclusterrole"
+      create_namespace = false
     }
   }
 }
@@ -158,7 +159,8 @@ variable "admin_cluster_apps" {
     system = {
       namespace       = "kube-system"
       catalog_name    = "admin-catalog"
-      template_name   = "systemclusterrole" 
+      template_name   = "systemclusterrole"
+      create_namespace = false
     }
   }
 }

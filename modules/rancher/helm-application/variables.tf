@@ -17,3 +17,8 @@ variable "namespace" {
   description = "Namespace"
   type = string
 }
+
+variable "create_namespace" {
+  type = bool
+  default = true
+}
