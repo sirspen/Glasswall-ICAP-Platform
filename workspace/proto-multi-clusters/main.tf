@@ -27,6 +27,12 @@ locals {
   rancher_region           = data.terraform_remote_state.rancher_server.outputs.region
   git_server_url           = data.terraform_remote_state.rancher_server.outputs.git_server_url
   public_key_openssh       = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
+  cluster_catalogs    = {
+    icap-catalog = {
+      helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
+      helm_charts_repo_branch = "add-image-registry"
+    }
+  }
   azure_icap_clusters      = {
     northeurope = {
       suffix                       = "z"
@@ -103,10 +109,18 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
+
+module "catalog" {
+    source                  = "../../modules/rancher/catalogue"
+    for_each                = local.cluster_catalogs
+    name                    = each.key
+    helm_charts_repo_url    = each.value.helm_charts_repo_url
+    helm_charts_repo_branch = each.value.helm_charts_repo_branch
+}
+
 module "icap_clusters" {
   source                       = "../../modules/gw/cluster"
   for_each                     = local.azure_icap_clusters
-
   cluster_quantity             = each.value.cluster_quantity
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
@@ -129,12 +143,6 @@ module "icap_clusters" {
   organisation                 = var.organisation
   environment                  = var.environment
   cluster_apps                 = var.icap_cluster_apps
-  cluster_catalogs             = {
-    icap-catalog = {
-      helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
-      helm_charts_repo_branch = "add-image-registry"
-    }
-  }
   rancher_admin_url            = local.rancher_api_url
   rancher_internal_api_url     = local.rancher_internal_api_url
   rancher_admin_token          = local.rancher_admin_token
@@ -184,12 +192,6 @@ module "admin_cluster" {
   #cluster_subnet_cidr          = var.cluster_subnet_cidr
   #cluster_subnet_prefix        = var.cluster_subnet_prefix
   cluster_apps                 = var.admin_cluster_apps
-  cluster_catalogs             = {
-    admin_catalog = {
-      helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
-      helm_charts_repo_branch = "add-image-registry"
-    }
-  }
   master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
   master_scaleset_sku_capacity = 1

@@ -105,7 +105,7 @@ resource "azurerm_lb_rule" "master_ingress_rule_1" {
   name                            = "MasterIngressRule-1"
   resource_group_name             = var.cluster_resource_group_name
   loadbalancer_id                 = module.master_lb.id                           
-  frontend_ip_configuration_name  = "Internal"     
+  frontend_ip_configuration_name  = "Private"     
   protocol                        = "Tcp"
   frontend_port                   = "6443"
   backend_port                    = "6443"
@@ -132,14 +132,6 @@ resource "azurerm_dns_a_record" "main_worker" {
   resource_group_name = "gw-icap-rg-dns"
   ttl                 = 300
   records             = [module.worker_lb.public_ip_address]
-}
-
-module "catalog" {
-    source                  = "../../rancher/catalogue"
-    for_each                = var.cluster_catalogs
-    name                    = each.key
-    helm_charts_repo_url    = each.value.helm_charts_repo_url
-    helm_charts_repo_branch = each.value.helm_charts_repo_branch
 }
 
 module "cluster" {

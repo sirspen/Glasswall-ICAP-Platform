@@ -168,10 +168,11 @@ variable "filedrop_cluster_apps" {
   }))
 }
 */
-/*
-variable "cluster_catalogs" {
+
+/*variable "cluster_catalogs" {
   type = map(object({
     helm_charts_repo_url = string
     helm_charts_repo_branch = string
   }))
+
 }*/

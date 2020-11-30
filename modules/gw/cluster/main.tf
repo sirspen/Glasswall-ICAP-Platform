@@ -19,13 +19,13 @@ module "setting" {
   setting_value     = var.rancher_internal_api_url
 }
 
-module "catalog" {
+/*module "catalog" {
     source                  = "../../rancher/catalogue"
     for_each                = var.cluster_catalogs
     name                    = each.key
     helm_charts_repo_url    = each.value.helm_charts_repo_url
     helm_charts_repo_branch = each.value.helm_charts_repo_branch
-}
+}*/
 
 # this module creates the resource group, network, subnet, peering connection.
 module "infra" {
