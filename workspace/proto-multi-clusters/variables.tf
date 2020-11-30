@@ -150,6 +150,11 @@ variable "admin_cluster_apps" {
     template_name = string
   }))
   default = {
+    admin = {
+      namespace       = "icap-administration"
+      catalog_name  = "icap-catalog"
+      template_name   = "icap-administration"
+    }
     system = {
       namespace       = "kube-system"
       catalog_name    = "admin-catalog"
