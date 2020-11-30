@@ -9,10 +9,10 @@ resource "azurerm_lb" "main" {
     subnet_id                     = var.subnet_id
   }
 }
-
+/*
 module "nat" {
   source    = "../nat-gateway"
   service_name    = var.service_name
   resource_group  = var.resource_group
   azure_region    = var.azure_region
-}
+}*/

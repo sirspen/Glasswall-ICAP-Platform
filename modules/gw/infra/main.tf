@@ -34,6 +34,18 @@ module "subnet" {
   address_prefixes        = var.cluster_subnet_cidr
 }
 
+module "nat" {
+  source    = "../../azure/nat-gateway"
+  service_name    = var.service_name
+  resource_group  = module.resource_group.name
+  azure_region    = var.azure_region
+}
+
+resource "azurerm_subnet_nat_gateway_association" "main" {
+  subnet_id      = module.subnet.id
+  nat_gateway_id = module.nat.nat_gateway_id
+}
+
 resource "azurerm_virtual_network_peering" "rancher_server" {
   name                        = "${var.suffix}PeerRanchertoICAP"
   resource_group_name         = var.rancher_resource_group

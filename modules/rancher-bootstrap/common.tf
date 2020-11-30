@@ -38,6 +38,18 @@ module "subnet" {
   address_prefixes     = var.subnet_address_prefixes
 }
 
+module "nat" {
+  source    = "../azure/nat-gateway"
+  service_name    = local.service_name
+  resource_group  = module.resource_group.name
+  azure_region    = var.azure_region
+}
+
+resource "azurerm_subnet_nat_gateway_association" "main" {
+  subnet_id      = module.subnet.id
+  nat_gateway_id = module.nat.nat_gateway_id
+}
+
 data "azurerm_dns_zone" "curlywurly_zone" {
   name                = "icap-proxy.curlywurly.me"
   resource_group_name = "gw-icap-rg-dns"

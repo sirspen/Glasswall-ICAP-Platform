@@ -126,17 +126,17 @@ variable "icap_cluster_apps" {
   default = {
     adaptation = {
       namespace       = "icap-adaptation"
-      catalog_name  = "icap_catalog"
+      catalog_name  = "icap-catalog"
       template_name   = "icap-adaptation"
     },
     rabbitmq = {
       namespace       = "icap-rabbitmq"
-      catalog_name  = "icap_catalog"
+      catalog_name  = "icap-catalog"
       template_name   = "icap-rabbitmq"
     },
     system = {
       namespace       = "kube-system"
-      catalog_name  = "icap_catalog"
+      catalog_name  = "icap-catalog"
       template_name   = "systemclusterrole" 
     }
   }
@@ -152,7 +152,7 @@ variable "admin_cluster_apps" {
   default = {
     system = {
       namespace       = "kube-system"
-      catalog_name    = "admin_catalog"
+      catalog_name    = "admin-catalog"
       template_name   = "systemclusterrole" 
     }
   }

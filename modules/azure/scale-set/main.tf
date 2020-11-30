@@ -77,7 +77,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
     ip_configuration {
       name                                   = "${var.service_name}-ip-config"
       primary                                = true
-      subnet_id                              = var.subnet_id
+      subnet_id                              =  var.subnet_id
       load_balancer_backend_address_pool_ids = var.lb_backend_address_pool_id
     }
       network_security_group_id              = module.security_group.id

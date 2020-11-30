@@ -1,6 +1,4 @@
 
-
-
 resource "azurerm_subnet" "net_subnet" {
   name                 = var.service_name  
   resource_group_name  = var.resource_group

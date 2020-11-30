@@ -1,5 +1,5 @@
 resource "azurerm_public_ip" "main" {
-  name                = "${var.service_name}-public-ip"
+  name                = "${var.service_name}-nat-public-ip"
   location            = var.azure_region
   resource_group_name = var.resource_group
   allocation_method   = "Static"

@@ -18,5 +18,7 @@ No requirements.
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| nat\_gateway\_id | n/a |
 
