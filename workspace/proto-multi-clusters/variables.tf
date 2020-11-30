@@ -46,38 +46,38 @@ variable "azure_region_r2" {
 variable "cluster_address_space_r1" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["172.22.0.0/16"]
+  default     = ["192.168.32.0/20"]
 }
 
 variable "cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
-  default     = ["172.23.0.0/16"]
+  default     = ["192.168.48.0/20"]
 }
 
 variable "cluster_subnet_cidr_r1" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["172.22.0.0/16"]
+  default     = ["192.168.32.0/21"]
 
 }
 
 variable "cluster_subnet_cidr_r2" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["172.23.0.0/16"]
+  default     = ["192.168.48.0/21"]
 }
 
 variable "cluster_subnet_prefix_r1" {
   description = "Subnet CIDR"
   type        = string
-  default     = "172.22.0.0/22"
+  default     = "192.168.32.0/21"
 }
 
 variable "cluster_subnet_prefix_r2" {
   description = "Subnet CIDR"
   type        = string
-  default     = "172.23.0.0/22"
+  default     = "192.168.48.0/21"
 }
 
 variable "public_port" {

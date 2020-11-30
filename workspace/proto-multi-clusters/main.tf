@@ -130,7 +130,7 @@ module "icap_clusters" {
   environment                  = var.environment
   cluster_apps                 = var.icap_cluster_apps
   cluster_catalogs             = {
-    icap_catalog = {
+    icap-catalog = {
       helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
       helm_charts_repo_branch = "add-image-registry"
     }
