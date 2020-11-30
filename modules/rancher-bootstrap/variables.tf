@@ -34,17 +34,17 @@ variable "custom_data_file_path" {
 variable "network_addresses" {
   description = "Network Addresses"
   type        = list(string)
-  default     = ["10.10.0.0/16"]
+  default     = ["192.168.0.0/20"]
 }
 
 variable "subnet_address_prefixes" {
   description = "Subnet CIDR"
   type        = list(string)
-  default     = ["10.10.2.0/24"]
+  default     = ["192.168.0.0/22"]
 }
 
 variable "subnet_prefix" {
   description = "Subnet Prefix"
   type        = string
-  default     = "10.10.2.0/24"
+  default     = "192.168.0.0/22"
 }

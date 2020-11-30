@@ -6,7 +6,7 @@ locals {
   project          = "${var.project}-${var.suffix}"
   short_region     = substr(var.azure_region, 0, 3)
   service_name     = "${var.organisation}-${local.project}-${var.environment}-${local.short_region}"
-  git_service_name = "${var.organisation}-git-server-${var.environment}-${local.short_region}"
+  git_service_name = "${var.organisation}-git-server-${var.suffix}-${var.environment}-${local.short_region}"
 }
 
 resource "tls_private_key" "ssh" {
