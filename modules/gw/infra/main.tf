@@ -1,7 +1,9 @@
 
 locals {
   service_name = "${var.service_name}-${var.suffix}1"
+  service_group = var.service_name
 }
+
 module "resource_group" {
   source                  = "../../azure/resource-group"
   name                    = local.service_name
@@ -64,6 +66,7 @@ module "int_worker_lb" {
   source                      = "../../azure/internal-load-balancer"
   azure_region                = var.azure_region
   service_name                = local.service_name
+  service_group               = var.service_name
   resource_group              = module.resource_group.name
   lb_probe_port               = "80"
   subnet_id                   = module.subnet.id

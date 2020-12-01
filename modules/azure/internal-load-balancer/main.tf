@@ -8,6 +8,10 @@ resource "azurerm_lb" "main" {
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = var.subnet_id
   }
+  tags = {
+    service_name = var.service_name    
+    service_group = var.service_group    
+  }
 }
 /*
 module "nat" {

@@ -19,4 +19,7 @@ resource "azurerm_lb" "lb" {
     name                 = "Public"
     public_ip_address_id = azurerm_public_ip.public_ip.id
   }
+  tags = {
+    service_name = var.service_name      
+  }
 }
