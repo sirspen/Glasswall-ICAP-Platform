@@ -179,6 +179,12 @@ variable "icap_cluster_apps" {
       template_name   = "icap-rabbitmq"
       create_namespace = true
     },
+    rabbitmq_operator = {
+      namespace       = "rabbitmq-operator"
+      catalog_name  = "icap-catalog"
+      template_name   = "rabbitmq-operator"
+      create_namespace = true
+    },
     rabbitmq_service = {
       namespace       = "rabbitmq-system"
       catalog_name  = "icap-catalog"
