@@ -180,5 +180,6 @@ variable "cluster_apps" {
     namespace = string
     catalog_name = string
     template_name = string
+    create_namespace = bool
   }))
 }

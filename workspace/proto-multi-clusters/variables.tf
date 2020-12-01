@@ -122,22 +122,26 @@ variable "icap_cluster_apps" {
     namespace = string
     catalog_name = string
     template_name = string
+    create_namespace = bool
   }))
   default = {
     adaptation = {
       namespace       = "icap-adaptation"
       catalog_name  = "icap-catalog"
       template_name   = "icap-adaptation"
+      create_namespace = true
     },
     rabbitmq = {
       namespace       = "icap-rabbitmq"
       catalog_name  = "icap-catalog"
       template_name   = "icap-rabbitmq"
+      create_namespace = true
     },
     system = {
       namespace       = "kube-system"
       catalog_name  = "icap-catalog"
-      template_name   = "systemclusterrole" 
+      template_name   = "systemclusterrole"
+      create_namespace = false
     }
   }
 }
@@ -148,17 +152,20 @@ variable "admin_cluster_apps" {
     namespace = string
     catalog_name = string
     template_name = string
+    create_namespace = bool
   }))
   default = {
     admin = {
       namespace       = "icap-administration"
       catalog_name  = "icap-catalog"
       template_name   = "icap-administration"
+      create_namespace = true
     }
     system = {
       namespace       = "kube-system"
-      catalog_name    = "admin-catalog"
-      template_name   = "systemclusterrole" 
+      catalog_name    = "icap-catalog"
+      template_name   = "systemclusterrole"
+      create_namespace = false
     }
   }
 }
