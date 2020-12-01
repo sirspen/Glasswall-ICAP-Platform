@@ -26,3 +26,8 @@ variable "azure_region" {
   default     = "ukwest"
 }
 
+variable "git_server_version" {
+  description = "Git server docker tag version"
+  type = string
+}
+

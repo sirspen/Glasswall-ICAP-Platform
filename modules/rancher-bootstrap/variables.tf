@@ -48,3 +48,8 @@ variable "subnet_prefix" {
   type        = string
   default     = "192.168.0.0/22"
 }
+
+variable "git_server_version" {
+  description = "Git server docker tag version"
+  type = string
+}
