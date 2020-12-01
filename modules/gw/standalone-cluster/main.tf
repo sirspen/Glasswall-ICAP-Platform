@@ -3,6 +3,12 @@ locals {
   cluster_name = "${var.service_name}-${local.short_region}-${var.suffix}"
 }
 
+module "resource_group" {
+  source                  = "../../azure/resource-group"
+  name                    = var.service_name
+  region                  = var.azure_region
+}
+
 module "azure_cloud_credentials" {
   source              = "../../rancher/cloud_credentials"
   rancher_admin_url   = var.rancher_admin_url
@@ -17,7 +23,7 @@ module "worker_lb" {
   source                      = "../../azure/load-balancer"
   azure_region                = var.azure_region
   service_name                = local.cluster_name
-  resource_group              = var.cluster_resource_group_name
+  resource_group              = module.resource_group.name
   lb_probe_port               = var.cluster_backend_port
 }
 /*
@@ -30,7 +36,7 @@ module "worker_lbint" {
 }*/
 
 resource "azurerm_lb_backend_address_pool" "worker_lbap" {
-  resource_group_name             = var.cluster_resource_group_name
+  resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.worker_lb.id
   name                            = "WorkerNodePool"
 }
@@ -43,7 +49,7 @@ resource "azurerm_lb_backend_address_pool" "worker_lbap_int" {
 */
 resource "azurerm_lb_probe" "worker_ingress_probe" {
   depends_on                      = [module.worker_lb]
-  resource_group_name             = var.cluster_resource_group_name
+  resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.worker_lb.id
   name                            = "WorkerNodesUp"
   port                            = var.cluster_backend_port
@@ -53,7 +59,7 @@ resource "azurerm_lb_rule" "worker_ingress_rule_1" {
   depends_on                      = [ azurerm_lb_probe.worker_ingress_probe, azurerm_lb_backend_address_pool.worker_lbap ]    
   name                            = "WorkerIngressRule-1"
   #location                       = var.azure_region
-  resource_group_name             = var.cluster_resource_group_name
+  resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.worker_lb.id                           
   frontend_ip_configuration_name  = "Public"     
   protocol                        = "Tcp"
@@ -151,7 +157,7 @@ module "cluster" {
   subscription_id                    = var.subscription_id
   azure_region                       = var.azure_region
   
-  resource_group_name                = var.cluster_resource_group_name
+  resource_group_name                = module.resource_group.name
   virtual_network_name               = var.cluster_network_name
   subnet_name                        = var.cluster_subnet_name
   subnet_id                          = var.cluster_subnet_id

@@ -4,7 +4,7 @@ output "cloud_credentials_id" {
 }
 
 output "resource_group_name" {
-  value = var.cluster_resource_group_name
+  value = module.resource_group.name
 }
 
 output "network_name" {

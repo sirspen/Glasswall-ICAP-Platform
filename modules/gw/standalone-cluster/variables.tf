@@ -32,13 +32,6 @@ variable "rancher_network" {
   type        = string
 }
 
-#Rancher API Admin Token
-variable "rancher_resource_group" {
-  description = "The Rancher Resource Group"
-  type        = string
-}
-
-
 variable "service_name" {
   description = "The name of the service"
   type        = string
