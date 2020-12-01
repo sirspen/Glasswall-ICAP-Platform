@@ -68,8 +68,8 @@ variable "subscription_id" {
   type        = string
 }
 
-variable "cluster_resource_group_name" {
-  description = "Subnet Name"
+variable "rancher_resource_group" {
+  description = "The rancher resource group"
   type        = string
 }
 

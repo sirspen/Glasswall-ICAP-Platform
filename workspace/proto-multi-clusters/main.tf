@@ -40,9 +40,9 @@ locals {
       azure_region                 = var.azure_region_r1
       cluster_backend_port         = var.backend_port
       cluster_public_port          = var.public_port
-      cluster_address_space        = var.cluster_address_space_r1
-      cluster_subnet_cidr          = var.cluster_subnet_cidr_r1
-      cluster_subnet_prefix        = var.cluster_subnet_prefix_r1
+      cluster_address_space        = var.icap_cluster_address_space_r1
+      cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r1
+      cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r1
       os_publisher                 = var.os_publisher
       os_offer                     = var.os_offer
       os_sku                       = var.os_sku
@@ -62,9 +62,9 @@ locals {
       azure_region                 = var.azure_region_r2
       cluster_backend_port         = var.backend_port
       cluster_public_port          = var.public_port
-      cluster_address_space        = var.cluster_address_space_r2
-      cluster_subnet_cidr          = var.cluster_subnet_cidr_r2
-      cluster_subnet_prefix        = var.cluster_subnet_prefix_r2
+      cluster_address_space        = var.icap_cluster_address_space_r2
+      cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r2
+      cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r2
       os_publisher                 = var.os_publisher
       os_offer                     = var.os_offer
       os_sku                       = var.os_sku
@@ -79,6 +79,30 @@ locals {
       icap_internal_services       = var.icap_internal_services
     }
   }
+  /*azure_filedrop_clusters      = {
+    northeurope = {
+      suffix                       = "z"
+      cluster_quantity             = 1
+      azure_region                 = var.azure_region_r1
+      cluster_backend_port         = var.backend_port
+      cluster_public_port          = var.public_port
+      cluster_address_space        = var.filedrop_cluster_address_space_r1
+      cluster_subnet_cidr          = var.filedrop_cluster_subnet_cidr_r1
+      cluster_subnet_prefix        = var.filedrop_cluster_subnet_prefix_r1
+      os_publisher                 = var.os_publisher
+      os_offer                     = var.os_offer
+      os_sku                       = var.os_sku
+      os_version                   = var.os_version
+      master_scaleset_size         = "Standard_DS4_v2"
+      master_scaleset_admin_user   = "azure-user"
+      master_scaleset_sku_capacity = 1
+      worker_scaleset_size         = "Standard_DS4_v2"
+      worker_scaleset_admin_user   = "azure-user"
+      worker_scaleset_sku_capacity = 2
+      rancher_projects             = "filedropservice"
+      icap_internal_services       = var.filedrop_internal_services
+    }
+  }*/
 }
 
 data "terraform_remote_state" "rancher_server" {
@@ -159,7 +183,48 @@ module "icap_clusters" {
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
 }
-
+/*
+module "filedrop_clusters" {
+  source                       = "../../modules/gw/cluster"
+  for_each                     = local.azure_filedrop_clusters
+  cluster_quantity             = each.value.cluster_quantity
+  suffix                       = each.value.suffix
+  azure_region                 = each.value.azure_region
+  rancher_projects             = each.value.rancher_projects
+  cluster_backend_port         = each.value.cluster_backend_port
+  cluster_public_port          = each.value.cluster_public_port
+  cluster_address_space        = each.value.cluster_address_space
+  cluster_subnet_cidr          = each.value.cluster_subnet_cidr
+  cluster_subnet_prefix        = each.value.cluster_subnet_prefix
+  cluster_internal_services    = each.value.filedrop_internal_services
+  os_publisher                 = each.value.os_publisher
+  os_offer                     = each.value.os_offer
+  os_sku                       = each.value.os_sku
+  os_version                   = each.value.os_version
+  master_scaleset_size         = each.value.master_scaleset_size
+  master_scaleset_admin_user   = each.value.master_scaleset_admin_user
+  master_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
+  worker_scaleset_size         = each.value.master_scaleset_size
+  worker_scaleset_admin_user   = each.value.master_scaleset_admin_user
+  worker_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
+  organisation                 = var.organisation
+  environment                  = var.environment
+  cluster_apps                 = var.filedrop_cluster_apps
+  cluster_backend_port         = var.filedrop_cluster_backend_port
+  cluster_public_port          = var.filedrop_cluster_public_port
+  rancher_admin_url            = local.rancher_api_url
+  rancher_internal_api_url     = local.rancher_internal_api_url
+  rancher_admin_token          = local.rancher_admin_token
+  rancher_network              = local.rancher_network
+  rancher_resource_group       = local.rancher_resource_group
+  service_name                 = local.service_name
+  client_id                    = data.azurerm_key_vault_secret.az-client-id.value
+  client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
+  subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
+  tenant_id                    = var.tenant_id
+  public_key_openssh           = local.public_key_openssh
+  rancher_network_id           = local.rancher_network_id
+}*/
 
 module "admin_cluster" {
   source                       = "../../modules/gw/standalone-cluster"
@@ -172,12 +237,11 @@ module "admin_cluster" {
   rancher_network_id           = local.rancher_network_id
   # we may not want to always reuse the same resource_group.
   rancher_resource_group       = local.rancher_resource_group
-  cluster_resource_group_name  = local.rancher_resource_group
   cluster_network_name         = local.rancher_network_name
   cluster_subnet_name          = local.rancher_subnet_name
   cluster_subnet_id            = local.rancher_subnet_id
   service_name                 = local.admin_service_name
-  suffix                       = "a"
+  suffix                       = "z1"
   azure_region                 = local.rancher_region
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
@@ -189,8 +253,8 @@ module "admin_cluster" {
   os_sku                       = var.os_sku
   os_version                   = var.os_version
   rancher_projects             = "adminservice"
-  cluster_backend_port         = 32323 #var.cluster_backend_port
-  cluster_public_port          = 443 #var.cluster_public_port
+  cluster_backend_port         = var.admin_cluster_backend_port
+  cluster_public_port          = var.admin_cluster_public_port
   #cluster_address_space        = var.cluster_address_space
   #cluster_subnet_cidr          = var.cluster_subnet_cidr
   #cluster_subnet_prefix        = var.cluster_subnet_prefix

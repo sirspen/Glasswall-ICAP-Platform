@@ -69,6 +69,9 @@ write_files:
 
 runcmd:
  - yum update -y
+ - mkdir -p /mnt/docker
+ - ln -s /var/lib/docker /mnt/docker
+ - yum update -y
  - curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
  - curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
  - usermod -aG docker azure-user

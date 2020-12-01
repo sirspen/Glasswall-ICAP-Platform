@@ -43,41 +43,83 @@ variable "azure_region_r2" {
   type        = string
   default     = "ukwest"
 }
-variable "cluster_address_space_r1" {
+
+variable "icap_cluster_address_space_r1" {
   description = "Network CIDR"
   type        = list(string)
   default     = ["192.168.32.0/20"]
 }
 
-variable "cluster_address_space_r2" {
+variable "icap_cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
   default     = ["192.168.48.0/20"]
 }
 
-variable "cluster_subnet_cidr_r1" {
+variable "icap_cluster_subnet_cidr_r1" {
   description = "Subnet CIDR"
   type        = list(string)
   default     = ["192.168.32.0/21"]
 
 }
 
-variable "cluster_subnet_cidr_r2" {
+variable "icap_cluster_subnet_cidr_r2" {
   description = "Subnet CIDR"
   type        = list(string)
   default     = ["192.168.48.0/21"]
 }
 
-variable "cluster_subnet_prefix_r1" {
+variable "icap_cluster_subnet_prefix_r1" {
   description = "Subnet CIDR"
   type        = string
   default     = "192.168.32.0/21"
 }
 
-variable "cluster_subnet_prefix_r2" {
+variable "icap_cluster_subnet_prefix_r2" {
   description = "Subnet CIDR"
   type        = string
   default     = "192.168.48.0/21"
+}
+
+variable "filedrop_cluster_address_space_r1" {
+  description = "Network CIDR"
+  type        = list(string)
+  default     = ["192.168.64.0/20"]
+}
+
+variable "filedrop_cluster_subnet_cidr_r1" {
+  description = "Subnet CIDR"
+  type        = list(string)
+  default     = ["192.168.64.0/21"]
+}
+variable "filedrop_cluster_subnet_prefix_r1" {
+  description = "Subnet CIDR"
+  type        = string
+  default     = "192.168.64.0/21"
+}
+
+variable "filedrop_cluster_backend_port" {
+  description = "Public Port"
+  type        = string
+  default     = 443
+}
+
+variable "filedrop_cluster_public_port" {
+  description = "Backend Port"
+  type        = string
+  default     = 32323
+}
+
+variable "admin_cluster_backend_port" {
+  description = "Public Port"
+  type        = string
+  default     = 443
+}
+
+variable "admin_cluster_public_port" {
+  description = "Backend Port"
+  type        = string
+  default     = 32323
 }
 
 variable "public_port" {
