@@ -54,6 +54,7 @@ locals {
       worker_scaleset_admin_user   = "azure-user"
       worker_scaleset_sku_capacity = 2
       rancher_projects             = "icapservice"
+      icap_internal_services       = var.icap_internal_services
   },
   ukwest = {
       suffix                       = "y"
@@ -75,6 +76,7 @@ locals {
       worker_scaleset_admin_user   = "azure-user"
       worker_scaleset_sku_capacity = 2
       rancher_projects             =  "icapservice"
+      icap_internal_services       = var.icap_internal_services
     }
   }
 }
@@ -130,6 +132,7 @@ module "icap_clusters" {
   cluster_address_space        = each.value.cluster_address_space
   cluster_subnet_cidr          = each.value.cluster_subnet_cidr
   cluster_subnet_prefix        = each.value.cluster_subnet_prefix
+  cluster_internal_services    = each.value.icap_internal_services
   os_publisher                 = each.value.os_publisher
   os_offer                     = each.value.os_offer
   os_sku                       = each.value.os_sku

@@ -76,7 +76,7 @@ resource "azurerm_lb_rule" "worker_internal_ingress_rule_1" {
   probe_id                        = azurerm_lb_probe.worker_ingress_probe.id
   backend_address_pool_id         = azurerm_lb_backend_address_pool.worker_lbap.id
 }*/
-
+/*
 module "master_lb" {
   source                      = "../../azure/internal-load-balancer"
   azure_region                = var.azure_region
@@ -111,13 +111,13 @@ resource "azurerm_lb_rule" "master_ingress_rule_1" {
   backend_port                    = "6443"
   probe_id                        = azurerm_lb_probe.master_ingress_probe.id
   backend_address_pool_id         = azurerm_lb_backend_address_pool.master_lbap.id
-}
+}*/
 
 data "azurerm_dns_zone" "curlywurly_zone" {
   name                = "icap-proxy.curlywurly.me"
   resource_group_name = "gw-icap-rg-dns"
 }
-
+/*
 resource "azurerm_dns_a_record" "main_master" {
   name                = "${local.cluster_name}-k8s-${var.suffix}"
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
@@ -125,7 +125,7 @@ resource "azurerm_dns_a_record" "main_master" {
   ttl                 = 300
   records             = [module.master_lb.private_ip_address]
 }
-
+*/
 resource "azurerm_dns_a_record" "main_worker" {
   name                = local.cluster_name
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
@@ -156,12 +156,9 @@ module "cluster" {
   subnet_name                        = var.cluster_subnet_name
   subnet_id                          = var.cluster_subnet_id
   
-  master_dns_name                    = azurerm_dns_a_record.main_master.fqdn
   master_scaleset_size               = var.master_scaleset_size
   master_scaleset_sku_capacity       = var.master_scaleset_sku_capacity
   master_scaleset_admin_user         = var.master_scaleset_admin_user
-  master_lb_backend_address_pool_id  = [azurerm_lb_backend_address_pool.master_lbap.id]
-  master_lb_probe_id                 = azurerm_lb_probe.master_ingress_probe.id
   
   worker_scaleset_size               = var.worker_scaleset_size
   worker_scaleset_sku_capacity       = var.worker_scaleset_sku_capacity

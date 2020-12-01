@@ -44,6 +44,7 @@ module "infra" {
   subscription_id          = var.subscription_id
   cluster_address_space    = var.cluster_address_space
   cluster_subnet_cidr      = var.cluster_subnet_cidr
+  cluster_internal_services = var.cluster_internal_services
   public_key_openssh       = var.public_key_openssh
   rancher_resource_group   = var.rancher_resource_group
   rancher_network_id       = var.rancher_network_id
@@ -75,12 +76,10 @@ module "cluster" {
   subnet_name                    = module.infra.subnet_name
   subnet_id                         = module.infra.subnet_id
   
-  master_dns_name                   = module.infra.master_lb_dns_name
+
   master_scaleset_size              = var.master_scaleset_size
   master_scaleset_sku_capacity      = var.master_scaleset_sku_capacity
   master_scaleset_admin_user        = var.master_scaleset_admin_user
-  master_lb_backend_address_pool_id = [module.infra.master_lbap_id]
-  master_lb_probe_id                = module.infra.master_ingress_probe_id
   
   worker_scaleset_size              = var.worker_scaleset_size
   worker_scaleset_sku_capacity      = var.worker_scaleset_sku_capacity

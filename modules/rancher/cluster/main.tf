@@ -28,10 +28,10 @@ resource "rancher2_cluster" "main" {
       plugin  = var.cluster_network_plugin
     }
     services {
-      kubelet{
+       /*kubelet{
         cluster_domain = var.master_dns_name
       }
-      /*etcd {
+     etcd {
         creation = "6h"
         retention = "24h"
       }
@@ -102,9 +102,9 @@ module "master_scaleset" {
       destination_address_prefix = "*"
     }
   }
-  loadbalancer               = true
-  lb_backend_address_pool_id = var.master_lb_backend_address_pool_id
-  lb_probe_id                = var.master_lb_probe_id 
+  loadbalancer               = false
+  #lb_backend_address_pool_id = var.master_lb_backend_address_pool_id
+  #lb_probe_id                = var.master_lb_probe_id 
 }
 
 module "worker_scaleset" {

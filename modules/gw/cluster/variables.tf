@@ -186,10 +186,19 @@ variable "cluster_apps" {
     create_namespace = bool
   }))
 }
-/*
-variable "cluster_catalogs" {
+
+variable "cluster_internal_services" {
+  description = "Ports to open on the internal load balancer"
   type = map(object({
-    helm_charts_repo_url = string
-    helm_charts_repo_branch = string
+      protocol                        = string
+      frontend_port                   = number
+      backend_port                    = number
   }))
-}*/
+  default = {
+    PolicyUpdateService = {
+      protocol                        = "tcp"
+      frontend_port                   = 32324
+      backend_port                    = 32324
+    }
+  }
+}

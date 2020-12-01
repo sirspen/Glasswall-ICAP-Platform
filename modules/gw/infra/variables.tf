@@ -101,3 +101,12 @@ variable "public_port" {
   description = "Public Port"
   type        = string
 }
+
+variable "cluster_internal_services" {
+  description = "Ports to open on the internal load balancer"
+  type = map(object({
+      protocol                        = string
+      frontend_port                   = number
+      backend_port                    = number
+  }))
+}

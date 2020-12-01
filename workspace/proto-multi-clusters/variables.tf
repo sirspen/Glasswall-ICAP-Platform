@@ -170,6 +170,53 @@ variable "admin_cluster_apps" {
   }
 }
 
+variable "icap_internal_services" {
+  description = "Ports to open on the internal load balancer"
+  type = map(object({
+      protocol                        = string
+      frontend_port                   = number
+      backend_port                    = number
+  }))
+  default = {
+    PolicyUpdateService = {
+      protocol                        = "tcp"
+      frontend_port                   = 32324
+      backend_port                    = 32324
+    }
+  }
+}
+
+variable "admin_internal_services" {
+  description = "Ports to open on the internal load balancer"
+  type = map(object({
+      protocol                        = string
+      frontend_port                   = number
+      backend_port                    = number
+  }))
+  default = {
+    PolicyUpdateService = {
+      protocol                        = "tcp"
+      frontend_port                   = 32324
+      backend_port                    = 32324
+    }
+  }
+}
+
+variable "filedrop_internal_services" {
+  description = "Ports to open on the internal load balancer"
+  type = map(object({
+      protocol                        = string
+      frontend_port                   = number
+      backend_port                    = number
+  }))
+  default = {
+    PolicyUpdateService = {
+      protocol                        = "tcp"
+      frontend_port                   = 32324
+      backend_port                    = 32324
+    }
+  }
+}
 /*
 variable "filedrop_cluster_apps" {
   description = "A list of apps"

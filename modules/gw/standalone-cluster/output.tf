@@ -66,11 +66,3 @@ output "cluster_worker_lb_dns_name" {
 output "worker_lb_ip_address" {
   value = module.worker_lb.public_ip_address
 }
-
-output "cluster_master_lb_dns_name" {
-  value = azurerm_dns_a_record.main_master.fqdn
-}
-
-output "master_lb_ip_address" {
-  value = module.master_lb.private_ip_address
-}

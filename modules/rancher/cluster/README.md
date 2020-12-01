@@ -18,14 +18,11 @@
 | azure\_region | The cloud region | `string` | n/a | yes |
 | client\_id | Service Principal ClientID | `string` | n/a | yes |
 | client\_secret | Service Principal Secret | `string` | n/a | yes |
-| cluster\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>  }))</pre> | n/a | yes |
+| cluster\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>  }))</pre> | n/a | yes |
 | cluster\_name | This is the name of the cluster | `string` | n/a | yes |
 | cluster\_network\_plugin | Set the network plugin | `string` | `"canal"` | no |
 | environment | Metadata Environment | `string` | n/a | yes |
 | kubernetes\_version | The Kubernetes version | `string` | `"v1.19.2-rancher1-1"` | no |
-| master\_dns\_name | The K8S Master DNS Name | `string` | n/a | yes |
-| master\_lb\_backend\_address\_pool\_id | The K8S Worker Scaleset admin user | `list(string)` | n/a | yes |
-| master\_lb\_probe\_id | The K8S Worker LB Probe ID from Infra module | `string` | n/a | yes |
 | master\_scaleset\_admin\_user | The K8S Master Scaleset admin user | `string` | n/a | yes |
 | master\_scaleset\_size | The K8S Master Scaleset size | `string` | n/a | yes |
 | master\_scaleset\_sku\_capacity | The K8S Master Scaleset sku capacity | `string` | n/a | yes |

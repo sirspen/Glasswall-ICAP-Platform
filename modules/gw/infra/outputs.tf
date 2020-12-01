@@ -22,32 +22,35 @@ output "worker_lb_id" {
   value = module.worker_lb.id   
 }
 
-output "master_lb_id" {
-  value = module.master_lb.id   
+output "int_worker_lb_id" {
+  value = module.int_worker_lb.id   
 }
 
 output "worker_lbap_id" {
   value = azurerm_lb_backend_address_pool.worker_lbap.id
 }
 
-output "master_lbap_id" {
-  value = azurerm_lb_backend_address_pool.master_lbap.id
+output "int_worker_lbap_id" {
+  value = azurerm_lb_backend_address_pool.int_worker_lbap.id
 }
 
-output "master_ingress_probe_id" {
-  value = azurerm_lb_probe.master_ingress_probe.id
+output "int_worker_ingress_probe_id" {
+  value = azurerm_lb_probe.int_worker_ingress_probe.id
 }
 
-output "master_ingress_rule_1_id" {
-  value = azurerm_lb_rule.master_ingress_rule_1.id  
+output "int_worker_ingress_rules_ids" {
+   value = flatten([
+    for rule in azurerm_lb_rule.int_worker_ingress_rules:
+      rule.id
+  ]) 
 }
 
-output "master_lb_dns_name" {
-  value = azurerm_dns_a_record.main_master.fqdn
+output "int_worker_lb_dns_name" {
+  value = azurerm_dns_a_record.main_int_worker.fqdn
 }
 
-output "master_lb_ip_address" {
-  value = module.master_lb.private_ip_address
+output "int_worker_lb_ip_address" {
+  value = module.int_worker_lb.private_ip_address
 }
 
 output "worker_ingress_probe_id" {

@@ -114,11 +114,6 @@ variable "os_version" {
   default     = "latest"
 }
 
-variable "master_dns_name" {
-  description = "The K8S Master DNS Name"
-  type        = string
-}
-
 variable "master_scaleset_size" {
   description = "The K8S Master Scaleset size"
   type        = string
@@ -155,16 +150,6 @@ variable "worker_lb_backend_address_pool_id" {
 }
 
 variable "worker_lb_probe_id" {
-  description = "The K8S Worker LB Probe ID from Infra module"
-  type        = string
-}
-
-variable "master_lb_backend_address_pool_id" {
-  description = "The K8S Worker Scaleset admin user"
-  type        = list(string)
-}
-
-variable "master_lb_probe_id" {
   description = "The K8S Worker LB Probe ID from Infra module"
   type        = string
 }

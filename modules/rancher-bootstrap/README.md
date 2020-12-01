@@ -22,6 +22,7 @@
 | azure\_region | Set the Azure Region | `string` | n/a | yes |
 | custom\_data\_file\_path | Bootstrap the virtual machine with this file | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
+| git\_server\_version | Git server docker tag version | `string` | n/a | yes |
 | network\_addresses | Network Addresses | `list(string)` | <pre>[<br>  "192.168.0.0/20"<br>]</pre> | no |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | project | Metadata Project | `string` | n/a | yes |
