@@ -8,6 +8,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "system_id" {
+  description = "The system project id"
+  type        = string
+}
+
 variable "template_name" {
   description = "Helm template name"
   type = string
@@ -20,5 +25,4 @@ variable "namespace" {
 
 variable "create_namespace" {
   type = bool
-  default = true
 }

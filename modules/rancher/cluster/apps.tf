@@ -23,5 +23,7 @@ module "cluster_apps" {
   namespace        = each.value.namespace
   catalog_name     = each.value.catalog_name
   template_name    = each.value.template_name
+  create_namespace = each.value.create_namespace
   project_id       = rancher2_project.main.id
+  system_id = data.rancher2_project.system.id
 }
