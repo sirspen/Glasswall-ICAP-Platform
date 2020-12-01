@@ -194,11 +194,4 @@ variable "cluster_internal_services" {
       frontend_port                   = number
       backend_port                    = number
   }))
-  default = {
-    PolicyUpdateService = {
-      protocol                        = "tcp"
-      frontend_port                   = 32324
-      backend_port                    = 32324
-    }
-  }
 }
