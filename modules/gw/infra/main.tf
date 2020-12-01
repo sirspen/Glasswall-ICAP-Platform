@@ -141,7 +141,7 @@ data "azurerm_dns_zone" "curlywurly_zone" {
 }
 
 resource "azurerm_dns_a_record" "main_int_worker" {
-  name                = "${local.service_name}-int-${var.suffix}"
+  name                = "${local.service_name}-int"
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
   resource_group_name = "gw-icap-rg-dns"
   ttl                 = 300

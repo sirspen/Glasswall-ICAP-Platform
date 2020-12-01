@@ -10,21 +10,21 @@ module "resource_group" {
 }
 
 module "azure_cloud_credentials" {
-  source              = "../../rancher/cloud_credentials"
-  rancher_admin_url   = var.rancher_admin_url
-  rancher_admin_token = var.rancher_admin_token
-  credential_name     = local.cluster_name
-  client_id           = var.client_id
-  client_secret       = var.client_secret
-  subscription_id     = var.subscription_id
+  source                 = "../../rancher/cloud_credentials"
+  rancher_admin_url      = var.rancher_admin_url
+  rancher_admin_token    = var.rancher_admin_token
+  credential_name        = local.cluster_name
+  client_id              = var.client_id
+  client_secret          = var.client_secret
+  subscription_id        = var.subscription_id
 }
 
 module "worker_lb" {
-  source                      = "../../azure/load-balancer"
-  azure_region                = var.azure_region
-  service_name                = local.cluster_name
-  resource_group              = module.resource_group.name
-  lb_probe_port               = var.cluster_backend_port
+  source                 = "../../azure/load-balancer"
+  azure_region           = var.azure_region
+  service_name           = local.cluster_name
+  resource_group         = module.resource_group.name
+  lb_probe_port          = var.cluster_backend_port
 }
 /*
 module "worker_lbint" {
