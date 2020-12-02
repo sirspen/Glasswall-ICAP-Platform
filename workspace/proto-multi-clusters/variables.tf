@@ -216,9 +216,9 @@ variable "icap_cluster_apps" {
       create_namespace = true
     },
     rabbitmq_service = {
-      namespace       = "rabbitmq-system"
+      namespace       = "icap-rabbitmq-service"
       catalog_name  = "icap-catalog"
-      template_name   = "rabbitmq-system"
+      template_name   = "icap-rabbitmq-service"
       create_namespace = true
     },
     system = {
