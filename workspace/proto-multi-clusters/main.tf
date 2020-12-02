@@ -27,16 +27,16 @@ locals {
   rancher_region           = data.terraform_remote_state.rancher_server.outputs.region
   git_server_url           = data.terraform_remote_state.rancher_server.outputs.git_server_url
   public_key_openssh       = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
-  cluster_catalogs    = {
+  cluster_catalogs = {
     icap-catalog = {
       helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
       helm_charts_repo_branch = "add-image-registry"
     }
   }
-  azure_icap_clusters      = {
+  azure_icap_clusters = {
     northeurope = {
-      suffix                       = "z"
-      cluster_quantity             = 1
+      suffix                       = var.icap_cluster_suffix_r1
+      cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r1
       cluster_backend_port         = var.backend_port
       cluster_public_port          = var.public_port
@@ -49,16 +49,16 @@ locals {
       os_version                   = var.os_version
       master_scaleset_size         = "Standard_DS4_v2"
       master_scaleset_admin_user   = "azure-user"
-      master_scaleset_sku_capacity = 1
+      master_scaleset_sku_capacity = var.icap_master_scaleset_sku_capacity
       worker_scaleset_size         = "Standard_DS4_v2"
       worker_scaleset_admin_user   = "azure-user"
-      worker_scaleset_sku_capacity = 2
+      worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
   },
   ukwest = {
-      suffix                       = "y"
-      cluster_quantity             = 1
+      suffix                       = var.icap_cluster_suffix_r2
+      cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r2
       cluster_backend_port         = var.backend_port
       cluster_public_port          = var.public_port
@@ -71,10 +71,10 @@ locals {
       os_version                   = var.os_version
       master_scaleset_size         = "Standard_DS4_v2"
       master_scaleset_admin_user   = "azure-user"
-      master_scaleset_sku_capacity = 1
+      master_scaleset_sku_capacity = var.icap_master_scaleset_sku_capacity
       worker_scaleset_size         = "Standard_DS4_v2"
       worker_scaleset_admin_user   = "azure-user"
-      worker_scaleset_sku_capacity = 2
+      worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             =  "icapservice"
       icap_internal_services       = var.icap_internal_services
     }

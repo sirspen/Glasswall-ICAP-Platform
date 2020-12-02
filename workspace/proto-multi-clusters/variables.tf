@@ -81,6 +81,36 @@ variable "icap_cluster_subnet_prefix_r2" {
   default     = "192.168.48.0/21"
 }
 
+variable "icap_cluster_suffix_r1" {
+  description = "Cluster suffix for the region"
+  type        = string
+  default     = "z"
+}
+
+variable "icap_cluster_suffix_r2" {
+  description = "Cluster suffix for the region"
+  type        = string
+  default     = "y"
+}
+
+variable "icap_cluster_quantity" {
+  description = "Total clusters in a region"
+  type        = number
+  default     = 1
+}
+
+variable "icap_master_scaleset_sku_capacity" {
+  description = "Total master servers in a cluster in a region"
+  type        = number
+  default     = 1
+}
+
+variable "icap_worker_scaleset_sku_capacity" {
+  description = "Total worker servers in a cluster in a region"
+  type        = number
+  default     = 1
+}
+
 variable "filedrop_cluster_address_space_r1" {
   description = "Network CIDR"
   type        = list(string)
