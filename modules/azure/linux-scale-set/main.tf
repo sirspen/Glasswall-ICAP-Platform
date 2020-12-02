@@ -115,13 +115,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
       network_security_group_id              = module.security_group.id
   }
 
-  tags = {
-    "cluster-autoscaler" = var.tag_cluster_asg_state
-    "cluster" = var.tag_cluster_name
-    "roles" = var.service_role
-  }
-
-
   network_interface {    
     name    = "${var.service_name}-net-profile"
     primary = true
