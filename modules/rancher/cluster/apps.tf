@@ -16,14 +16,28 @@ resource "rancher2_project" "main" {
   }
 }
 
-module "cluster_apps" {
-  source = "../helm-application"
+module "cluster_apps_stage1" {
+  source           = "../helm-application"
   depends_on       = [rancher2_project.main]
-  for_each         = var.cluster_apps
+  for_each         = var.cluster_stage1_apps
   namespace        = each.value.namespace
   catalog_name     = each.value.catalog_name
   template_name    = each.value.template_name
   create_namespace = each.value.create_namespace
   project_id       = rancher2_project.main.id
-  system_id = data.rancher2_project.system.id
+  system_id        = data.rancher2_project.system.id
+  system_app       = each.value.system_app
+}
+
+module "cluster_apps_stage2" {
+  source           = "../helm-application"
+  depends_on       = [module.cluster_apps_stage1]
+  for_each         = var.cluster_stage2_apps
+  namespace        = each.value.namespace
+  catalog_name     = each.value.catalog_name
+  template_name    = each.value.template_name
+  create_namespace = each.value.create_namespace
+  project_id       = rancher2_project.main.id
+  system_id        = data.rancher2_project.system.id
+  system_app       = each.value.system_app
 }

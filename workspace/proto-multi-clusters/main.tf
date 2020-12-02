@@ -29,7 +29,7 @@ locals {
   public_key_openssh       = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
   cluster_catalogs = {
     icap-catalog = {
-      helm_charts_repo_url = "${local.git_server_url}/icap-infrastructure.git"
+      helm_charts_repo_url    = "${local.git_server_url}/icap-infrastructure.git"
       helm_charts_repo_branch = "add-image-registry"
     }
   }
@@ -55,8 +55,8 @@ locals {
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
-  },
-  ukwest = {
+    },
+    ukwest = {
       suffix                       = var.icap_cluster_suffix_r2
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r2
@@ -75,7 +75,7 @@ locals {
       worker_scaleset_size         = "Standard_DS4_v2"
       worker_scaleset_admin_user   = "azure-user"
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
-      rancher_projects             =  "icapservice"
+      rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
     }
   }
@@ -137,11 +137,11 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
 
 
 module "catalog" {
-    source                  = "../../modules/rancher/catalogue"
-    for_each                = local.cluster_catalogs
-    name                    = each.key
-    helm_charts_repo_url    = each.value.helm_charts_repo_url
-    helm_charts_repo_branch = each.value.helm_charts_repo_branch
+  source                  = "../../modules/rancher/catalogue"
+  for_each                = local.cluster_catalogs
+  name                    = each.key
+  helm_charts_repo_url    = each.value.helm_charts_repo_url
+  helm_charts_repo_branch = each.value.helm_charts_repo_branch
 }
 
 module "icap_clusters" {
@@ -169,7 +169,8 @@ module "icap_clusters" {
   worker_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
   organisation                 = var.organisation
   environment                  = var.environment
-  cluster_apps                 = var.icap_cluster_apps
+  cluster_stage1_apps          = var.icap_cluster_stage1_apps
+  cluster_stage2_apps          = var.icap_cluster_stage2_apps
   rancher_admin_url            = local.rancher_api_url
   rancher_internal_api_url     = local.rancher_internal_api_url
   rancher_admin_token          = local.rancher_admin_token
@@ -227,38 +228,39 @@ module "filedrop_clusters" {
 }*/
 
 module "admin_cluster" {
-  source                       = "../../modules/gw/standalone-cluster"
-  organisation                 = var.organisation
-  environment                  = var.environment
-  rancher_admin_url            = local.rancher_api_url
-  rancher_internal_api_url     = local.rancher_internal_api_url
-  rancher_admin_token          = local.rancher_admin_token
-  rancher_network              = local.rancher_network
-  rancher_network_id           = local.rancher_network_id
+  source                   = "../../modules/gw/standalone-cluster"
+  organisation             = var.organisation
+  environment              = var.environment
+  rancher_admin_url        = local.rancher_api_url
+  rancher_internal_api_url = local.rancher_internal_api_url
+  rancher_admin_token      = local.rancher_admin_token
+  rancher_network          = local.rancher_network
+  rancher_network_id       = local.rancher_network_id
   # we may not want to always reuse the same resource_group.
-  rancher_resource_group       = local.rancher_resource_group
-  cluster_network_name         = local.rancher_network_name
-  cluster_subnet_name          = local.rancher_subnet_name
-  cluster_subnet_id            = local.rancher_subnet_id
-  service_name                 = local.admin_service_name
-  suffix                       = "z1"
-  azure_region                 = local.rancher_region
-  client_id                    = data.azurerm_key_vault_secret.az-client-id.value
-  client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
-  subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
-  tenant_id                    = var.tenant_id
-  public_key_openssh           = local.public_key_openssh
-  os_publisher                 = var.os_publisher
-  os_offer                     = var.os_offer
-  os_sku                       = var.os_sku
-  os_version                   = var.os_version
-  rancher_projects             = "adminservice"
-  cluster_backend_port         = var.admin_cluster_backend_port
-  cluster_public_port          = var.admin_cluster_public_port
+  rancher_resource_group = local.rancher_resource_group
+  cluster_network_name   = local.rancher_network_name
+  cluster_subnet_name    = local.rancher_subnet_name
+  cluster_subnet_id      = local.rancher_subnet_id
+  service_name           = local.admin_service_name
+  suffix                 = "z1"
+  azure_region           = local.rancher_region
+  client_id              = data.azurerm_key_vault_secret.az-client-id.value
+  client_secret          = data.azurerm_key_vault_secret.az-client-secret.value
+  subscription_id        = data.azurerm_key_vault_secret.az-subscription-id.value
+  tenant_id              = var.tenant_id
+  public_key_openssh     = local.public_key_openssh
+  os_publisher           = var.os_publisher
+  os_offer               = var.os_offer
+  os_sku                 = var.os_sku
+  os_version             = var.os_version
+  rancher_projects       = "adminservice"
+  cluster_backend_port   = var.admin_cluster_backend_port
+  cluster_public_port    = var.admin_cluster_public_port
   #cluster_address_space        = var.cluster_address_space
   #cluster_subnet_cidr          = var.cluster_subnet_cidr
   #cluster_subnet_prefix        = var.cluster_subnet_prefix
-  cluster_apps                 = var.admin_cluster_apps
+  cluster_stage1_apps = var.admin_cluster_stage1_apps
+  cluster_stage2_apps = var.admin_cluster_stage2_apps
   master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
   master_scaleset_sku_capacity = 1

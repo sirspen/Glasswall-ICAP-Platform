@@ -26,3 +26,7 @@ variable "namespace" {
 variable "create_namespace" {
   type = bool
 }
+
+variable "system_app" {
+  type = bool
+}

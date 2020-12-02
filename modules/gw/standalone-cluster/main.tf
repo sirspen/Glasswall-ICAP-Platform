@@ -149,7 +149,8 @@ module "cluster" {
   rancher_internal_api_url           = var.rancher_internal_api_url
   rancher_admin_token                = var.rancher_admin_token
   rancher_projects                   = var.rancher_projects
-  cluster_apps                       = var.cluster_apps
+  cluster_stage1_apps                = var.cluster_stage1_apps
+  cluster_stage2_apps                = var.cluster_stage2_apps
   cluster_name                       = local.cluster_name
   client_id                          = var.client_id
   tenant_id                          = var.tenant_id

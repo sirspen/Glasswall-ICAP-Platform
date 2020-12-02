@@ -57,23 +57,24 @@ module "cluster" {
   source                         = "../../rancher/cluster"
   count                          = var.cluster_quantity
 
-  organisation                   = var.organisation
-  environment                    = var.environment
-  rancher_admin_url              = var.rancher_admin_url
-  rancher_internal_api_url       = var.rancher_internal_api_url
-  rancher_admin_token            = var.rancher_admin_token
-  rancher_projects               = var.rancher_projects
-  cluster_name                   = "${local.cluster_name}${count.index+1}"
-  cluster_apps                   = var.cluster_apps
-  client_id                      = var.client_id
-  tenant_id                      = var.tenant_id
-  client_secret                  = var.client_secret
-  subscription_id                = var.subscription_id
-  azure_region                   = var.azure_region
-  
-  resource_group_name            = module.infra.resource_group_name
-  virtual_network_name           = module.infra.network_name
-  subnet_name                    = module.infra.subnet_name
+  organisation                      = var.organisation
+  environment                       = var.environment
+  rancher_admin_url                 = var.rancher_admin_url
+  rancher_internal_api_url          = var.rancher_internal_api_url
+  rancher_admin_token               = var.rancher_admin_token
+  rancher_projects                  = var.rancher_projects
+  cluster_name                      = "${local.cluster_name}${count.index+1}"
+  cluster_stage1_apps               = var.cluster_stage1_apps
+  cluster_stage2_apps               = var.cluster_stage2_apps
+  client_id                         = var.client_id
+  tenant_id                         = var.tenant_id
+  client_secret                     = var.client_secret
+  subscription_id                   = var.subscription_id
+  azure_region                      = var.azure_region
+
+  resource_group_name               = module.infra.resource_group_name
+  virtual_network_name              = module.infra.network_name
+  subnet_name                       = module.infra.subnet_name
   subnet_id                         = module.infra.subnet_id
   
 

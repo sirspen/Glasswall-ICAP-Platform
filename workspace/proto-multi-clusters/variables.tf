@@ -188,68 +188,97 @@ variable "os_version" {
   default     = "latest"
 }
 
-variable "icap_cluster_apps" {
+variable "icap_cluster_stage1_apps" {
   description = "A list of apps"
-  type = map(object({
-    namespace = string
-    catalog_name = string
-    template_name = string
-    create_namespace = bool
-  }))
+    type = map(object({
+      namespace        = string
+      catalog_name     = string
+      template_name    = string
+      create_namespace = bool
+      system_app       = bool
+    }))
   default = {
-    adaptation = {
-      namespace       = "icap-adaptation"
-      catalog_name  = "icap-catalog"
-      template_name   = "icap-adaptation"
-      create_namespace = true
-    },
-    rabbitmq = {
-      namespace       = "icap-rabbitmq"
-      catalog_name  = "icap-catalog"
-      template_name   = "icap-rabbitmq"
-      create_namespace = true
-    },
     rabbitmq_operator = {
-      namespace       = "rabbitmq-operator"
-      catalog_name  = "icap-catalog"
-      template_name   = "rabbitmq-operator"
+      namespace        = "icap-rabbitmq"
+      catalog_name     = "icap-catalog"
+      template_name    = "rabbitmq-operator"
       create_namespace = true
+      system_app       = true
     },
-    rabbitmq_service = {
-      namespace       = "icap-rabbitmq-service"
-      catalog_name  = "icap-catalog"
-      template_name   = "icap-rabbitmq-service"
-      create_namespace = true
-    },
+
     system = {
-      namespace       = "kube-system"
-      catalog_name  = "icap-catalog"
-      template_name   = "systemclusterrole"
+      namespace        = "kube-system"
+      catalog_name     = "icap-catalog"
+      template_name    = "systemclusterrole"
       create_namespace = false
+      system_app       = true
     }
   }
 }
 
-variable "admin_cluster_apps" {
+variable "icap_cluster_stage2_apps" {
   description = "A list of apps"
   type = map(object({
-    namespace = string
-    catalog_name = string
-    template_name = string
+    namespace        = string
+    catalog_name     = string
+    template_name    = string
     create_namespace = bool
+    system_app       = bool
+  }))
+  default = {
+    adaptation = {
+      namespace        = "icap-adaptation"
+      catalog_name     = "icap-catalog"
+      template_name    = "icap-adaptation"
+      create_namespace = true
+      system_app       = false
+    },
+    rabbitmq_service = {
+      namespace        = "icap-rabbitmq"
+      catalog_name     = "icap-catalog"
+      template_name    = "icap-rabbitmq-service"
+      create_namespace = false
+      system_app       = true
+    }
+  }
+}
+
+variable "admin_cluster_stage1_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace        = string
+    catalog_name     = string
+    template_name    = string
+    create_namespace = bool
+    system_app       = bool
+  }))
+  default = {
+    system = {
+      namespace        = "kube-system"
+      catalog_name     = "icap-catalog"
+      template_name    = "systemclusterrole"
+      create_namespace = false
+      system_app       = true
+    }
+  }
+}
+
+variable "admin_cluster_stage2_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace        = string
+    catalog_name     = string
+    template_name    = string
+    create_namespace = bool
+    system_app       = bool
   }))
   default = {
     admin = {
-      namespace       = "icap-administration"
-      catalog_name  = "icap-catalog"
-      template_name   = "icap-administration"
+      namespace        = "icap-administration"
+      catalog_name     = "icap-catalog"
+      template_name    = "icap-administration"
       create_namespace = true
-    }
-    system = {
-      namespace       = "kube-system"
-      catalog_name    = "icap-catalog"
-      template_name   = "systemclusterrole"
-      create_namespace = false
+      system_app       = false
     }
   }
 }
@@ -257,15 +286,15 @@ variable "admin_cluster_apps" {
 variable "icap_internal_services" {
   description = "Ports to open on the internal load balancer"
   type = map(object({
-      protocol                        = string
-      frontend_port                   = number
-      backend_port                    = number
+    protocol      = string
+    frontend_port = number
+    backend_port  = number
   }))
   default = {
     PolicyUpdateService = {
-      protocol                        = "tcp"
-      frontend_port                   = 32324
-      backend_port                    = 32324
+      protocol      = "tcp"
+      frontend_port = 32324
+      backend_port  = 32324
     }
   }
 }
@@ -273,15 +302,15 @@ variable "icap_internal_services" {
 variable "admin_internal_services" {
   description = "Ports to open on the internal load balancer"
   type = map(object({
-      protocol                        = string
-      frontend_port                   = number
-      backend_port                    = number
+    protocol      = string
+    frontend_port = number
+    backend_port  = number
   }))
   default = {
     PolicyUpdateService = {
-      protocol                        = "tcp"
-      frontend_port                   = 32324
-      backend_port                    = 32324
+      protocol      = "tcp"
+      frontend_port = 32324
+      backend_port  = 32324
     }
   }
 }
@@ -289,15 +318,15 @@ variable "admin_internal_services" {
 variable "filedrop_internal_services" {
   description = "Ports to open on the internal load balancer"
   type = map(object({
-      protocol                        = string
-      frontend_port                   = number
-      backend_port                    = number
+    protocol      = string
+    frontend_port = number
+    backend_port  = number
   }))
   default = {
     PolicyUpdateService = {
-      protocol                        = "tcp"
-      frontend_port                   = 32324
-      backend_port                    = 32324
+      protocol      = "tcp"
+      frontend_port = 32324
+      backend_port  = 32324
     }
   }
 }
