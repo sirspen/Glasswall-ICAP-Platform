@@ -112,7 +112,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
   sku {
     name     = var.size
     tier     = "Standard"
-    capacity = 1
+    capacity = var.sku_capacity
   }
 
   storage_profile_image_reference {
