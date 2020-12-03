@@ -14,6 +14,7 @@ locals {
   admin_service_name       = "${var.organisation}-${var.project}-admin-${var.environment}"
   service_name_nodash_r1   = "${var.organisation}icap${var.environment}${local.short_region_r1}"
   service_name_nodash_r2   = "${var.organisation}icap${var.environment}${local.short_region_r2}"
+  rancher_suffix           = data.terraform_remote_state.rancher_server.outputs.rancher_suffix
   rancher_api_url          = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
   rancher_internal_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
   rancher_network          = data.terraform_remote_state.rancher_server.outputs.network
@@ -164,9 +165,9 @@ module "icap_clusters" {
   master_scaleset_size         = each.value.master_scaleset_size
   master_scaleset_admin_user   = each.value.master_scaleset_admin_user
   master_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
-  worker_scaleset_size         = each.value.master_scaleset_size
-  worker_scaleset_admin_user   = each.value.master_scaleset_admin_user
-  worker_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
+  worker_scaleset_size         = each.value.worker_scaleset_size
+  worker_scaleset_admin_user   = each.value.worker_scaleset_admin_user
+  worker_scaleset_sku_capacity = each.value.worker_scaleset_sku_capacity
   organisation                 = var.organisation
   environment                  = var.environment
   cluster_stage1_apps          = var.icap_cluster_stage1_apps
@@ -242,7 +243,8 @@ module "admin_cluster" {
   cluster_subnet_name    = local.rancher_subnet_name
   cluster_subnet_id      = local.rancher_subnet_id
   service_name           = local.admin_service_name
-  suffix                 = "z1"
+  #suffix                 = "z1"
+  suffix                 = local.rancher_suffix
   azure_region           = local.rancher_region
   client_id              = data.azurerm_key_vault_secret.az-client-id.value
   client_secret          = data.azurerm_key_vault_secret.az-client-secret.value

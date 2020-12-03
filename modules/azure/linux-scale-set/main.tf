@@ -19,7 +19,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_lb" {
   single_placement_group          = false
   disable_password_authentication = true
   health_probe_id                 = var.lb_probe_id
-  custom_data                     = var.custom_data
+  custom_data                     = base64encode(var.custom_data)
   source_image_reference {
     publisher                     = var.os_publisher
     offer                         = var.os_offer
@@ -74,7 +74,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
   sku                             = var.size
   instances                       = var.sku_capacity
   admin_username                  = var.admin_username
-  custom_data                     = var.custom_data
+  custom_data                     = base64encode(var.custom_data)
   single_placement_group          = false
   disable_password_authentication = true
   health_probe_id                 = var.lb_probe_id

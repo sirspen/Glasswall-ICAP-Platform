@@ -26,6 +26,12 @@ variable "azure_region" {
   default     = "ukwest"
 }
 
+variable "size" {
+  description = "The azure virtual machine size"
+  type        = string
+  default     = "Standard_DS4_v2"
+}
+
 variable "git_server_version" {
   description = "Git server docker tag version"
   type = string

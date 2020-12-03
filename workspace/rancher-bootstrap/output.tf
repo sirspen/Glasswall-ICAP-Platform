@@ -2,6 +2,10 @@ output "tls_private_key" {
   value = module.rancher_server.tls_private_key
 }
 
+output "rancher_suffix" {
+  value = var.suffix
+}
+
 output "public_key_openssh" {
   value = module.rancher_server.public_key_openssh
 }
