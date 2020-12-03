@@ -3,7 +3,8 @@ resource "azurerm_public_ip" "public_ip" {
   name                = "${var.service_name}-public-ip"
   location            = var.region
   resource_group_name = var.resource_group
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
+  sku                 = "Standard"
   tags = {
     org          = var.organisation
     environment  = var.environment

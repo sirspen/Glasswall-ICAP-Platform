@@ -6,6 +6,12 @@ variable "service_name" {
   type        = string
 }
 
+
+variable "service_group" {
+  description = "This is a consolidated name based on the original service_name"
+  type        = string
+}
+
 variable "resource_group" {
   description = "Azure Resource Group"
   type        = string

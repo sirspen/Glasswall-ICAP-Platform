@@ -1,7 +1,9 @@
 
 locals {
   service_name = "${var.service_name}-${var.suffix}1"
+  service_group = var.service_name
 }
+
 module "resource_group" {
   source                  = "../../azure/resource-group"
   name                    = local.service_name
@@ -34,6 +36,18 @@ module "subnet" {
   address_prefixes        = var.cluster_subnet_cidr
 }
 
+module "nat" {
+  source    = "../../azure/nat-gateway"
+  service_name    = var.service_name
+  resource_group  = module.resource_group.name
+  azure_region    = var.azure_region
+}
+
+resource "azurerm_subnet_nat_gateway_association" "main" {
+  subnet_id      = module.subnet.id
+  nat_gateway_id = module.nat.nat_gateway_id
+}
+
 resource "azurerm_virtual_network_peering" "rancher_server" {
   name                        = "${var.suffix}PeerRanchertoICAP"
   resource_group_name         = var.rancher_resource_group
@@ -48,40 +62,43 @@ resource "azurerm_virtual_network_peering" "icap_cluster" {
   remote_virtual_network_id   = var.rancher_network_id
 }
 
-module "master_lb" {
+module "int_worker_lb" {
   source                      = "../../azure/internal-load-balancer"
   azure_region                = var.azure_region
   service_name                = local.service_name
+  service_group               = var.service_name
   resource_group              = module.resource_group.name
-  lb_probe_port               = "6443"
+  lb_probe_port               = "80"
   subnet_id                   = module.subnet.id
 }
 
-resource "azurerm_lb_backend_address_pool" "master_lbap" {
+resource "azurerm_lb_backend_address_pool" "int_worker_lbap" {
   resource_group_name             = module.resource_group.name
-  loadbalancer_id                 = module.master_lb.id
-  name                            = "MasterNodePool"
+  loadbalancer_id                 = module.int_worker_lb.id
+  name                            = "InternalWorkerNodePool"
 }
 
-resource "azurerm_lb_probe" "master_ingress_probe" {
-  depends_on                      = [module.master_lb]
+resource "azurerm_lb_probe" "int_worker_ingress_probe" {
+  depends_on                      = [module.int_worker_lb]
   resource_group_name             = module.resource_group.name
-  loadbalancer_id                 = module.master_lb.id
-  name                            = "MasterNodesUp"
-  port                            = "6443"
+  loadbalancer_id                 = module.int_worker_lb.id
+  name                            = "InternalWorkers"
+  port                            = "80"
 }
 
-resource "azurerm_lb_rule" "master_ingress_rule_1" {
-  depends_on                      = [ azurerm_lb_probe.master_ingress_probe, azurerm_lb_backend_address_pool.master_lbap ]    
-  name                            = "MasterIngressRule-1"
+resource "azurerm_lb_rule" "int_worker_ingress_rules" {
+  depends_on                      = [ azurerm_lb_probe.int_worker_ingress_probe, azurerm_lb_backend_address_pool.int_worker_lbap ]
+  for_each                         = var.cluster_internal_services
+
+  name                            = each.key
+  protocol                        = each.value.protocol
+  frontend_port                   = each.value.frontend_port
+  backend_port                    = each.value.backend_port
   resource_group_name             = module.resource_group.name
-  loadbalancer_id                 = module.master_lb.id                           
-  frontend_ip_configuration_name  = "Internal"     
-  protocol                        = "Tcp"
-  frontend_port                   = "6443"
-  backend_port                    = "6443"
-  probe_id                        = azurerm_lb_probe.master_ingress_probe.id
-  backend_address_pool_id         = azurerm_lb_backend_address_pool.master_lbap.id
+  loadbalancer_id                 = module.int_worker_lb.id                           
+  frontend_ip_configuration_name  = "Private"     
+  probe_id                        = azurerm_lb_probe.int_worker_ingress_probe.id
+  backend_address_pool_id         = azurerm_lb_backend_address_pool.int_worker_lbap.id
 }
 
 module "worker_lb" {
@@ -112,7 +129,7 @@ resource "azurerm_lb_rule" "worker_ingress_rule_1" {
   #location                       = var.azure_region
   resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.worker_lb.id                           
-  frontend_ip_configuration_name  = "PublicIPAddress"     
+  frontend_ip_configuration_name  = "Public"     
   protocol                        = "Tcp"
   frontend_port                   = var.public_port
   backend_port                    = var.backend_port
@@ -126,12 +143,12 @@ data "azurerm_dns_zone" "curlywurly_zone" {
   resource_group_name = "gw-icap-rg-dns"
 }
 
-resource "azurerm_dns_a_record" "main_master" {
-  name                = "${local.service_name}-k8s-${var.suffix}"
+resource "azurerm_dns_a_record" "main_int_worker" {
+  name                = "${local.service_name}-int"
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
   resource_group_name = "gw-icap-rg-dns"
   ttl                 = 300
-  records             = [module.master_lb.private_ip_address]
+  records             = [module.int_worker_lb.private_ip_address]
 }
 
 resource "azurerm_dns_a_record" "main_worker" {

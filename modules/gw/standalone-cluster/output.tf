@@ -1,37 +1,28 @@
+
 output "cloud_credentials_id" {
   value = module.azure_cloud_credentials.id
 }
 
 output "resource_group_name" {
-  value = module.infra.resource_group_name
+  value = module.resource_group.name
 }
 
 output "network_name" {
-  value = module.infra.network_name
-}
-
-output "network_id" {
-  value = module.infra.network_id
+  value = var.cluster_network_name
 }
 
 output "subnet_name" {
-  value = module.infra.subnet_name
+  value = var.cluster_subnet_name
 }
 
 output "system_ids" {
-  value = [
-    for cluster in module.cluster:
-    cluster.system_id
-  ]
+  value = module.cluster.system_id
 }
 
 output "project_ids" {
-  value = [
-    for cluster in module.cluster:
-    cluster.project_id
-  ]
+  value = module.cluster.project_id
 }
-/*
+
 output "cluster_name" {
   value = module.cluster.cluster_name
 }
@@ -66,13 +57,12 @@ output "cluster_secret_key" {
 
 output "cluster_token_enabled" {
   value = module.cluster.token_enabled
-}*/
+}
 
 output "cluster_worker_lb_dns_name" {
-  value = module.infra.worker_lb_dns_name
+  value = azurerm_dns_a_record.main_worker.fqdn
 }
 
 output "worker_lb_ip_address" {
-  value = module.infra.worker_lb_ip_address
+  value = module.worker_lb.public_ip_address
 }
-

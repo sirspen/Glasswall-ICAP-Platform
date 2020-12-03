@@ -176,3 +176,34 @@ variable "rancher_projects" {
   description = "The Projects to create on a base k8s Cluster"
   type        = string
 }
+
+variable "cluster_stage1_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalog_name = string
+    template_name = string
+    create_namespace = bool
+    system_app = bool
+  }))
+}
+
+variable "cluster_stage2_apps" {
+  description = "A list of apps"
+  type = map(object({
+    namespace = string
+    catalog_name = string
+    template_name = string
+    create_namespace = bool
+    system_app = bool
+  }))
+}
+
+variable "cluster_internal_services" {
+  description = "Ports to open on the internal load balancer"
+  type = map(object({
+      protocol                        = string
+      frontend_port                   = number
+      backend_port                    = number
+  }))
+}

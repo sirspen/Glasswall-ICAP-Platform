@@ -44,7 +44,7 @@ module "git_server" {
     docker_username      = data.azurerm_key_vault_secret.docker-username.value
     docker_password      = data.azurerm_key_vault_secret.docker-password.value
     docker_org           = data.azurerm_key_vault_secret.docker-org.value
-    docker_gitserver_tag = "1.0"
+    docker_gitserver_tag = var.git_server_version
   }))
   subnet_id          = module.subnet.id
   public_ip_id       = module.git_server_public_ip.id
@@ -79,10 +79,9 @@ resource "azurerm_dns_a_record" "git_server" {
   name                = local.git_service_name
   zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
   resource_group_name = "gw-icap-rg-dns"
-  ttl                 = 300
+  ttl                 = 60
   records             = [module.git_server.linux_vm_private_ips]
 }
-
 module "security_group_rules" {
   source                      = "../azure/security-group-rules"
   network_security_group_name = module.security_group.name

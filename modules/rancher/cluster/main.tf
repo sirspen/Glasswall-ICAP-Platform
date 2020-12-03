@@ -28,10 +28,10 @@ resource "rancher2_cluster" "main" {
       plugin  = var.cluster_network_plugin
     }
     services {
-      kubelet{
+       /*kubelet{
         cluster_domain = var.master_dns_name
       }
-      /*etcd {
+     etcd {
         creation = "6h"
         retention = "24h"
       }
@@ -102,9 +102,9 @@ module "master_scaleset" {
       destination_address_prefix = "*"
     }
   }
-  loadbalancer               = true
-  lb_backend_address_pool_id = var.master_lb_backend_address_pool_id
-  lb_probe_id                = var.master_lb_probe_id 
+  loadbalancer               = false
+  #lb_backend_address_pool_id = var.master_lb_backend_address_pool_id
+  #lb_probe_id                = var.master_lb_probe_id 
 }
 
 module "worker_scaleset" {
@@ -159,24 +159,3 @@ module "worker_scaleset" {
   lb_probe_id                = var.worker_lb_probe_id 
 }
 
-data "rancher2_project" "system" {
-  provider         = rancher2
-  cluster_id       = rancher2_cluster.main.id
-  name             = "System"
-}
-
-resource "rancher2_project" "main" {
-  provider         = rancher2
-  name             = var.rancher_projects
-  cluster_id       = rancher2_cluster.main.id
-  wait_for_cluster = true
-}
-/*
-module "clusters_apps"{
-  source = "../helm-application"
-  for_each    = var.cluster_apps 
-  namespace   = each.value.namespace
-  project_id = rancher2_project.main.id
-
-}
-*/

@@ -7,7 +7,6 @@ variable "organisation" {
 variable "environment" {
   description = "Metadata Environment"
   type        = string
-  default     = "dev"
 }
 
 variable "project" {
@@ -19,12 +18,16 @@ variable "project" {
 variable "suffix" {
   description = "Metadata Suffix"
   type        = string
-  default     = "p1"
 }
 
 variable "azure_region" {
   description = "Metadata Azure Region"
   type        = string
   default     = "ukwest"
+}
+
+variable "git_server_version" {
+  description = "Git server docker tag version"
+  type = string
 }
 

@@ -6,7 +6,7 @@ locals {
   project          = "${var.project}-${var.suffix}"
   short_region     = substr(var.azure_region, 0, 3)
   service_name     = "${var.organisation}-${local.project}-${var.environment}-${local.short_region}"
-  git_service_name = "${var.organisation}-git-${var.environment}-${local.short_region}"
+  git_service_name = "${var.organisation}-git-server-${var.suffix}-${var.environment}-${local.short_region}"
 }
 
 resource "tls_private_key" "ssh" {
@@ -36,6 +36,18 @@ module "subnet" {
   resource_group       = module.resource_group.name
   virtual_network_name = module.network.name
   address_prefixes     = var.subnet_address_prefixes
+}
+
+module "nat" {
+  source    = "../azure/nat-gateway"
+  service_name    = local.service_name
+  resource_group  = module.resource_group.name
+  azure_region    = var.azure_region
+}
+
+resource "azurerm_subnet_nat_gateway_association" "main" {
+  subnet_id      = module.subnet.id
+  nat_gateway_id = module.nat.nat_gateway_id
 }
 
 data "azurerm_dns_zone" "curlywurly_zone" {

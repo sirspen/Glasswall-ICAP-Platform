@@ -81,5 +81,8 @@ runcmd:
  - systemctl start iptables
  - systemctl start ip6tables
  - iptables -F
- - systemctl restart docker
+ - systemctl stop docker
+ - mv /var/lib/docker /mnt/docker
+ - ln -s /mnt/docker /var/lib/docker
+ - systemctl start docker
  - /usr/local/bin/rancher-start.sh

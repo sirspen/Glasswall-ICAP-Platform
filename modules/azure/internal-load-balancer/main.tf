@@ -4,8 +4,19 @@ resource "azurerm_lb" "main" {
   resource_group_name             = var.resource_group
   sku                             = "Standard"
   frontend_ip_configuration {
-    name                          = "Internal"
+    name                          = "Private"
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = var.subnet_id
   }
+  tags = {
+    service_name = var.service_name    
+    service_group = var.service_group    
+  }
 }
+/*
+module "nat" {
+  source    = "../nat-gateway"
+  service_name    = var.service_name
+  resource_group  = var.resource_group
+  azure_region    = var.azure_region
+}*/
