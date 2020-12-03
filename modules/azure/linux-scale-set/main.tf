@@ -17,8 +17,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_lb" {
   instances                       = var.sku_capacity
   admin_username                  = var.admin_username
   # automatic rolling upgrade
-  automatic_os_upgrade            = false
-  upgrade_policy_mode             = "Manual"
+  #automatic_os_upgrade            = false
+  #upgrade_policy_mode             = "Manual"
   single_placement_group          = false
   disable_password_authentication = true
   health_probe_id                 = var.lb_probe_id
@@ -30,6 +30,12 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_lb" {
     offer     = var.os_offer
     sku       = var.os_sku
     version   = var.os_version
+  }
+
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
+    disk_size_gb         = 60
   }
 
   data_disk {
@@ -74,8 +80,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
   instances                       = var.sku_capacity
   admin_username                  = var.admin_username
   # automatic rolling upgrade
-  automatic_os_upgrade            = false
-  upgrade_policy_mode             = "Manual"
+  #automatic_os_upgrade            = false
+  #upgrade_policy_mode             = "Manual"
   single_placement_group          = false
   disable_password_authentication = true
   health_probe_id                 = var.lb_probe_id
@@ -87,6 +93,12 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
     offer     = var.os_offer
     sku       = var.os_sku
     version   = var.os_version
+  }
+  
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
+    disk_size_gb         = 60
   }
 
   data_disk {
@@ -100,19 +112,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
   admin_ssh_key {
     username             = var.admin_username
     public_key           = var.public_key_openssh
-  }
-
-  network_interface {
-    name    = "${var.service_name}-net-profile"
-    primary = true
-
-    ip_configuration {
-      name                                   = "${var.service_name}-ip-config"
-      primary                                = true
-      subnet_id                              =  var.subnet_id
-      load_balancer_backend_address_pool_ids = var.lb_backend_address_pool_id
-    }
-      network_security_group_id              = module.security_group.id
   }
 
   network_interface {    
