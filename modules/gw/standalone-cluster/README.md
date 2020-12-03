@@ -19,10 +19,11 @@
 | azure\_region | The cloud region | `string` | n/a | yes |
 | client\_id | Service Principal ClientID | `string` | n/a | yes |
 | client\_secret | Service Principal Secret | `string` | n/a | yes |
-| cluster\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>  }))</pre> | n/a | yes |
 | cluster\_backend\_port | Backend Port | `string` | n/a | yes |
 | cluster\_network\_name | Subnet Name | `string` | n/a | yes |
 | cluster\_public\_port | Public Port | `string` | n/a | yes |
+| cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
+| cluster\_stage2\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | cluster\_subnet\_id | Subnet ID | `string` | n/a | yes |
 | cluster\_subnet\_name | Subnet Name | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |

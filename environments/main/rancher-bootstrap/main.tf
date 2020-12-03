@@ -12,6 +12,6 @@ module "rancher_server" {
   source                 = "../../../workspace/rancher-bootstrap"
   environment            = "prd"
   project                = "rancher-server"
-  suffix                 = "z1"
-  git_server_version     = "1.38"
+  suffix                 = "a1"
+  git_server_version     = "1.43"
 }
