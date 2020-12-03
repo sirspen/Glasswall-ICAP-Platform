@@ -73,3 +73,7 @@ output "subnet_name" {
 output "subnet_id" {
   value = module.rancher_server.subnet_id
 }
+
+output "rancher_suffix" {
+  value = module.rancher_server.rancher_suffix
+}

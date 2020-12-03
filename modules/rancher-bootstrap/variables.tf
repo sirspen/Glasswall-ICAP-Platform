@@ -26,6 +26,11 @@ variable "azure_region" {
   type        = string
 }
 
+variable "size" {
+  description = "The Azure Virtual Machine Size"
+  type        = string
+}
+
 variable "custom_data_file_path" {
   description = "Bootstrap the virtual machine with this file"
   type        = string
