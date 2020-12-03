@@ -19,6 +19,7 @@
 | create\_namespace | n/a | `bool` | n/a | yes |
 | namespace | Namespace | `string` | n/a | yes |
 | project\_id | The project id | `string` | n/a | yes |
+| system\_app | n/a | `bool` | n/a | yes |
 | system\_id | The system project id | `string` | n/a | yes |
 | template\_name | Helm template name | `string` | n/a | yes |
 
