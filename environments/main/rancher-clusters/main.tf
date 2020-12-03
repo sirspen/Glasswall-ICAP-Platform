@@ -14,7 +14,7 @@ module "rancher_clusters" {
     branch              = "main"
     icap_cluster_suffix_r1 = "b"
     icap_cluster_suffix_r2 = "c"
-    icap_cluster_quantity  = 5
+    icap_cluster_quantity  = 1
     icap_master_scaleset_sku_capacity = 1
     icap_worker_scaleset_sku_capacity = 2
 }

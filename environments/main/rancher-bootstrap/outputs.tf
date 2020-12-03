@@ -15,7 +15,7 @@ output "git_server_public_ips" {
 }
 
 output "git_server_url" {
-  value = "http://${module.rancher_server.git_server_url}"
+  value = module.rancher_server.git_server_url
 }
 
 output "rancher_admin_token" {
@@ -23,11 +23,11 @@ output "rancher_admin_token" {
 }
 
 output "rancher_api_url" {
-  value = "https://${module.rancher_server.rancher_api_url}"
+  value = module.rancher_server.rancher_api_url
 }
 
 output "rancher_internal_api_url" {
-  value = "https://${module.rancher_server.rancher_internal_api_url}"
+  value = module.rancher_server.rancher_internal_api_url
 }
 
 output "rancher_internal_server_url" {
@@ -50,13 +50,26 @@ output "rancher_password" {
   value = module.rancher_server.rancher_password
 }
 
-output "rancher_resource_group" {
+output "resource_group" {
   value = module.rancher_server.resource_group
+}
+
+output "region" {
+  value = module.rancher_server.region
 }
 
 output "network" {
   value = module.rancher_server.network
 }
+
 output "network_id" {
   value = module.rancher_server.network_id
+}
+
+output "subnet_name" {
+  value = module.rancher_server.subnet_name
+}
+
+output "subnet_id" {
+  value = module.rancher_server.subnet_id
 }

@@ -139,7 +139,7 @@ variable "master_scaleset_admin_user" {
 
 variable "master_scaleset_sku_capacity" {
   description = "Total instances to begin with"
-  type        = string
+  type        = number
 }
 
 variable "worker_scaleset_size" {
@@ -154,7 +154,7 @@ variable "worker_scaleset_admin_user" {
 
 variable "worker_scaleset_sku_capacity" {
   description = "The Instance Size"
-  type        = string
+  type        = number
 }
 
 variable "cluster_address_space" {
@@ -164,12 +164,12 @@ variable "cluster_address_space" {
 
 variable "cluster_backend_port" {
   description = "Backend Port"
-  type        = string
+  type        = number
 }
 
 variable "cluster_public_port" {
   description = "Public Port"
-  type        = string
+  type        = number
 }
 
 variable "rancher_projects" {

@@ -17,7 +17,7 @@ No requirements.
 | environment | Metadata Environment | `string` | n/a | yes |
 | lb\_backend\_address\_pool\_id | Load Balancer Backend Address Pool | `list(string)` | <pre>[<br>  null<br>]</pre> | no |
 | lb\_probe\_id | Load Balancer Probe ID | `string` | `null` | no |
-| loadbalancer | Turn on Load Balancer capability | `string` | `false` | no |
+| loadbalancer | Turn on Load Balancer capability | `bool` | `false` | no |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | os\_offer | Linux OS Offer | `string` | n/a | yes |
 | os\_publisher | Linux OS Publisher | `string` | n/a | yes |
@@ -30,7 +30,7 @@ No requirements.
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
 | service\_role | This is the instance role, used to identity a master or worker node | `string` | n/a | yes |
 | size | Azure VM image name | `string` | `"Standard_DS1_v2"` | no |
-| sku\_capacity | Total capacity to begin with | `string` | `"1"` | no |
+| sku\_capacity | Total capacity to begin with | `number` | `1` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
 | tag\_cluster\_asg\_state | Enable or Disable the cluster asg | `string` | n/a | yes |
 | tag\_cluster\_name | This the cluster name to integrate with the cluster-autoscaler | `string` | n/a | yes |
