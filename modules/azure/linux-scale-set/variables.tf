@@ -80,8 +80,8 @@ variable "os_version" {
 
 variable "sku_capacity" {
   description = "Total capacity to begin with"
-  type        = string
-  default     = "1"
+  type        = number
+  default     = 1
 }
 
 variable "admin_username" {
@@ -119,7 +119,7 @@ variable "lb_probe_id" {
 
 variable "loadbalancer" {
   description = "Turn on Load Balancer capability"
-  type        = string
+  type        = bool
   default     = false
 }
 
@@ -137,25 +137,3 @@ variable "security_group_rules" {
     destination_address_prefix                  = string
   }))
 }
-
-# Common variables
-/*
-organisation
-environment
-service_name
-resource_group
-subnet_id
-public_ip_id
-region
-size
-os_publisher
-os_offer
-os_sku
-os_version
-admin_username
-custom_data_file_path
-public_key_openssh
-lb_backend_address_pool_id
-lb_nat_pool_id
-lb_probe_id
-*/
