@@ -130,37 +130,37 @@ variable "filedrop_cluster_subnet_prefix_r1" {
 
 variable "filedrop_cluster_backend_port" {
   description = "Public Port"
-  type        = string
+  type        = number
   default     = 443
 }
 
 variable "filedrop_cluster_public_port" {
   description = "Backend Port"
-  type        = string
+  type        = number
   default     = 32323
 }
 
 variable "admin_cluster_backend_port" {
   description = "Public Port"
-  type        = string
+  type        = number
   default     = 443
 }
 
 variable "admin_cluster_public_port" {
   description = "Backend Port"
-  type        = string
+  type        = number
   default     = 32323
 }
 
 variable "public_port" {
   description = "Public Port"
-  type        = string
+  type        = number
   default     = 443
 }
 
 variable "backend_port" {
   description = "Backend Port"
-  type        = string
+  type        = number
   default     = 32323
 }
 

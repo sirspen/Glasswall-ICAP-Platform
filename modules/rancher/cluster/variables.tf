@@ -121,7 +121,7 @@ variable "master_scaleset_size" {
 
 variable "master_scaleset_sku_capacity" {
   description = "The K8S Master Scaleset sku capacity"
-  type        = string
+  type        = number
 }
 
 variable "master_scaleset_admin_user" {
@@ -136,7 +136,7 @@ variable "worker_scaleset_size" {
 
 variable "worker_scaleset_sku_capacity" {
   description = "The K8S Worker Scaleset sku capacity"
-  type        = string
+  type        = number
 }
 
 variable "worker_scaleset_admin_user" {

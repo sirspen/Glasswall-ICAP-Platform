@@ -18,9 +18,9 @@ No provider.
 | client\_id | Service Principal ClientID | `string` | n/a | yes |
 | client\_secret | Service Principal Secret | `string` | n/a | yes |
 | cluster\_address\_space | Address Space | `list(string)` | n/a | yes |
-| cluster\_backend\_port | Backend Port | `string` | n/a | yes |
+| cluster\_backend\_port | Backend Port | `number` | n/a | yes |
 | cluster\_internal\_services | Ports to open on the internal load balancer | <pre>map(object({<br>      protocol                        = string<br>      frontend_port                   = number<br>      backend_port                    = number<br>  }))</pre> | n/a | yes |
-| cluster\_public\_port | Public Port | `string` | n/a | yes |
+| cluster\_public\_port | Public Port | `number` | n/a | yes |
 | cluster\_quantity | Quantity of clusters in Region | `number` | n/a | yes |
 | cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | cluster\_stage2\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
@@ -30,7 +30,7 @@ No provider.
 | infra\_module | The Suffix | `string` | `0` | no |
 | master\_scaleset\_admin\_user | The Instance Admin User | `string` | n/a | yes |
 | master\_scaleset\_size | The Instance Size | `string` | n/a | yes |
-| master\_scaleset\_sku\_capacity | Total instances to begin with | `string` | n/a | yes |
+| master\_scaleset\_sku\_capacity | Total instances to begin with | `number` | n/a | yes |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | os\_offer | OS Offer | `string` | n/a | yes |
 | os\_publisher | OS Publisher | `string` | n/a | yes |
@@ -50,7 +50,7 @@ No provider.
 | tenant\_id | Service Principal tenantID | `string` | n/a | yes |
 | worker\_scaleset\_admin\_user | The Instance Size | `string` | n/a | yes |
 | worker\_scaleset\_size | The Instance Size | `string` | n/a | yes |
-| worker\_scaleset\_sku\_capacity | The Instance Size | `string` | n/a | yes |
+| worker\_scaleset\_sku\_capacity | The Instance Size | `number` | n/a | yes |
 
 ## Outputs
 

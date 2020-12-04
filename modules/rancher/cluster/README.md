@@ -26,7 +26,7 @@
 | kubernetes\_version | The Kubernetes version | `string` | `"v1.19.2-rancher1-1"` | no |
 | master\_scaleset\_admin\_user | The K8S Master Scaleset admin user | `string` | n/a | yes |
 | master\_scaleset\_size | The K8S Master Scaleset size | `string` | n/a | yes |
-| master\_scaleset\_sku\_capacity | The K8S Master Scaleset sku capacity | `string` | n/a | yes |
+| master\_scaleset\_sku\_capacity | The K8S Master Scaleset sku capacity | `number` | n/a | yes |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | os\_offer | The Linux OS Offer | `string` | n/a | yes |
 | os\_publisher | The Linux OS Publisher | `string` | n/a | yes |
@@ -47,7 +47,7 @@
 | worker\_lb\_probe\_id | The K8S Worker LB Probe ID from Infra module | `string` | n/a | yes |
 | worker\_scaleset\_admin\_user | The K8S Worker Scaleset admin user | `string` | n/a | yes |
 | worker\_scaleset\_size | The K8S Worker Scaleset size | `string` | n/a | yes |
-| worker\_scaleset\_sku\_capacity | The K8S Worker Scaleset sku capacity | `string` | n/a | yes |
+| worker\_scaleset\_sku\_capacity | The K8S Worker Scaleset sku capacity | `number` | n/a | yes |
 
 ## Outputs
 
