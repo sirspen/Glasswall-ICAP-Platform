@@ -57,7 +57,7 @@ resource "rancher2_token" "main" {
 }
 
 module "master_scaleset" {
-  source                = "../../azure/linux-scale-set"
+  source                = "../../azure/scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
@@ -108,7 +108,7 @@ module "master_scaleset" {
 }
 
 module "worker_scaleset" {
-  source                = "../../azure/linux-scale-set"
+  source                = "../../azure/scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
