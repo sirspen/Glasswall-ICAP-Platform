@@ -46,9 +46,13 @@ Take a look at the ICAP cluster map [here](https://github.com/filetrust/Glasswal
 1. Create a unique suffix for the region, increment an existing one like a,b,...d
 2. Indexes are managed by terraform during the terraform run. 
 3. Add the network config. 
+
     cluster_address_space        = var.icap_cluster_address_space_r3
     cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r3
     cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r3
+
+4. That is it. 
+5. Run terraform apply
 
 # Networking rules in summary
 1. We are dividing a /16 into /20s
