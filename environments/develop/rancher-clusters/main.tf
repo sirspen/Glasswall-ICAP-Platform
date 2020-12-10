@@ -12,7 +12,7 @@ module "rancher_clusters" {
     source              = "../../../workspace/proto-multi-clusters"
     environment         = "dev"
     branch              = "develop"
-    icap_cluster_quantity  = 2
+    icap_cluster_quantity  = 1
     icap_master_scaleset_sku_capacity = 1
-    icap_worker_scaleset_sku_capacity = 2
+    icap_worker_scaleset_sku_capacity = 1
 }
