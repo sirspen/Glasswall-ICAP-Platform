@@ -26,10 +26,10 @@ output "icap_cluster_worker_lb_dns_names" {
     cluster.cluster_worker_lb_dns_name
   ]
 }
-
+/*
 output "admin_cluster_worker_lb_dns_names" {
   value = module.admin_cluster.cluster_worker_lb_dns_name
-}
+}*/
 
 output "icap_cluster_worker_lb_ip_addr" {
   value = [

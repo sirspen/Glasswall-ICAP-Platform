@@ -31,7 +31,7 @@ locals {
   cluster_catalogs = {
     icap-catalog = {
       helm_charts_repo_url    = "${local.git_server_url}/icap-infrastructure.git"
-      helm_charts_repo_branch = "add-image-registry"
+      helm_charts_repo_branch = "helm-charts-wip"
     }
   }
   azure_icap_clusters = {
@@ -226,7 +226,7 @@ module "filedrop_clusters" {
   tenant_id                    = var.tenant_id
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
-}*/
+}
 
 module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
@@ -270,3 +270,4 @@ module "admin_cluster" {
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 1
 }
+*/
