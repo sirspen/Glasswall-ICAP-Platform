@@ -199,13 +199,12 @@ variable "icap_cluster_stage1_apps" {
     }))
   default = {
     rabbitmq_operator = {
-      namespace        = "icap-rabbitmq"
+      namespace        = "rabbitmq-system"
       catalog_name     = "icap-catalog"
       template_name    = "rabbitmq-operator"
       create_namespace = true
       system_app       = true
     },
-
     system = {
       namespace        = "kube-system"
       catalog_name     = "icap-catalog"
@@ -232,13 +231,6 @@ variable "icap_cluster_stage2_apps" {
       template_name    = "icap-adaptation"
       create_namespace = true
       system_app       = false
-    },
-    rabbitmq_service = {
-      namespace        = "icap-rabbitmq"
-      catalog_name     = "icap-catalog"
-      template_name    = "icap-rabbitmq-service"
-      create_namespace = false
-      system_app       = true
     }
   }
 }
