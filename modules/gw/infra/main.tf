@@ -87,7 +87,7 @@ resource "azurerm_lb_probe" "int_worker_ingress_probe" {
 }
 
 resource "azurerm_lb_rule" "int_worker_ingress_rules" {
-  depends_on                      = [ azurerm_lb_probe.int_worker_ingress_probe, azurerm_lb_backend_address_pool.int_worker_lbap ]
+  depends_on                      = [module.int_worker_lb, azurerm_lb_probe.int_worker_ingress_probe, azurerm_lb_backend_address_pool.int_worker_lbap ]
   for_each                         = var.cluster_internal_services
 
   name                            = each.key
@@ -124,7 +124,7 @@ resource "azurerm_lb_probe" "worker_ingress_probe" {
 }
 
 resource "azurerm_lb_rule" "worker_ingress_rule_1" {
-  depends_on                      = [ azurerm_lb_probe.worker_ingress_probe, azurerm_lb_backend_address_pool.worker_lbap ]    
+  depends_on                      = [ module.worker_lb, azurerm_lb_probe.worker_ingress_probe, azurerm_lb_backend_address_pool.worker_lbap ]    
   name                            = "WorkerIngressRule-1"
   #location                       = var.azure_region
   resource_group_name             = module.resource_group.name
