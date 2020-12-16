@@ -59,6 +59,7 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_linux_virtual_machine" "the_machine" {
+  depends_on                      = [ azurerm_network_interface.net_nic ]
   resource_group_name             = var.resource_group
   name                            = var.service_name
   location                        = var.region

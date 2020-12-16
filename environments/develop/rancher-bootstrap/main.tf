@@ -13,5 +13,5 @@ module "rancher_server" {
   environment            = "dev"
   project                = "rancher-server"
   suffix                 = "z1"
-  git_server_version     = "1.65"
+  git_server_version     = "1.66"
 }
