@@ -136,6 +136,11 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
+module "setting" {
+  source            = "../../modules/rancher/setting"
+  setting_name      = "server-url"
+  setting_value     = local.rancher_internal_api_url
+}
 
 module "catalog" {
   source                  = "../../modules/rancher/catalogue"

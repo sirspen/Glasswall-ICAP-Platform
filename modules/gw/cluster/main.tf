@@ -13,12 +13,6 @@ module "azure_cloud_credentials" {
   subscription_id     = var.subscription_id
 }
 
-module "setting" {
-  source            = "../../rancher/setting"
-  setting_name      = "server-url"
-  setting_value     = var.rancher_internal_api_url
-}
-
 /*module "catalog" {
     source                  = "../../rancher/catalogue"
     for_each                = var.cluster_catalogs
