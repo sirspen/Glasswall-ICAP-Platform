@@ -17,7 +17,15 @@ Check them out to discover dependencies, inputs and outputs.
 
 ## Deploy ICAP Clusters 
 
-The rancher bootstrap is required to be online and functional before you provision the rancher clusters. To begin provisioning infrastructure make sure you have all the prerequirements setup in the Azure cloud then; 
+## Pre-requisites
+
+In order to follow along with this guide you will need the following tools installed locally:
+
+- Terraform (v0.13.5 or higher)
+- AZ CLI - with permissions to create resources
+- Bash (or similar) terminal
+
+To begin provisioning infrastructure make sure you have all the necessary permissions to create resources in the Azure cloud then follow the steps below: 
 
 ## Steps
 
@@ -55,7 +63,8 @@ The rancher bootstrap is required to be online and functional before you provisi
    
     d. execute a `terraform apply`
 
-Once complete the output will contain the Rancher URL, Username, Password and ssh key, this key can be used to login to all the clusters services once deployed. 
+Once complete the output will contain the Rancher URL, Username, Password and ssh key, this key can be used to login to all the clusters services once deployed.
+The rancher bootstrap is required to be online and functional before you provision the rancher clusters.
 
 5. Deploy the Base Clusters (a base cluster is a cluster that has 2 scalesets i.e 1 master and 1 worker node). 
 
