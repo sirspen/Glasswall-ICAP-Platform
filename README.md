@@ -1,5 +1,9 @@
 # Glasswall-ICAP-Platform
 
+To read more about the Glasswall ICAP Platform. The technical design documentation is here;
+[ICAP Design Documentation](https://glasswallsolutionsltd-my.sharepoint.com/:w:/g/personal/pgerard_glasswallsolutions_com/EQyNuHOGDFNDmxTS282TGDABEke9OmBAz7pb872LA3BgfA?e=BlmDkL)
+Access is restricted.
+
 ### The environment modules
 This directory contains the terraform backend and modules that load in modules from the workspace. It provides a easy mechanism of organising a one to many terraform deployment pattern. Terraform modules typically store the backend in the module and this is a useful pattern but in a case of a developer at Glasswall Solutions you want to be able to prototype your terraform code before you use it in production. Using this pattern enables you to have a manageable way to setup a new set of services by replicating a few modules and *setting up a new backend*. The organisation isnot strict but i have gone for organising the modules by git branch name `environments/branch/modules`. Where branch is the name of the branch you are currently on, the backend uses the branch to differentiate backends. 
 
@@ -106,40 +110,4 @@ Take a look at the ICAP cluster map [here](https://github.com/filetrust/Glasswal
     a. change to the `cd environments/main/rancher-clusters`
     b. execute a `terraform plan`
     c. execute a `terraform apply`
-
-
-To read more about the Glasswall ICAP Platform. The technical design documentation is here;
-[ICAP Design Documentation](https://glasswallsolutionsltd-my.sharepoint.com/:w:/g/personal/pgerard_glasswallsolutions_com/EQyNuHOGDFNDmxTS282TGDABEke9OmBAz7pb872LA3BgfA?e=BlmDkL)
-Access is restricted.
-
-# How To
-
-1. Clone the repo, execute `terraform init` in the root of the directory. 
-2. Execute `terraform plan` to view the resources that will be created. This is an opportunity to look at naming conventions etc. 
-3. Execute `terraform apply`. 
-4. Got to the https endpoint on the ip in the output. 
-
-## Requirements
-
-A newish version of Terraform is required. 
-
-```
-terraform {
-  required_version = ">= 0.13"
-}
-```
-
-## Providers
-- azurerm
-- rancher2
-
-## Inputs
-
-No input.
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| linux\_vm\_public\_ips | n/a |
-| tls\_private\_key | n/a |
+    
