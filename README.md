@@ -21,21 +21,51 @@ The rancher bootstrap is required to be online and functional before you provisi
 
 ## Steps
 
-1. Deploy Rancher Server with the rancher-bootstrap terraform module, in [Rancher Bootstrap | develop](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/environments/develop/rancher-bootstrap) & [ Rancher Bootstrap | main ](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/environments/main/rancher-bootstrap). 
+1. Create Azure Storage to store terraform remote state in [terraform-remote-state](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/terraform-remote-state)
+   
+    a. execute a `terraform init`
+
+    b. execute a `terraform plan`
+
+    c. execute a `terraform apply`
+
+2. Create Azure Key Vault to store secret values in [key-vault](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/modules/azure/key-vault)
+
+   a. execute a `terraform init`
+
+   b. execute a `terraform plan`
+
+   c. execute a `terraform apply`
+
+3. Create Azure Container Registry to store Docker images in [container-registry](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/container-registry)
+
+   a. execute a `terraform init`
+
+   b. execute a `terraform plan`
+
+   c. execute a `terraform apply`
+   
+4. Deploy Rancher Server with the rancher-bootstrap terraform module, in [Rancher Bootstrap | develop](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/environments/develop/rancher-bootstrap) & [ Rancher Bootstrap | main ](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/environments/main/rancher-bootstrap). 
 
     a. change to the `cd environments/main/rancher-bootstrap`
+   
     b. execute a `terraform init`
-    b. execute a `terraform plan`
-    c. execute a `terraform apply`
+   
+    c. execute a `terraform plan`
+   
+    d. execute a `terraform apply`
 
 Once complete the output will contain the Rancher URL, Username, Password and ssh key, this key can be used to login to all the clusters services once deployed. 
 
-2. Deploy the Base Clusters (a base cluster is a cluster that has 2 scalesets i.e 1 master and 1 worker node). 
+5. Deploy the Base Clusters (a base cluster is a cluster that has 2 scalesets i.e 1 master and 1 worker node). 
 
     a. change to the `cd environments/main/rancher-clusters`
+   
     b. execute a `terraform init`
-    b. execute a `terraform plan`
-    c. execute a `terraform apply`
+   
+    c. execute a `terraform plan`
+   
+    d. execute a `terraform apply`
 
 Once complete the output will contain the load balancer urls which you can add to a standalone load balancer. The Clusters are configured to create 1 external facing load balancer per region, these load balancers fronts multiple cluster worker NodePorts in a single region.
 
