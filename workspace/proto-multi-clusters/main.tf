@@ -31,7 +31,7 @@ locals {
   cluster_catalogs = {
     icap-catalog = {
       helm_charts_repo_url    = "${local.git_server_url}/icap-infrastructure.git"
-      helm_charts_repo_branch = "helm-charts-wip"
+      helm_charts_repo_branch = "add-image-registry"
     }
   }
   azure_icap_clusters = {
@@ -140,6 +140,12 @@ module "setting" {
   source            = "../../modules/rancher/setting"
   setting_name      = "server-url"
   setting_value     = local.rancher_internal_api_url
+}
+# module.setting reboots the rancher server (it also recycles the certs) which might be 
+# causing issues with the catalog deployment right below.
+resource "time_sleep" "wait_60_seconds" {
+  depends_on      = [module.setting]
+  create_duration = "60s"
 }
 
 module "catalog" {
