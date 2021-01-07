@@ -10,6 +10,7 @@
 | Name | Version |
 |------|---------|
 | azurerm | ~> 2.30.0 |
+| random | n/a |
 
 ## Inputs
 
