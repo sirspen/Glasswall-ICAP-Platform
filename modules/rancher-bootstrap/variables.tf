@@ -21,6 +21,11 @@ variable "suffix" {
   type        = string
 }
 
+variable "dns_zone" {
+  description = "DNS Zone Name"
+  type        = string
+}
+
 variable "azure_region" {
   description = "Set the Azure Region"
   type        = string

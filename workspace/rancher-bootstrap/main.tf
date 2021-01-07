@@ -26,6 +26,7 @@ module "rancher_server" {
   project               = var.project
   environment           = var.environment
   suffix                = var.suffix
+  dns_zone              = var.dns_zone_name
   azure_region          = var.azure_region
   custom_data_file_path = filebase64("${path.module}/scripts/cloud-init.yaml")
   git_server_version    = var.git_server_version

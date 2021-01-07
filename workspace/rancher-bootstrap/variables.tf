@@ -26,6 +26,12 @@ variable "azure_region" {
   default     = "ukwest"
 }
 
+variable "dns_zone_name" {
+  description = "Metadata Azure Region"
+  type        = string
+  default     = "icap-proxy.curlywurly.me"
+}
+
 variable "size" {
   description = "The azure virtual machine size"
   type        = string

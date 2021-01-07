@@ -137,24 +137,28 @@ resource "azurerm_lb_rule" "worker_ingress_rule_1" {
   backend_address_pool_id         = azurerm_lb_backend_address_pool.worker_lbap.id
 }
 
-
-data "azurerm_dns_zone" "curlywurly_zone" {
-  name                = "icap-proxy.curlywurly.me"
-  resource_group_name = "gw-icap-rg-dns"
+data "azurerm_dns_zone" "main" {
+  name                = var.dns_zone
+  resource_group_name = var.rancher_resource_group
 }
 
-resource "azurerm_dns_a_record" "main_int_worker" {
-  name                = "${local.service_name}-int"
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
-  ttl                 = 300
-  records             = [module.int_worker_lb.private_ip_address]
-}
+#data "azurerm_dns_zone" "curlywurly_zone" {
+#  name                = "icap-proxy.curlywurly.me"
+#  resource_group_name = "gw-icap-rg-dns"
+#}
+
+#resource "azurerm_dns_a_record" "main_int_worker" {
+#  name                = "${local.service_name}-int"
+#  zone_name           = data.azurerm_dns_zone.main.name
+#  ttl                 = 300
+#  resource_group_name = "gw-icap-rg-dns"
+#  records             = [module.int_worker_lb.private_ip_address]
+#}
 
 resource "azurerm_dns_a_record" "main_worker" {
   name                = var.service_name
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
+  zone_name           = data.azurerm_dns_zone.main.name
+  resource_group_name = module.resource_group.name
   ttl                 = 300
   records             = [module.worker_lb.public_ip_address]
 }

@@ -32,6 +32,11 @@ variable "project" {
   default     = "icap"
 }
 
+variable "dns_zone" {
+  description = "The name of the dns zone to add records to"
+  type        = string
+}
+
 variable "azure_region_r1" {
   description = "Metadata Azure Region"
   type        = string

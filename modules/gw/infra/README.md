@@ -22,6 +22,7 @@
 | cluster\_address\_space | Subnet ID | `list(string)` | n/a | yes |
 | cluster\_internal\_services | Ports to open on the internal load balancer | <pre>map(object({<br>      protocol                        = string<br>      frontend_port                   = number<br>      backend_port                    = number<br>  }))</pre> | n/a | yes |
 | cluster\_subnet\_cidr | Subnet CIDR | `list(string)` | n/a | yes |
+| dns\_zone | The name of the dns zone to add records to | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | public\_key\_openssh | The Node SSH key | `string` | n/a | yes |

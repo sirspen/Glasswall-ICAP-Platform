@@ -1,11 +1,3 @@
-/*terraform {
-  backend "azurerm" {
-    resource_group_name  = "tf-state-resource-group"
-    storage_account_name = "gwtfstatestorageaccount"
-    container_name       = "tfstatecontainer"
-    key                  = "gw-icap-protomulticluster-develop-terraform.tfstate"
-  }
-}*/
 
 locals {
   short_region_r1          = substr(var.azure_region_r1, 0, 3)
@@ -162,6 +154,7 @@ module "icap_clusters" {
   cluster_quantity             = each.value.cluster_quantity
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
+  dns_zone                     = var.dns_zone
   rancher_projects             = each.value.rancher_projects
   cluster_backend_port         = each.value.cluster_backend_port
   cluster_public_port          = each.value.cluster_public_port
@@ -203,6 +196,7 @@ module "filedrop_clusters" {
   cluster_quantity             = each.value.cluster_quantity
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
+  dns_zone                     = var.dns_zone
   rancher_projects             = each.value.rancher_projects
   cluster_backend_port         = each.value.cluster_backend_port
   cluster_public_port          = each.value.cluster_public_port
@@ -243,6 +237,7 @@ module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
   organisation             = var.organisation
   environment              = var.environment
+  dns_zone                     = var.dns_zone
   rancher_admin_url        = local.rancher_api_url
   rancher_internal_api_url = local.rancher_internal_api_url
   rancher_admin_token      = local.rancher_admin_token

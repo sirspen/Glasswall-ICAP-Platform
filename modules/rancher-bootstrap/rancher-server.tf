@@ -10,16 +10,16 @@ module "public_ip" {
 
 resource "azurerm_dns_a_record" "rancher_server" {
   name                = local.service_name
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
+  zone_name           = azurerm_dns_zone.main.name
+  resource_group_name = module.resource_group.name
   ttl                 = 300
   records             = [module.rancher_server.linux_vm_public_ips]
 }
 
 resource "azurerm_dns_a_record" "rancher_internal_server" {
   name                    = "${local.service_name}-int"
-  zone_name               = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name     = "gw-icap-rg-dns"
+  zone_name               = azurerm_dns_zone.main.name
+  resource_group_name     = module.resource_group.name
   ttl                     = 300
   records                 = [module.rancher_server.linux_vm_private_ips]
 }
@@ -111,7 +111,7 @@ resource "time_sleep" "wait_300_seconds" {
 provider "rancher2" {
   alias = "bootstrap"
   #api_url = "https://${azurerm_dns_a_record.rancher_server.fqdn}"
-  api_url   = "https://${local.service_name}.${data.azurerm_dns_zone.curlywurly_zone.name}"
+  api_url   = "https://${local.service_name}.${data.azurerm_dns_zone.main.name}"
   bootstrap = true
   insecure  = true # FIXME: Box should use proper cert
   retries   = 100

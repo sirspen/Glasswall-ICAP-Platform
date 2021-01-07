@@ -119,10 +119,15 @@ resource "azurerm_lb_rule" "master_ingress_rule_1" {
   backend_address_pool_id         = azurerm_lb_backend_address_pool.master_lbap.id
 }*/
 
-data "azurerm_dns_zone" "curlywurly_zone" {
+data "azurerm_dns_zone" "main" {
+  name                = var.dns_zone
+  resource_group_name = var.rancher_resource_group
+}
+
+/*data "azurerm_dns_zone" "curlywurly_zone" {
   name                = "icap-proxy.curlywurly.me"
   resource_group_name = "gw-icap-rg-dns"
-}
+}*/
 /*
 resource "azurerm_dns_a_record" "main_master" {
   name                = "${local.cluster_name}-k8s-${var.suffix}"
@@ -134,8 +139,8 @@ resource "azurerm_dns_a_record" "main_master" {
 */
 resource "azurerm_dns_a_record" "main_worker" {
   name                = local.cluster_name
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
+  zone_name           = data.azurerm_dns_zone.main.name
+  resource_group_name = module.resource_group.name
   ttl                 = 300
   records             = [module.worker_lb.public_ip_address]
 }
