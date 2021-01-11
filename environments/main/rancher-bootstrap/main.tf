@@ -13,5 +13,5 @@ module "rancher_server" {
   environment            = "prd"
   project                = "rancher-server"
   suffix                 = "a1"
-  git_server_version     = "1.81"
+  git_server_version     = "1.82"
 }
