@@ -161,12 +161,10 @@ module "cluster" {
   client_secret                      = var.client_secret
   subscription_id                    = var.subscription_id
   azure_region                       = var.azure_region
-  
   resource_group_name                = module.resource_group.name
   virtual_network_name               = var.cluster_network_name
   subnet_name                        = var.cluster_subnet_name
   subnet_id                          = var.cluster_subnet_id
-  
   master_scaleset_size               = var.master_scaleset_size
   master_scaleset_sku_capacity       = var.master_scaleset_sku_capacity
   master_scaleset_admin_user         = var.master_scaleset_admin_user
