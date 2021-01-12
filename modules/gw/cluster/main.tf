@@ -13,14 +13,6 @@ module "azure_cloud_credentials" {
   subscription_id     = var.subscription_id
 }
 
-/*module "catalog" {
-    source                  = "../../rancher/catalogue"
-    for_each                = var.cluster_catalogs
-    name                    = each.key
-    helm_charts_repo_url    = each.value.helm_charts_repo_url
-    helm_charts_repo_branch = each.value.helm_charts_repo_branch
-}*/
-
 # this module creates the resource group, network, subnet, peering connection.
 module "infra" {
   source                   = "../infra"
@@ -36,6 +28,7 @@ module "infra" {
   tenant_id                = var.tenant_id
   client_secret            = var.client_secret
   subscription_id          = var.subscription_id
+  dns_zone                 = var.dns_zone
   cluster_address_space    = var.cluster_address_space
   cluster_subnet_cidr      = var.cluster_subnet_cidr
   cluster_internal_services = var.cluster_internal_services

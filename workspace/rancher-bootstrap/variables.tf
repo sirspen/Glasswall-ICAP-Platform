@@ -1,7 +1,6 @@
 variable "organisation" {
   description = "Metadata Organisation"
   type        = string
-  default     = "gw"
 }
 
 variable "environment" {
@@ -12,7 +11,6 @@ variable "environment" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "rancher"
 }
 
 variable "suffix" {
@@ -29,7 +27,6 @@ variable "azure_region" {
 variable "dns_zone_name" {
   description = "Metadata Azure Region"
   type        = string
-  default     = "icap-proxy.curlywurly.me"
 }
 
 variable "size" {

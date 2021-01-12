@@ -87,6 +87,11 @@ variable "subscription_id" {
   type        = string
 }
 
+variable "dns_zone" {
+  description = "The DNS Zone"
+  type        = string
+}
+
 variable "cluster_subnet_cidr" {
   description = "Subnet CIDR"
   type        = list(string)

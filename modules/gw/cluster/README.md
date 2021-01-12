@@ -25,6 +25,7 @@ No provider.
 | cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | cluster\_subnet\_cidr | Subnet CIDR | `list(string)` | n/a | yes |
 | cluster\_subnet\_prefix | Subnet Prefix | `string` | n/a | yes |
+| dns\_zone | The DNS Zone | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
 | infra\_module | The Suffix | `string` | `0` | no |
 | master\_scaleset\_admin\_user | The Instance Admin User | `string` | n/a | yes |
