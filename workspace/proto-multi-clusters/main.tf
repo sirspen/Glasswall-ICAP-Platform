@@ -175,7 +175,6 @@ module "icap_clusters" {
   organisation                 = var.organisation
   environment                  = var.environment
   cluster_stage1_apps          = var.icap_cluster_stage1_apps
-  cluster_stage2_apps          = var.icap_cluster_stage2_apps
   rancher_admin_url            = local.rancher_api_url
   rancher_internal_api_url     = local.rancher_internal_api_url
   rancher_admin_token          = local.rancher_admin_token
@@ -189,6 +188,7 @@ module "icap_clusters" {
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
 }
+
 /*
 module "filedrop_clusters" {
   source                       = "../../modules/gw/cluster"
@@ -232,6 +232,7 @@ module "filedrop_clusters" {
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
 }
+*/
 
 module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
@@ -268,7 +269,6 @@ module "admin_cluster" {
   #cluster_subnet_cidr          = var.cluster_subnet_cidr
   #cluster_subnet_prefix        = var.cluster_subnet_prefix
   cluster_stage1_apps = var.admin_cluster_stage1_apps
-  cluster_stage2_apps = var.admin_cluster_stage2_apps
   master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
   master_scaleset_sku_capacity = 1
@@ -276,4 +276,3 @@ module "admin_cluster" {
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 1
 }
-*/

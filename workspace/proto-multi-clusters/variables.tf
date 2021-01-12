@@ -217,25 +217,12 @@ variable "icap_cluster_stage1_apps" {
       create_namespace = false
       system_app       = true
     }
-  }
-}
-
-variable "icap_cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace        = string
-    catalog_name     = string
-    template_name    = string
-    create_namespace = bool
-    system_app       = bool
-  }))
-  default = {
-    adaptation = {
-      namespace        = "icap-adaptation"
+    argocd = {
+      namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "icap-adaptation"
+      template_name    = "rancher-argocd"
       create_namespace = true
-      system_app       = false
+      system_app       = true
     }
   }
 }
@@ -257,25 +244,12 @@ variable "admin_cluster_stage1_apps" {
       create_namespace = false
       system_app       = true
     }
-  }
-}
-
-variable "admin_cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace        = string
-    catalog_name     = string
-    template_name    = string
-    create_namespace = bool
-    system_app       = bool
-  }))
-  default = {
-    admin = {
-      namespace        = "icap-administration"
+    argocd = {
+      namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "icap-administration"
+      template_name    = "rancher-argocd"
       create_namespace = true
-      system_app       = false
+      system_app       = true
     }
   }
 }

@@ -59,7 +59,6 @@ module "cluster" {
   rancher_projects                  = var.rancher_projects
   cluster_name                      = "${local.cluster_name}${count.index+1}"
   cluster_stage1_apps               = var.cluster_stage1_apps
-  cluster_stage2_apps               = var.cluster_stage2_apps
   client_id                         = var.client_id
   tenant_id                         = var.tenant_id
   client_secret                     = var.client_secret

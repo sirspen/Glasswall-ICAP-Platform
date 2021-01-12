@@ -23,7 +23,6 @@ No provider.
 | cluster\_public\_port | Public Port | `number` | n/a | yes |
 | cluster\_quantity | Quantity of clusters in Region | `number` | n/a | yes |
 | cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
-| cluster\_stage2\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | cluster\_subnet\_cidr | Subnet CIDR | `list(string)` | n/a | yes |
 | cluster\_subnet\_prefix | Subnet Prefix | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
