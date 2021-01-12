@@ -14,4 +14,5 @@ module "rancher_server" {
   project                = "rancher-server"
   suffix                 = "z1"
   git_server_version     = "1.82"
+  dns_zone_name          = "dev.icap-proxy.curlywurly.me"
 }
