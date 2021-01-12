@@ -195,16 +195,6 @@ variable "cluster_stage1_apps" {
   }))
 }
 
-variable "cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace = string
-    catalog_name = string
-    template_name = string
-    create_namespace = bool
-    system_app = bool
-  }))
-}
 /*
 variable "cluster_catalogs" {
   type = map(object({

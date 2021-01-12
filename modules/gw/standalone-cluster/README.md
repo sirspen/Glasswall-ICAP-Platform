@@ -23,7 +23,6 @@
 | cluster\_network\_name | Subnet Name | `string` | n/a | yes |
 | cluster\_public\_port | Public Port | `number` | n/a | yes |
 | cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
-| cluster\_stage2\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | cluster\_subnet\_id | Subnet ID | `string` | n/a | yes |
 | cluster\_subnet\_name | Subnet Name | `string` | n/a | yes |
 | dns\_zone | The name of the dns zone to add records to | `string` | n/a | yes |
