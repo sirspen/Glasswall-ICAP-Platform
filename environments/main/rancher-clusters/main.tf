@@ -10,8 +10,11 @@ terraform {
 
 module "rancher_clusters" {
     source              = "../../../workspace/proto-multi-clusters"
+    organisation        = "gw"
     environment         = "prd"
     branch              = "main"
+    subscription_id     = "b8177f86-515f-4bff-bd08-1b9535dbc31b"
+    tenant_id           = "7049e6a3-141d-463a-836b-1ba40d3ff653"
     icap_cluster_suffix_r1 = "b"
     icap_cluster_suffix_r2 = "c"
     icap_cluster_quantity  = 1
