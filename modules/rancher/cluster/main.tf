@@ -80,7 +80,7 @@ module "master_scaleset" {
 
   custom_data = templatefile("${path.module}/tmpl/user-data.template", {
     cluster_name          = var.cluster_name
-    rancher_agent_version = "v2.5.1"
+    rancher_agent_version = "v2.5.5"
     rancher_server_url    = var.rancher_internal_api_url
     rancher_agent_token   = rancher2_token.main.token
     crt_cluster_token     = rancher2_cluster.main.cluster_registration_token.0.token

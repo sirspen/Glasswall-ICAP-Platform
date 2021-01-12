@@ -151,14 +151,14 @@ resource "azurerm_dns_a_record" "main_int_worker" {
   name                = "${local.service_name}-int"
   zone_name           = data.azurerm_dns_zone.main.name
   ttl                 = 300
-  resource_group_name = module.resource_group.name
+  resource_group_name = var.rancher_resource_group
   records             = [module.int_worker_lb.private_ip_address]
 }
 
 resource "azurerm_dns_a_record" "main_worker" {
   name                = var.service_name
   zone_name           = data.azurerm_dns_zone.main.name
-  resource_group_name = module.resource_group.name
+  resource_group_name = var.rancher_resource_group
   ttl                 = 300
   records             = [module.worker_lb.public_ip_address]
 }
