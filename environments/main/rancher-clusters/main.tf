@@ -17,4 +17,5 @@ module "rancher_clusters" {
     icap_cluster_quantity  = 1
     icap_master_scaleset_sku_capacity = 1
     icap_worker_scaleset_sku_capacity = 1
+    dns_zone = "prd.icap-proxy.curlywurly.me"
 }
