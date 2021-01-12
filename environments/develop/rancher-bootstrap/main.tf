@@ -10,6 +10,7 @@ terraform {
 
 module "rancher_server" {
   source                 = "../../../workspace/rancher-bootstrap"
+  organisation           = "gw"
   environment            = "dev"
   project                = "rancher-server"
   suffix                 = "z1"
