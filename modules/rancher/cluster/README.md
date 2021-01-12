@@ -21,7 +21,6 @@
 | cluster\_name | This is the name of the cluster | `string` | n/a | yes |
 | cluster\_network\_plugin | Set the network plugin | `string` | `"canal"` | no |
 | cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
-| cluster\_stage2\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
 | kubernetes\_version | The Kubernetes version | `string` | `"v1.19.2-rancher1-1"` | no |
 | master\_scaleset\_admin\_user | The K8S Master Scaleset admin user | `string` | n/a | yes |
