@@ -54,3 +54,17 @@ resource "azurerm_dns_zone" "main" {
   name                = "${local.project}.${var.dns_zone}"
   resource_group_name = module.resource_group.name
 }
+
+resource "azurerm_dns_ns_record" "child" {
+  name                = "rks"
+  zone_name           = "icap-proxy.curlywurly.me"
+  resource_group_name = "gw-icap-rg-dns"
+  ttl                 = 300
+  records = azurerm_dns_zone.main.name_servers
+}
+
+
+resource "time_sleep" "wait_60_seconds" {
+  depends_on      = [module.rancher_server]
+  create_duration = "60s"
+}
