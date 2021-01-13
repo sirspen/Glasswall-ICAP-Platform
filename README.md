@@ -13,7 +13,7 @@ The installer module is where you should start, in the following order;
 1. 01_terraform-remote-state
 This stage sets up the underlying storage of the terraform backends, note the outputs because all stages rely on information from the outputs of this module. 
 
-Before you begin you will need the following details and a valid azure login account. Once you've executed `az login` and are logged in you will need the following information.
+Before you begin you will need the following details and a valid azure login account. Once you've executed `az login` you will need the following information.
 
 ```
     organisation           = "" # this just needs to be a short identifier (i.e gw
@@ -22,6 +22,8 @@ Before you begin you will need the following details and a valid azure login acc
     tenant_id              = "" # this is based on your azure account
     subscription_id        = "" # this is based on your azure account
 ```
+Add this information to the environments/installer/01_terraform-remote-state/main.tf
+
 Run `terraform init`, then `terraform plan`, then `terraform apply`.
 
 Take note of the outputs because you will need them in all the next stages.
@@ -30,6 +32,7 @@ Take note of the outputs because you will need them in all the next stages.
 This stage creates the container registry which will store all of the container images. You will need this before continuing with any steps related to the setup of the git server (part of 03_rancher-bootstrap).
 
 Using the terraform outputs from 01_terraform-remote-state fill in the following details;
+main.tf in environments/installer/02_container-registry/main.tf on line 2.
 
 ```
     terraform {
@@ -53,7 +56,45 @@ Once complete copy the same information you used for;
 Run `terraform init`, then `terraform plan`, then `terraform apply`.
 
 3. 03_rancher-bootstrap
-This stage creates the rancher server which will be used to setup the kubernetes clusters. 
+This stage creates the rancher server which will be used to setup the kubernetes clusters. Using the information from the 01_terraform-remote-state add the necessary information the the terraform backend configuration in the main.tf in environments/installer/03_rancher-bootstrap/main.tf
+```
+terraform {
+  backend "azurerm" {
+    resource_group_name  = ""
+    storage_account_name = ""
+    container_name       = ""
+    # backend_key_rancher_bootstrap_03
+    key                  = ""
+  }
+}
+```
+Like in the previous steps fill in this information.
+
+```
+    organisation           = "" # this just needs to be a short identifier (i.e gw
+    environment            = "" # can be anything short to identify this stacks change management tier
+    azure_region           = "" # which azure region do you want to use ?
+    tenant_id              = "" # this is based on your azure account
+    subscription_id        = "" # this is based on your azure account
+```
+Run `terraform init`, then `terraform plan`, then `terraform apply`.
+
+There is quite a bit of information in the Rancher output. Most importantly is the following information;
+
+`tls_private_key`
+You will need this to ssh into the rancher server to access the clusters. 
+
+`rancher_api_url`
+Use this to access the rancher web console.
+
+`rancher_user`
+The login user
+
+`rancher_password`
+The login password
+
+
+
 
 4. 04_rancher-clusters
 This stage creates the clusters that run the ICAP service.
