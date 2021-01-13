@@ -128,17 +128,17 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
-module "setting" {
-  source            = "../../modules/rancher/setting"
-  setting_name      = "server-url"
-  setting_value     = local.rancher_internal_api_url
-}
+#module "setting" {
+#  source            = "../../modules/rancher/setting"
+#  setting_name      = "server-url"
+#  setting_value     = local.rancher_internal_api_url
+#}
 # module.setting reboots the rancher server (it also recycles the certs) which might be 
 # causing issues with the catalog deployment right below.
-resource "time_sleep" "wait_60_seconds" {
-  depends_on      = [module.setting]
-  create_duration = "60s"
-}
+#resource "time_sleep" "wait_60_seconds" {
+#  depends_on      = [module.setting]
+#  create_duration = "60s"
+#}
 
 module "catalog" {
   source                  = "../../modules/rancher/catalogue"

@@ -140,7 +140,7 @@ resource "azurerm_dns_a_record" "main_master" {
 resource "azurerm_dns_a_record" "main_worker" {
   name                = local.cluster_name
   zone_name           = data.azurerm_dns_zone.main.name
-  resource_group_name = module.resource_group.name
+  resource_group_name = var.rancher_resource_group
   ttl                 = 300
   records             = [module.worker_lb.public_ip_address]
 }
