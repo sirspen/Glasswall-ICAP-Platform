@@ -217,7 +217,7 @@ variable "icap_cluster_stage1_apps" {
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "rancher-argocd"
+      template_name    = "argo-cd"
       create_namespace = true
       system_app       = true
     }
@@ -244,7 +244,7 @@ variable "admin_cluster_stage1_apps" {
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "rancher-argocd"
+      template_name    = "argo-cd"
       create_namespace = true
       system_app       = true
     }
