@@ -7,11 +7,36 @@ Access is restricted.
 ### The environment modules
 This directory contains the terraform backend and modules that load in modules from the workspace. It provides a easy mechanism of organising a one to many terraform deployment pattern. Terraform modules typically store the backend in the module and this is a useful pattern but in a case of a developer at Glasswall Solutions you want to be able to prototype your terraform code before you use it in production. Using this pattern enables you to have a manageable way to setup a new set of services by replicating a few modules and *setting up a new backend*. The organisation isnot strict but i have gone for organising the modules by git branch name `environments/branch/modules`. Where branch is the name of the branch you are currently on, the backend uses the branch to differentiate backends. 
 
+# Installer
+The installer module is where you should start, in the following order;
+
+1. 01_terraform-remote-state
+This stage sets up the underlying storage of the terraform backends, note the outputs because all stages rely on information from the outputs of this module. 
+
+Before you begin you will need the following details and a valid azure login account. Once you've executed `az login` and are logged in you will need the following information.
+
+    organisation           = "" # this just needs to be a short identifier (i.e gw
+    environment            = "" # can be anything short to identify this stacks change management tier
+    azure_region           = "" # which azure region do you want to use ?
+    tenant_id              = "" # this is based on your azure account
+    subscription_id        = "" # this is based on your azure account
+
+2. 02_container-registry
+This stage creates the container registry which will store all of the container images. You will need this before continuing with any steps related to the setup of the git server (part of 03_rancher-bootstrap).
+
+3. 03_rancher-bootstrap
+This stage creates the rancher server which will be used to setup the kubernetes clusters. 
+
+4. 04_rancher-clusters
+This stage creates the clusters that run the ICAP service.
+
 ### The workspace modules
 This directory contains assembled terraform components which define a component in the final delivery infrastructure. Entities like the Rancher server, and the Clusters are assembled in the workspace as well as pre-prequisites like state storage, secrets management and a container registry.
 
-1. [Rancher Bootstrap](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/rancher-bootstrap)
-2. [Proto Multi Cluster](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/proto-multi-cluster)
+1. [Terraform Remote State](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/terraform-remote-state)
+2. [Container Registry](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/container-registry)
+3. [Rancher Bootstrap](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/rancher-bootstrap)
+4. [ICAP Multi Cluster No Vault](https://github.com/filetrust/Glasswall-ICAP-Platform/tree/main/workspace/icap-multi-cluster-no-vault)
 
 ### The modules directory is for reusable resource collections or single resource terraform modules 
 This directory contains many module libraries and one meta module ('gw'). The intent is that we build terraform modules that perform a single task and assemble them when required. This improves the quality of the code and reliability of the terraform executions. Small components can be assembled into more elaborate collections.  
