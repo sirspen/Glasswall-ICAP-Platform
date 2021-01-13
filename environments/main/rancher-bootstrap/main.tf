@@ -17,6 +17,8 @@ module "rancher_server" {
   git_server_version     = "1.87"
   azure_region           = "ukwest" # ukwest
   dns_zone_name          = "prd.icap-proxy.curlywurly.me"
+  key_vault_resource_group = "keyvault"
+  key_vault_name           = "gw-icap-keyvault"
   #tenant_id              = "" in tfvars now
   #subscription_id        = "" in tfvars now
 }
