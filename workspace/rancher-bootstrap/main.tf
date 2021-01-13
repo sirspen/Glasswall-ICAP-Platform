@@ -3,15 +3,6 @@ locals {
   short_region = substr(var.azure_region, 0, 3)
   service_name = "${var.organisation}-${local.project}-${var.environment}-${local.short_region}"
 }
-/*
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "tf-state-resource-group"
-    storage_account_name = "gwtfstatestorageaccount"
-    container_name       = "tfstatecontainer"
-    key                  = "gw-rancher-develop-terraform.tfstate"
-  }
-}*/
 
 module "rancher_server" {
   source                = "../../modules/rancher-bootstrap"
