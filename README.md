@@ -10,7 +10,7 @@ This directory contains the terraform backend and modules that load in modules f
 # Installer
 The installer module is where you should start, in the following order execute the terraform runs.
 
-## TFVARS
+### TFVARS
 Saving time with some variables with tfvars. The following variables do not change across all the terraform modules, which makes them a perfect candidate for using tfvars. 
 ```
     organisation           = ""
@@ -23,7 +23,7 @@ Anything not in the above list should be managed at the module level. However th
 
 ```terraform apply -var-file="../common.tfvars"```
 
-1. 01_terraform-remote-state
+### 1. 01_terraform-remote-state
 This stage sets up the underlying storage of the terraform backends, note the outputs because all stages rely on information from the outputs of this module. 
 
 Before you begin you will need the following details and a valid azure login account. Once you've executed `az login` you will need the following information.
@@ -41,7 +41,7 @@ Run `terraform init`, then `terraform plan`, then `terraform apply`.
 
 Take note of the outputs because you will need them in all the next stages.
 
-2. 02_container-registry
+### 2. 02_container-registry
 This stage creates the container registry which will store all of the container images. You will need this before continuing with any steps related to the setup of the git server (part of ```03_rancher-bootstrap```).
 
 Using the terraform outputs from 01_terraform-remote-state fill in the following details;
@@ -68,7 +68,7 @@ Once complete copy the same information you used for;
 ```
 Run `terraform init`, then `terraform plan`, then `terraform apply`.
 
-3. 03_rancher-bootstrap
+### 3. 03_rancher-bootstrap
 This stage creates the rancher server which will be used to setup the kubernetes clusters. Using the information from the 01_terraform-remote-state add the necessary information the the terraform backend configuration in the main.tf in environments/installer/03_rancher-bootstrap/main.tf
 ```
 terraform {
@@ -107,7 +107,7 @@ The login user
 The login password
 
 
-4. 04_rancher-clusters
+### 4. 04_rancher-clusters
 This stage creates the clusters that run the ICAP service.
 
 ### The workspace modules
