@@ -18,6 +18,16 @@ variable "suffix" {
   type        = string
 }
 
+variable "subscription_id" {
+  description = "Subscription ID"
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "Tenant ID"
+  type        = string
+}
+
 variable "azure_region" {
   description = "Metadata Azure Region"
   type        = string
