@@ -17,10 +17,13 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| azure\_region | Metadata Azure Region | `string` | `"uksouth"` | no |
-| resource\_group | Azure Resource Group | `string` | `"keyvault"` | no |
+| azure\_region | Metadata Azure Region | `string` | n/a | yes |
+| service\_name | The service name | `string` | n/a | yes |
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| keyvault\_id | n/a |
+| keyvault\_uri | n/a |
 

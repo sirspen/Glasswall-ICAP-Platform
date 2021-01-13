@@ -13,12 +13,12 @@ module "rancher_clusters" {
     organisation        = "gw"
     environment         = "prd"
     branch              = "main"
-    subscription_id     = "b8177f86-515f-4bff-bd08-1b9535dbc31b"
-    tenant_id           = "7049e6a3-141d-463a-836b-1ba40d3ff653"
     icap_cluster_suffix_r1 = "b"
     icap_cluster_suffix_r2 = "c"
     icap_cluster_quantity  = 1
     icap_master_scaleset_sku_capacity = 1
     icap_worker_scaleset_sku_capacity = 1
     dns_zone = "prd.icap-proxy.curlywurly.me"
+    #tenant_id              = "" in tfvars now
+    #subscription_id        = "" in tfvars now
 }

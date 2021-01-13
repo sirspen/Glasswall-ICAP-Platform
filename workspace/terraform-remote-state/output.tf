@@ -25,3 +25,11 @@ output "backend_rancher_clusters_04" {
 output "backend_container_registry_02" {
   value = local.backend_container_registry
 }
+
+output "keyvault_id" {
+  value = module.key_vault_storage.keyvault_id
+}
+
+output "keyvault_uri" {
+  value = module.key_vault_storage.keyvault_uri
+}

@@ -1,9 +1,5 @@
 provider "azurerm" {
-
   version         = "=2.30.0"
-  subscription_id = "b8177f86-515f-4bff-bd08-1b9535dbc31b"
-  tenant_id       = "7049e6a3-141d-463a-836b-1ba40d3ff653"
-
   features {
     key_vault {
       purge_soft_delete_on_destroy = true
@@ -11,16 +7,15 @@ provider "azurerm" {
   }
 }
 
-data "azurerm_client_config" "current" {
-}
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_resource_group" "keyvault" {
-  name     = "keyvault"
+  name     = "${var.service_name}-rg"
   location = var.azure_region
 }
 
-resource "azurerm_key_vault" "keyvault" {
-  name                        = "gw-icap-keyvault"
+resource "azurerm_key_vault" "main" {
+  name                        = var.service_name
   location                    = azurerm_resource_group.keyvault.location
   resource_group_name         = azurerm_resource_group.keyvault.name
   enabled_for_disk_encryption = true
