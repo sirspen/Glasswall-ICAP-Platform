@@ -21,7 +21,6 @@ variable "suffix" {
 variable "azure_region" {
   description = "Metadata Azure Region"
   type        = string
-  default     = "ukwest"
 }
 
 variable "dns_zone_name" {

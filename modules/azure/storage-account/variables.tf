@@ -5,7 +5,7 @@ variable "resource_group_name" {
 
 variable "service_name" {
   type        = string
-  description = "The Storage Account name"
+  description = "The Service name"
 }
 
 variable "azure_region" {

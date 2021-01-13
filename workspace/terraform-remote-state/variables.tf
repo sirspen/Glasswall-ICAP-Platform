@@ -11,7 +11,6 @@ variable "environment" {
 variable "project" {
   description = "Metadata Project"
   type        = string
-  default     = "terraform"
 }
 
 variable "suffix" {

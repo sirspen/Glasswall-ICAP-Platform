@@ -15,8 +15,9 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| location | The Azure Location | `string` | `"uksouth"` | no |
-| resource\_group\_name | The resource group name | `string` | `"gw-icap-container-registry-rg"` | no |
+| location | The Azure Location | `string` | n/a | yes |
+| resource\_group\_name | The resource group name | `string` | n/a | yes |
+| service\_name | The service name | `string` | n/a | yes |
 
 ## Outputs
 
