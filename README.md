@@ -15,14 +15,42 @@ This stage sets up the underlying storage of the terraform backends, note the ou
 
 Before you begin you will need the following details and a valid azure login account. Once you've executed `az login` and are logged in you will need the following information.
 
+```
     organisation           = "" # this just needs to be a short identifier (i.e gw
     environment            = "" # can be anything short to identify this stacks change management tier
     azure_region           = "" # which azure region do you want to use ?
     tenant_id              = "" # this is based on your azure account
     subscription_id        = "" # this is based on your azure account
+```
+Run `terraform init`, then `terraform plan`, then `terraform apply`.
+
+Take note of the outputs because you will need them in all the next stages.
 
 2. 02_container-registry
 This stage creates the container registry which will store all of the container images. You will need this before continuing with any steps related to the setup of the git server (part of 03_rancher-bootstrap).
+
+Using the terraform outputs from 01_terraform-remote-state fill in the following details;
+
+```
+    terraform {
+        backend "azurerm" {
+            resource_group_name  = ""
+            storage_account_name = ""
+            container_name       = ""
+            #backend_key_container_registry_02
+            key                  = ""
+        }
+    }
+```
+Once complete copy the same information you used for;
+```
+    organisation           = "" # this just needs to be a short identifier (i.e gw
+    environment            = "" # can be anything short to identify this stacks change management tier
+    azure_region           = "" # which azure region do you want to use ?
+    tenant_id              = "" # this is based on your azure account
+    subscription_id        = "" # this is based on your azure account
+```
+Run `terraform init`, then `terraform plan`, then `terraform apply`.
 
 3. 03_rancher-bootstrap
 This stage creates the rancher server which will be used to setup the kubernetes clusters. 
