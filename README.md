@@ -8,7 +8,20 @@ Access is restricted.
 This directory contains the terraform backend and modules that load in modules from the workspace. It provides a easy mechanism of organising a one to many terraform deployment pattern. Terraform modules typically store the backend in the module and this is a useful pattern but in a case of a developer at Glasswall Solutions you want to be able to prototype your terraform code before you use it in production. Using this pattern enables you to have a manageable way to setup a new set of services by replicating a few modules and *setting up a new backend*. The organisation isnot strict but i have gone for organising the modules by git branch name `environments/branch/modules`. Where branch is the name of the branch you are currently on, the backend uses the branch to differentiate backends. 
 
 # Installer
-The installer module is where you should start, in the following order;
+The installer module is where you should start, in the following order execute the terraform runs.
+
+## TFVARS
+Saving time with some variables with tfvars. The following variables do not change across all the terraform modules, which makes them a perfect candidate for using tfvars. 
+```
+    organisation           = ""
+    environment            = ""
+    azure_region           = "" 
+    tenant_id              = ""
+    subscription_id        = ""
+```
+Anything not in the above list should be managed at the module level. However the above will save you quite a bit of duplication. Modify each terraform run with; 
+
+```terraform apply -var-file="../common.tfvars"```
 
 1. 01_terraform-remote-state
 This stage sets up the underlying storage of the terraform backends, note the outputs because all stages rely on information from the outputs of this module. 
@@ -29,10 +42,10 @@ Run `terraform init`, then `terraform plan`, then `terraform apply`.
 Take note of the outputs because you will need them in all the next stages.
 
 2. 02_container-registry
-This stage creates the container registry which will store all of the container images. You will need this before continuing with any steps related to the setup of the git server (part of 03_rancher-bootstrap).
+This stage creates the container registry which will store all of the container images. You will need this before continuing with any steps related to the setup of the git server (part of ```03_rancher-bootstrap```).
 
 Using the terraform outputs from 01_terraform-remote-state fill in the following details;
-main.tf in environments/installer/02_container-registry/main.tf on line 2.
+```main.tf``` in environments/installer/02_container-registry/main.tf on line 2.
 
 ```
     terraform {
@@ -92,8 +105,6 @@ The login user
 
 `rancher_password`
 The login password
-
-
 
 
 4. 04_rancher-clusters
