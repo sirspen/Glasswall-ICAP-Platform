@@ -49,3 +49,13 @@ variable "git_server_version" {
   type = string
 }
 
+variable "key_vault_resource_group" {
+  description = "Key vault resource group"
+  type        = string
+}
+
+variable "key_vault_name" {
+  description = "Key vault name"
+  type = string
+}
+

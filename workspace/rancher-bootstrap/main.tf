@@ -15,4 +15,6 @@ module "rancher_server" {
   custom_data_file_path = filebase64("${path.module}/scripts/cloud-init.yaml")
   git_server_version    = var.git_server_version
   size                  = var.size
+  key_vault_resource_group = var.key_vault_resource_group
+  key_vault_name           = var.key_vault_name
 }

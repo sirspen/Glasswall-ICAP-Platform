@@ -9,8 +9,8 @@ module "git_server_public_ip" {
 }
 
 data "azurerm_key_vault" "key_vault" {
-  name                = "gw-icap-keyvault"
-  resource_group_name = "keyvault"
+  name                = var.key_vault_name
+  resource_group_name = var.key_vault_resource_group
 }
 
 data "azurerm_key_vault_secret" "docker-username" {

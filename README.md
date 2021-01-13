@@ -89,6 +89,8 @@ Like in the previous steps fill in this information.
     azure_region           = "" # which azure region do you want to use ?
     tenant_id              = "" # this is based on your azure account
     subscription_id        = "" # this is based on your azure account
+    key_vault_resource_group = "" # you get this from 01 output
+    key_vault_name           = "" # you get this from 01 output
 ```
 Run `terraform init`, then `terraform plan`, then `terraform apply`.
 

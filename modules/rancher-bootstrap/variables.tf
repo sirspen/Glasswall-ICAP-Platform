@@ -63,3 +63,13 @@ variable "git_server_version" {
   description = "Git server docker tag version"
   type = string
 }
+
+variable "key_vault_resource_group" {
+  description = "Subnet Prefix"
+  type        = string
+}
+
+variable "key_vault_name" {
+  description = "Git server docker tag version"
+  type = string
+}

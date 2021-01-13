@@ -29,3 +29,15 @@ output "backend_key_rancher_clusters_04" {
 output "backend_key_container_registry_02" {
   value = module.remote_state.backend_container_registry_02
 }
+
+output "keyvault_resource_group" {
+  value = module.key_vault_storage.keyvault_resource_group
+}
+
+output "keyvault_id" {
+  value = module.remote_state.keyvault_id
+}
+
+output "keyvault_uri" {
+  value = module.remote_state.keyvault_uri
+}
