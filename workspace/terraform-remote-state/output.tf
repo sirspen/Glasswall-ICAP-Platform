@@ -37,3 +37,8 @@ output "keyvault_uri" {
 output "keyvault_resource_group" {
   value = module.key_vault_storage.keyvault_resource_group
 }
+
+output "keyvault_name" {
+  value = module.key_vault_storage.keyvault_name
+}
+

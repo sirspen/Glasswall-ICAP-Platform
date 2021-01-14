@@ -25,6 +25,7 @@
 | Name | Description |
 |------|-------------|
 | keyvault\_id | n/a |
+| keyvault\_name | n/a |
 | keyvault\_resource\_group | n/a |
 | keyvault\_uri | n/a |
 

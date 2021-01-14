@@ -11,3 +11,7 @@ output "keyvault_uri" {
 output "keyvault_resource_group" {
   value = azurerm_resource_group.keyvault.name
 }
+
+output "keyvault_name" {
+  value = var.service_name
+}

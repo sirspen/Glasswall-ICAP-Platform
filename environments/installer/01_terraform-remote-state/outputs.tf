@@ -31,7 +31,7 @@ output "backend_key_container_registry_02" {
 }
 
 output "keyvault_resource_group" {
-  value = module.key_vault_storage.keyvault_resource_group
+  value = module.remote_state.keyvault_resource_group
 }
 
 output "keyvault_id" {
@@ -40,4 +40,8 @@ output "keyvault_id" {
 
 output "keyvault_uri" {
   value = module.remote_state.keyvault_uri
+}
+
+output "keyvault_name" {
+  value = module.remote_state.keyvault_name
 }
