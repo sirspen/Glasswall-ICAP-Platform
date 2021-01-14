@@ -187,6 +187,7 @@ module "icap_clusters" {
   tenant_id                    = var.tenant_id
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
+  helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
 }
 
 /*
@@ -275,4 +276,6 @@ module "admin_cluster" {
   worker_scaleset_size         = "Standard_DS4_v2"
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 1
+  helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
 }
+

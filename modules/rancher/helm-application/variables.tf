@@ -3,6 +3,11 @@ variable "catalog_name" {
   type        = string
 }
 
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}
+
 variable "project_id" {
   description = "The project id"
   type        = string

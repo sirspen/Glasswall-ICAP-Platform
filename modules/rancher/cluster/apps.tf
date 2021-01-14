@@ -27,4 +27,5 @@ module "cluster_apps_stage1" {
   project_id       = rancher2_project.main.id
   system_id        = data.rancher2_project.system.id
   system_app       = each.value.system_app
+  helm_chart_repo_url = var.helm_chart_repo_url
 }

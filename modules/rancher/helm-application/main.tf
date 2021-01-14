@@ -20,4 +20,7 @@ resource "rancher2_app" "helm_app" {
   project_id        = var.system_app ? var.system_id : var.project_id
   target_namespace  = var.create_namespace ? rancher2_namespace.main[0].name : data.rancher2_namespace.namespace[0].name
   template_name     = var.template_name
+  answers = {
+    "adaptationservice.repoUrl" = var.helm_chart_repo_url
+  }
 }

@@ -180,4 +180,5 @@ module "cluster" {
   os_sku                             = var.os_sku
   os_version                         = var.os_version
   public_key_openssh                 = var.public_key_openssh
+  helm_chart_repo_url                = var.helm_chart_repo_url
 }

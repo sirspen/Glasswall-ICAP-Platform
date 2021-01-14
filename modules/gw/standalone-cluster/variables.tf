@@ -202,3 +202,8 @@ variable "cluster_catalogs" {
     helm_charts_repo_branch = string
   }))
 }*/
+
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}

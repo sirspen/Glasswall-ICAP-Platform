@@ -201,3 +201,8 @@ variable "cluster_internal_services" {
       backend_port                    = number
   }))
 }
+
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}

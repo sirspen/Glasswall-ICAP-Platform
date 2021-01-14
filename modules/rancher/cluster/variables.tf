@@ -169,3 +169,8 @@ variable "cluster_stage1_apps" {
     system_app = bool
   }))
 }
+
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}
