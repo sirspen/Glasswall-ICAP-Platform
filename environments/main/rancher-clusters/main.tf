@@ -19,6 +19,6 @@ module "rancher_clusters" {
     icap_master_scaleset_sku_capacity = 1
     icap_worker_scaleset_sku_capacity = 1
     dns_zone = "prd.icap-proxy.curlywurly.me"
-    #tenant_id              = "" in tfvars now
-    #subscription_id        = "" in tfvars now
+    tenant_id              = "7049e6a3-141d-463a-836b-1ba40d3ff653"
+    subscription_id        = "b8177f86-515f-4bff-bd08-1b9535dbc31b"
 }

@@ -64,7 +64,7 @@ module "master_scaleset" {
   service_name          = "${var.cluster_name}-master"
   tags = {
     "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
-    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = "false",
+    "k8s.io/cluster-autoscaler/${var.cluster_name}" = "false",
     "k8s.io/cluster-autoscaler/enabled" = "false",
     "roles" = "master"
   }
@@ -119,7 +119,7 @@ module "worker_scaleset" {
 
   tags = {
     "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
-    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = "true",
+    "k8s.io/cluster-autoscaler/${var.cluster_name}" = "true",
     "k8s.io/cluster-autoscaler/enabled" = "true",
     "roles" = "worker"
   }

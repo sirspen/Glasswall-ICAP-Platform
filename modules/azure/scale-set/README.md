@@ -31,7 +31,7 @@ No requirements.
 | size | Azure VM image name | `string` | `"Standard_DS1_v2"` | no |
 | sku\_capacity | Total capacity to begin with | `string` | `"1"` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
-| tags | The tags for the scaleset | `string` | n/a | yes |
+| tags | The tags for the scaleset | `object({})` | n/a | yes |
 
 ## Outputs
 
