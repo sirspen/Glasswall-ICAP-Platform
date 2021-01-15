@@ -145,7 +145,7 @@ variable "filedrop_cluster_public_port" {
 variable "admin_cluster_backend_port" {
   description = "Public Port"
   type        = number
-  default     = 443
+  default     = 80
 }
 
 variable "admin_cluster_public_port" {
@@ -263,6 +263,11 @@ variable "icap_internal_services" {
       protocol      = "tcp"
       frontend_port = 32324
       backend_port  = 32324
+    },
+    TransactionQueryService = {
+      protocol      = "tcp"
+      frontend_port = 32325
+      backend_port  = 32325
     }
   }
 }
