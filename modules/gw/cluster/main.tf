@@ -15,29 +15,29 @@ module "azure_cloud_credentials" {
 
 # this module creates the resource group, network, subnet, peering connection.
 module "infra" {
-  source                   = "../infra"
-  organisation             = var.organisation
-  environment              = var.environment
-  rancher_admin_url        = var.rancher_admin_url
-  rancher_internal_api_url = var.rancher_internal_api_url
-  rancher_admin_token      = var.rancher_admin_token
-  suffix                   = var.suffix
-  service_name             = "${var.service_name}-${local.short_region}"
-  azure_region             = var.azure_region
-  client_id                = var.client_id
-  tenant_id                = var.tenant_id
-  client_secret            = var.client_secret
-  subscription_id          = var.subscription_id
-  dns_zone                 = var.dns_zone
-  cluster_address_space    = var.cluster_address_space
-  cluster_subnet_cidr      = var.cluster_subnet_cidr
+  source                    = "../infra"
+  organisation              = var.organisation
+  environment               = var.environment
+  rancher_admin_url         = var.rancher_admin_url
+  rancher_internal_api_url  = var.rancher_internal_api_url
+  rancher_admin_token       = var.rancher_admin_token
+  suffix                    = var.suffix
+  service_name              = "${var.service_name}-${local.short_region}"
+  azure_region              = var.azure_region
+  client_id                 = var.client_id
+  tenant_id                 = var.tenant_id
+  client_secret             = var.client_secret
+  subscription_id           = var.subscription_id
+  dns_zone                  = var.dns_zone
+  cluster_address_space     = var.cluster_address_space
+  cluster_subnet_cidr       = var.cluster_subnet_cidr
   cluster_internal_services = var.cluster_internal_services
-  public_key_openssh       = var.public_key_openssh
-  rancher_resource_group   = var.rancher_resource_group
-  rancher_network_id       = var.rancher_network_id
-  rancher_network          = var.rancher_network
-  backend_port             = var.cluster_backend_port
-  public_port              = var.cluster_public_port
+  public_key_openssh        = var.public_key_openssh
+  rancher_resource_group    = var.rancher_resource_group
+  rancher_network_id        = var.rancher_network_id
+  rancher_network           = var.rancher_network
+  backend_port              = var.cluster_backend_port
+  public_port               = var.cluster_public_port
 }
 
 module "cluster" {

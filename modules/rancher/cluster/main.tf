@@ -62,9 +62,12 @@ module "master_scaleset" {
   organisation          = var.organisation
   environment           = var.environment
   service_name          = "${var.cluster_name}-master"
-  tag_cluster_name      = var.cluster_name
-  tag_cluster_asg_state = "enabled"
-  service_role          = "master"
+  tags = {
+    "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
+    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = "false",
+    "k8s.io/cluster-autoscaler/enabled" = "false",
+    "roles" = "master"
+  }
   resource_group        = var.resource_group_name
   subnet_id             = var.subnet_id
 
@@ -113,9 +116,13 @@ module "worker_scaleset" {
   organisation          = var.organisation
   environment           = var.environment
   service_name          = "${var.cluster_name}-worker"
-  tag_cluster_name      = var.cluster_name
-  tag_cluster_asg_state = "enabled"
-  service_role          = "worker"
+
+  tags = {
+    "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
+    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = "true",
+    "k8s.io/cluster-autoscaler/enabled" = "true",
+    "roles" = "worker"
+  }
 
   resource_group        = var.resource_group_name
   subnet_id             = var.subnet_id

@@ -28,12 +28,10 @@ No requirements.
 | resource\_group | Azure Resource Group | `string` | n/a | yes |
 | security\_group\_rules | The rules to add as an object | <pre>map(object({<br>    name                                        = string<br>    priority                                    = string<br>    direction                                   = string<br>    access                                      = string<br>    protocol                                    = string<br>    source_port_range                           = string<br>    destination_port_range                      = string<br>    source_address_prefix                       = string<br>    destination_address_prefix                  = string<br>  }))</pre> | n/a | yes |
 | service\_name | This is a consolidated name based on org, environment, region | `string` | n/a | yes |
-| service\_role | This is the instance role, used to identity a master or worker node | `string` | n/a | yes |
 | size | Azure VM image name | `string` | `"Standard_DS1_v2"` | no |
 | sku\_capacity | Total capacity to begin with | `string` | `"1"` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
-| tag\_cluster\_asg\_state | Enable or Disable the cluster asg | `string` | n/a | yes |
-| tag\_cluster\_name | This the cluster name to integrate with the cluster-autoscaler | `string` | n/a | yes |
+| tags | The tags for the scaleset | `string` | n/a | yes |
 
 ## Outputs
 
