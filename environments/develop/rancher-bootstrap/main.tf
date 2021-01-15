@@ -14,7 +14,7 @@ module "rancher_server" {
   environment            = "dev"
   project                = "rancher-server"
   suffix                 = "z1"
-  git_server_version     = "1.87"
+  git_server_version     = "1.91"
   azure_region           = "ukwest" # ukwest
   dns_zone_name          = "dev.icap-proxy.curlywurly.me"
   subscription_id        = "b8177f86-515f-4bff-bd08-1b9535dbc31b"

@@ -22,5 +22,6 @@ resource "rancher2_app" "helm_app" {
   template_name     = var.template_name
   answers = {
     "adaptationservice.repoUrl" = var.helm_chart_repo_url
+    "adminservice.repoUrl"      = var.helm_chart_repo_url
   }
 }
