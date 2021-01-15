@@ -27,6 +27,7 @@
 | cluster\_subnet\_name | Subnet Name | `string` | n/a | yes |
 | dns\_zone | The name of the dns zone to add records to | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
+| helm\_chart\_repo\_url | The git repo url | `string` | n/a | yes |
 | master\_scaleset\_admin\_user | The Instance Admin User | `string` | n/a | yes |
 | master\_scaleset\_size | The Instance Size | `string` | n/a | yes |
 | master\_scaleset\_sku\_capacity | Total instances to begin with | `number` | n/a | yes |

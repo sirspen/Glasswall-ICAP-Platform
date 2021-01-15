@@ -71,7 +71,7 @@ module "cluster" {
   worker_scaleset_size              = var.worker_scaleset_size
   worker_scaleset_sku_capacity      = var.worker_scaleset_sku_capacity
   worker_scaleset_admin_user        = var.worker_scaleset_admin_user
-  worker_lb_backend_address_pool_id = [module.infra.worker_lbap_id]
+  worker_lb_backend_address_pool_id = [module.infra.worker_lbap_id, module.infra.int_worker_lbap_id]
   worker_lb_probe_id                = module.infra.worker_ingress_probe_id
 
   os_publisher                      = var.os_publisher

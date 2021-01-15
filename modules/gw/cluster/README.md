@@ -27,6 +27,7 @@ No provider.
 | cluster\_subnet\_prefix | Subnet Prefix | `string` | n/a | yes |
 | dns\_zone | The DNS Zone | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
+| helm\_chart\_repo\_url | The git repo url | `string` | n/a | yes |
 | infra\_module | The Suffix | `string` | `0` | no |
 | master\_scaleset\_admin\_user | The Instance Admin User | `string` | n/a | yes |
 | master\_scaleset\_size | The Instance Size | `string` | n/a | yes |
