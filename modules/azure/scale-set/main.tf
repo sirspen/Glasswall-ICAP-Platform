@@ -84,6 +84,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
   }
 
   tags = var.tags
+
 }
 
 resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
@@ -160,9 +161,6 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
 
   }
 
-  tags = {
-    "cluster-autoscaler" = var.tag_cluster_asg_state
-    "cluster" = var.tag_cluster_name
-    "roles" = var.service_role
-  }
+  tags = var.tags
+  
 }

@@ -58,12 +58,12 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_lb" {
       load_balancer_backend_address_pool_ids = var.lb_backend_address_pool_id
     }
   }
-
-  tags = {
+  tags = var.tags
+  /*tags = {
     "cluster-autoscaler"          = var.tag_cluster_asg_state
     "cluster"                     = var.tag_cluster_name
     "roles"                       = var.service_role
-  }
+  }*/
 }
 
 resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
@@ -118,10 +118,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
       subnet_id                   =  var.subnet_id
     }
   }
-
-  tags = {
+  tags = var.tags
+  /*tags = {
     "cluster-autoscaler" = var.tag_cluster_asg_state
     "cluster" = var.tag_cluster_name
     "roles" = var.service_role
-  }
+  }*/
 }
