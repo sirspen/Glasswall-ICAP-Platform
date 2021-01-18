@@ -129,7 +129,7 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
 }
 
 data "azurerm_key_vault_secret" "docker-config-json" {
-  name         = "Docker-PAT-dockerconfigjson"
+  name         = "az-registry-dockerconfig"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
