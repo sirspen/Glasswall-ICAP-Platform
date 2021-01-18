@@ -17,15 +17,16 @@ resource "rancher2_project" "main" {
 }
 
 module "cluster_apps_stage1" {
-  source           = "../helm-application"
-  depends_on       = [rancher2_project.main]
-  for_each         = var.cluster_stage1_apps
-  namespace        = each.value.namespace
-  catalog_name     = each.value.catalog_name
-  template_name    = each.value.template_name
-  create_namespace = each.value.create_namespace
-  project_id       = rancher2_project.main.id
-  system_id        = data.rancher2_project.system.id
-  system_app       = each.value.system_app
+  source              = "../helm-application"
+  depends_on          = [rancher2_project.main]
+  for_each            = var.cluster_stage1_apps
+  namespace           = each.value.namespace
+  catalog_name        = each.value.catalog_name
+  template_name       = each.value.template_name
+  create_namespace    = each.value.create_namespace
+  project_id          = rancher2_project.main.id
+  system_id           = data.rancher2_project.system.id
+  system_app          = each.value.system_app
   helm_chart_repo_url = var.helm_chart_repo_url
+  docker_config_json  = var.docker_config_json
 }

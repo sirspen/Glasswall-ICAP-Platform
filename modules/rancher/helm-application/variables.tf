@@ -8,6 +8,11 @@ variable "helm_chart_repo_url" {
   type        = string
 }
 
+variable "docker_config_json" {
+  description = "The docker config json"
+  type        = string
+}
+
 variable "project_id" {
   description = "The project id"
   type        = string

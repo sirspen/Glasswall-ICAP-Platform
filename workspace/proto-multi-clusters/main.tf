@@ -128,6 +128,11 @@ data "azurerm_key_vault_secret" "az-subscription-id" {
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
+data "azurerm_key_vault_secret" "docker-config-json" {
+  name         = "Docker-PAT-dockerconfigjson"
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
+
 #module "setting" {
 #  source            = "../../modules/rancher/setting"
 #  setting_name      = "server-url"
@@ -188,6 +193,7 @@ module "icap_clusters" {
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
   helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
+  docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
 }
 
 /*
@@ -277,5 +283,6 @@ module "admin_cluster" {
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 1
   helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
+  docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
 }
 
