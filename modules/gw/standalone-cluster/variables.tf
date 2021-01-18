@@ -207,3 +207,8 @@ variable "helm_chart_repo_url" {
   description = "The git repo url"
   type        = string
 }
+
+variable "docker_config_json" {
+  description = "The docker config json"
+  type        = string
+}

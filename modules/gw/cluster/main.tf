@@ -80,4 +80,5 @@ module "cluster" {
   os_version                        = var.os_version
   public_key_openssh                = var.public_key_openssh
   helm_chart_repo_url               = var.helm_chart_repo_url
+  docker_config_json                = var.docker_config_json
 }
