@@ -84,9 +84,9 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
   }
 
   tags = {
-    "kubernetes.io/cluster/${var.tag_cluster_id}" = "owned"
-    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = var.tag_cluster_autoscaler_status
-    "k8s.io/cluster-autoscaler/enabled" = var.tag_cluster_autoscaler_status
+    #"kubernetes.io/cluster/${var.tag_cluster_id}" = "owned"
+    #"k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = var.tag_cluster_autoscaler_status
+    #"k8s.io/cluster-autoscaler/enabled" = var.tag_cluster_autoscaler_status
     "roles" = var.tag_cluster_role
   }
 
@@ -167,10 +167,10 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
   }
 
   tags = {
-    "kubernetes.io/cluster/${var.tag_cluster_id}" = "owned"
-    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = var.tag_cluster_autoscaler_status
-    "k8s.io/cluster-autoscaler/enabled" = var.tag_cluster_autoscaler_status
-    "roles" = var.tag_cluster_role
+    #"kubernetes.io/cluster/${var.tag_cluster_id}" = "owned"
+    #"k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = var.tag_cluster_autoscaler_status
+    #"k8s.io/cluster-autoscaler/enabled" = var.tag_cluster_autoscaler_status
+    roles = var.tag_cluster_role
   }
   
 }
