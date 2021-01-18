@@ -57,7 +57,7 @@ resource "rancher2_token" "main" {
 }
 
 module "master_scaleset" {
-  source                = "../../azure/scale-set"
+  source                = "../../azure/linux-scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
@@ -111,7 +111,7 @@ module "master_scaleset" {
 }
 
 module "worker_scaleset" {
-  source                = "../../azure/scale-set"
+  source                = "../../azure/linux-scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
@@ -121,7 +121,7 @@ module "worker_scaleset" {
     "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
     "k8s.io/cluster-autoscaler/${var.cluster_name}" = "true",
     "k8s.io/cluster-autoscaler/enabled" = "true",
-    "roles" = "worker"
+    roles = "worker"
   }
 
   resource_group        = var.resource_group_name
@@ -156,6 +156,28 @@ module "worker_scaleset" {
       protocol                   = "Tcp"
       source_port_range          = "*"
       destination_port_range     = 32323
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    policy = {
+      name                       = "icapPolicyNodePort"
+      priority                   = 1005
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32324
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    transaction = {
+      name                       = "icapTransactionNodePort"
+      priority                   = 1006
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32325
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     }

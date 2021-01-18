@@ -17,7 +17,7 @@ variable "service_name" {
 
 variable "tags" {
   description = "The tags for the scaleset"
-  type        = object({})
+  type        = map(any)
 }
 
 variable "resource_group" {
