@@ -57,17 +57,16 @@ resource "rancher2_token" "main" {
 }
 
 module "master_scaleset" {
-  source                = "../../azure/linux-scale-set"
+  source                = "../../azure/scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
   service_name          = "${var.cluster_name}-master"
-  tags = {
-    "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
-    "k8s.io/cluster-autoscaler/${var.cluster_name}" = "false",
-    "k8s.io/cluster-autoscaler/enabled" = "false",
-    "roles" = "master"
-  }
+  tag_cluster_id                = rancher2_cluster.main.id
+  tag_cluster_name              = var.cluster_name
+  tag_cluster_autoscaler_status = "false"
+  tag_cluster_role              = "master"
+
   resource_group        = var.resource_group_name
   subnet_id             = var.subnet_id
 
@@ -111,18 +110,16 @@ module "master_scaleset" {
 }
 
 module "worker_scaleset" {
-  source                = "../../azure/linux-scale-set"
+  source                = "../../azure/scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
   service_name          = "${var.cluster_name}-worker"
 
-  tags = {
-    "kubernetes.io/cluster/${rancher2_cluster.main.id}" = "owned",
-    "k8s.io/cluster-autoscaler/${var.cluster_name}" = "true",
-    "k8s.io/cluster-autoscaler/enabled" = "true",
-    roles = "worker"
-  }
+  tag_cluster_id                = rancher2_cluster.main.id
+  tag_cluster_name              = var.cluster_name
+  tag_cluster_autoscaler_status = "true"
+  tag_cluster_role              = "worker"
 
   resource_group        = var.resource_group_name
   subnet_id             = var.subnet_id

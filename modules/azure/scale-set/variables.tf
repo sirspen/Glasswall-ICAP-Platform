@@ -15,9 +15,24 @@ variable "service_name" {
   type        = string
 }
 
-variable "tags" {
-  description = "The tags for the scaleset"
-  type        = object({})
+variable "tag_cluster_id" {
+  description = "Kubernetes cluster id"
+  type        = string
+}
+
+variable "tag_cluster_name" {
+  description = "Kubernetes cluster name"
+  type        = string
+}
+
+variable "tag_cluster_autoscaler_status" {
+  description = "Kubernetes cluster naAutoscale status"
+  type        = string
+}
+
+variable "tag_cluster_role" {
+  description = "Kubernetes cluster Role"
+  type        = string
 }
 
 variable "resource_group" {

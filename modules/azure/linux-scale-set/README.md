@@ -31,7 +31,10 @@ No requirements.
 | size | Azure VM image name | `string` | `"Standard_DS1_v2"` | no |
 | sku\_capacity | Total capacity to begin with | `number` | `1` | no |
 | subnet\_id | ID from Subnet module | `string` | n/a | yes |
-| tags | The tags for the scaleset | `map(any)` | n/a | yes |
+| tag\_cluster\_autoscaler\_status | Kubernetes cluster Autoscale status | `string` | n/a | yes |
+| tag\_cluster\_id | Kubernetes cluster id | `string` | n/a | yes |
+| tag\_cluster\_name | Kubernetes cluster name | `string` | n/a | yes |
+| tag\_cluster\_role | Kubernetes cluster Role | `string` | n/a | yes |
 
 ## Outputs
 
