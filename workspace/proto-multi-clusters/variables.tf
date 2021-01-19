@@ -244,7 +244,7 @@ variable "admin_cluster_stage1_apps" {
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "argo-cd"
+      template_name    = "rancher-argocd-admin"
       create_namespace = true
       system_app       = true
     }

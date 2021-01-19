@@ -240,7 +240,7 @@ module "filedrop_clusters" {
   rancher_network_id           = local.rancher_network_id
 }
 */
-
+/*
 module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
   organisation             = var.organisation
@@ -284,5 +284,5 @@ module "admin_cluster" {
   worker_scaleset_sku_capacity = 1
   helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
-}
+}*/
 
