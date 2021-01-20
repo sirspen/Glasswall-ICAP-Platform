@@ -1,13 +1,3 @@
-# Create Network Security Group and rule
-
-module "security_group" {
-  source               = "../security-group"
-  service_name         = "${var.service_name}-vmss"
-  azure_region         = var.region
-  resource_group_name  = var.resource_group
-  security_group_rules = var.security_group_rules
-}
-
 resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
   count               = var.loadbalancer? 1 : 0 
   name                = var.service_name
@@ -80,7 +70,7 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_lb" {
       subnet_id                              =  var.subnet_id
       load_balancer_backend_address_pool_ids = var.lb_backend_address_pool_id
     }
-      network_security_group_id              = module.security_group.id
+      network_security_group_id              = var.security_group_id
   }
 
   tags = {
@@ -161,8 +151,8 @@ resource "azurerm_virtual_machine_scale_set" "cluster_scaleset_nolb" {
       primary                                = true
       subnet_id                              = var.subnet_id      
     }
-
-    network_security_group_id                = module.security_group.id
+    
+      network_security_group_id              = var.security_group_id
 
   }
 

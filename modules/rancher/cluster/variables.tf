@@ -114,6 +114,16 @@ variable "os_version" {
   default     = "latest"
 }
 
+variable "default_worker_template_id" {
+  description = "The default work template id"
+  type        = string
+}
+
+variable "default_master_template_id" {
+  description = "The default master template id"
+  type        = string
+}
+
 variable "master_scaleset_size" {
   description = "The K8S Master Scaleset size"
   type        = string
@@ -178,4 +188,39 @@ variable "helm_chart_repo_url" {
 variable "docker_config_json" {
   description = "The docker config json"
   type        = string
+}
+
+variable "add_master_scaleset" {
+  description = "Turn on or off scalesets"
+  type        = bool
+}
+ 
+variable "add_worker_scaleset" {
+  description = "Turn on or off scalesets"
+  type        = bool
+}
+
+variable "add_worker_nodepool" {
+  description = "Turn on or off nodepools"
+  type        = bool
+}
+
+
+variable "security_group_id" {
+  description = "The security group id"
+  type        = string
+}
+
+variable "cluster_worker_labels" {
+  description = "The labels"
+  type        = map(any)
+}
+
+variable "cluster_worker_taints" {
+  description = "The labels"
+  type        = list(object({
+    key = string
+    value = string
+    effect = string
+  }))
 }

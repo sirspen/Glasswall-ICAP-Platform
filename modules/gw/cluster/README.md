@@ -46,6 +46,7 @@ No provider.
 | rancher\_network\_id | The Network ID | `string` | n/a | yes |
 | rancher\_projects | The Projects to create on a base k8s Cluster | `string` | n/a | yes |
 | rancher\_resource\_group | The Rancher Resource Group | `string` | n/a | yes |
+| security\_group\_rules | The rules to add as an object | <pre>map(object({<br>    name                                        = string<br>    priority                                    = string<br>    direction                                   = string<br>    access                                      = string<br>    protocol                                    = string<br>    source_port_range                           = string<br>    destination_port_range                      = string<br>    source_address_prefix                       = string<br>    destination_address_prefix                  = string<br>  }))</pre> | n/a | yes |
 | service\_name | The name of the service | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |
 | suffix | The Suffix | `string` | n/a | yes |

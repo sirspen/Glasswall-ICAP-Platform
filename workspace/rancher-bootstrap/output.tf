@@ -77,3 +77,7 @@ output "region" {
 output "network_id" {
   value = module.rancher_server.network_id
 }
+
+output "subnet_prefix" {
+  value = module.rancher_server.subnet_prefix
+}

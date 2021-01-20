@@ -16,6 +16,7 @@ locals {
   rancher_network_id       = data.terraform_remote_state.rancher_server.outputs.network_id
   rancher_resource_group   = data.terraform_remote_state.rancher_server.outputs.resource_group
   rancher_subnet_id        = data.terraform_remote_state.rancher_server.outputs.subnet_id
+  rancher_subnet_prefix    = data.terraform_remote_state.rancher_server.outputs.subnet_prefix
   rancher_subnet_name      = data.terraform_remote_state.rancher_server.outputs.subnet_name
   rancher_region           = data.terraform_remote_state.rancher_server.outputs.region
   git_server_url           = data.terraform_remote_state.rancher_server.outputs.git_server_url
@@ -177,6 +178,41 @@ module "icap_clusters" {
   worker_scaleset_size         = each.value.worker_scaleset_size
   worker_scaleset_admin_user   = each.value.worker_scaleset_admin_user
   worker_scaleset_sku_capacity = each.value.worker_scaleset_sku_capacity
+  security_group_rules         = {
+    icap = {
+      name                       = "icapNodePort"
+      priority                   = 1004
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32323
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    policy = {
+      name                       = "icapPolicyNodePort"
+      priority                   = 1005
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32324
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    transaction = {
+      name                       = "icapTransactionNodePort"
+      priority                   = 1006
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32325
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  }
   organisation                 = var.organisation
   environment                  = var.environment
   cluster_stage1_apps          = var.icap_cluster_stage1_apps
@@ -245,19 +281,25 @@ module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
   organisation             = var.organisation
   environment              = var.environment
-  dns_zone                     = var.dns_zone
+  dns_zone                 = var.dns_zone
   rancher_admin_url        = local.rancher_api_url
   rancher_internal_api_url = local.rancher_internal_api_url
   rancher_admin_token      = local.rancher_admin_token
   rancher_network          = local.rancher_network
   rancher_network_id       = local.rancher_network_id
   # we may not want to always reuse the same resource_group.
-  rancher_resource_group = local.rancher_resource_group
-  cluster_network_name   = local.rancher_network_name
-  cluster_subnet_name    = local.rancher_subnet_name
-  cluster_subnet_id      = local.rancher_subnet_id
-  service_name           = local.admin_service_name
-  #suffix                 = "z1"
+  rancher_resource_group   = local.rancher_resource_group
+  cluster_network_name     = local.rancher_network_name
+  cluster_subnet_name      = local.rancher_subnet_name
+  cluster_subnet_id        = local.rancher_subnet_id
+  cluster_backend_port     = var.admin_cluster_backend_port
+  cluster_public_port      = var.admin_cluster_public_port
+  cluster_stage1_apps      = var.admin_cluster_stage1_apps
+  #cluster_address_space   = var.cluster_address_space
+  #cluster_subnet_cidr     = var.cluster_subnet_cidr
+  cluster_subnet_prefix    = local.rancher_subnet_prefix
+  service_name             = local.admin_service_name
+  #suffix                  = "z1"
   suffix                 = local.rancher_suffix
   azure_region           = local.rancher_region
   client_id              = data.azurerm_key_vault_secret.az-client-id.value
@@ -270,12 +312,20 @@ module "admin_cluster" {
   os_sku                 = var.os_sku
   os_version             = var.os_version
   rancher_projects       = "adminservice"
-  cluster_backend_port   = var.admin_cluster_backend_port
-  cluster_public_port    = var.admin_cluster_public_port
-  #cluster_address_space        = var.cluster_address_space
-  #cluster_subnet_cidr          = var.cluster_subnet_cidr
-  #cluster_subnet_prefix        = var.cluster_subnet_prefix
-  cluster_stage1_apps = var.admin_cluster_stage1_apps
+  security_group_rules         = {
+    admin = {
+      name                       = "icapTransactionNodePort"
+      priority                   = 1006
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = 32326
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  }
+
   master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
   master_scaleset_sku_capacity = 1

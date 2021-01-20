@@ -25,6 +25,7 @@
 | cluster\_stage1\_apps | A list of apps | <pre>map(object({<br>    namespace = string<br>    catalog_name = string<br>    template_name = string<br>    create_namespace = bool<br>    system_app = bool<br>  }))</pre> | n/a | yes |
 | cluster\_subnet\_id | Subnet ID | `string` | n/a | yes |
 | cluster\_subnet\_name | Subnet Name | `string` | n/a | yes |
+| cluster\_subnet\_prefix | Subnet Prefix | `string` | n/a | yes |
 | dns\_zone | The name of the dns zone to add records to | `string` | n/a | yes |
 | docker\_config\_json | The docker config json | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
@@ -45,6 +46,7 @@
 | rancher\_network\_id | The Network ID | `string` | n/a | yes |
 | rancher\_projects | The Projects to create on a base k8s Cluster | `string` | n/a | yes |
 | rancher\_resource\_group | The rancher resource group | `string` | n/a | yes |
+| security\_group\_rules | The rules to add as an object | <pre>map(object({<br>    name                                        = string<br>    priority                                    = string<br>    direction                                   = string<br>    access                                      = string<br>    protocol                                    = string<br>    source_port_range                           = string<br>    destination_port_range                      = string<br>    source_address_prefix                       = string<br>    destination_address_prefix                  = string<br>  }))</pre> | n/a | yes |
 | service\_name | The name of the service | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |
 | suffix | The Suffix | `string` | n/a | yes |
