@@ -71,6 +71,28 @@ locals {
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
+    },
+    uksouth = {
+      suffix                       = var.icap_cluster_suffix_r3
+      cluster_quantity             = var.icap_cluster_quantity
+      azure_region                 = var.azure_region_r3
+      cluster_backend_port         = var.backend_port
+      cluster_public_port          = var.public_port
+      cluster_address_space        = var.icap_cluster_address_space_r3
+      cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r3
+      cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r3
+      os_publisher                 = var.os_publisher
+      os_offer                     = var.os_offer
+      os_sku                       = var.os_sku
+      os_version                   = var.os_version
+      master_scaleset_size         = "Standard_DS4_v2"
+      master_scaleset_admin_user   = "azure-user"
+      master_scaleset_sku_capacity = var.icap_master_scaleset_sku_capacity
+      worker_scaleset_size         = "Standard_DS4_v2"
+      worker_scaleset_admin_user   = "azure-user"
+      worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
+      rancher_projects             = "icapservice"
+      icap_internal_services       = var.icap_internal_services
     }
   }
   /*azure_filedrop_clusters      = {

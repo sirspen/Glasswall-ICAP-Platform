@@ -46,6 +46,12 @@ variable "azure_region_r2" {
   default     = "ukwest"
 }
 
+variable "azure_region_r3" {
+  description = "Metadata Azure Region"
+  type        = string
+  default     = "uksouth"
+}
+
 variable "icap_cluster_address_space_r1" {
   description = "Network CIDR"
   type        = list(string)
@@ -56,6 +62,12 @@ variable "icap_cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
   default     = ["192.168.48.0/20"]
+}
+
+variable "icap_cluster_address_space_r3" {
+  description = "Network CIDR"
+  type        = list(string)
+  default     = ["192.168.64.0/20"]
 }
 
 variable "icap_cluster_subnet_cidr_r1" {
@@ -71,6 +83,12 @@ variable "icap_cluster_subnet_cidr_r2" {
   default     = ["192.168.48.0/21"]
 }
 
+variable "icap_cluster_subnet_cidr_r3" {
+  description = "Subnet CIDR"
+  type        = list(string)
+  default     = ["192.168.64.0/21"]
+}
+
 variable "icap_cluster_subnet_prefix_r1" {
   description = "Subnet CIDR"
   type        = string
@@ -83,6 +101,11 @@ variable "icap_cluster_subnet_prefix_r2" {
   default     = "192.168.48.0/21"
 }
 
+variable "icap_cluster_subnet_prefix_r3" {
+  description = "Subnet CIDR"
+  type        = string
+  default     = "192.168.64.0/21"
+}
 variable "icap_cluster_suffix_r1" {
   description = "Cluster suffix for the region"
   type        = string
@@ -93,6 +116,12 @@ variable "icap_cluster_suffix_r2" {
   description = "Cluster suffix for the region"
   type        = string
   default     = "y"
+}
+
+variable "icap_cluster_suffix_r3" {
+  description = "Cluster suffix for the region"
+  type        = string
+  default     = "x"
 }
 
 variable "icap_cluster_quantity" {
