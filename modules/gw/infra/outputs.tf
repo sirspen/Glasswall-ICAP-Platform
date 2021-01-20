@@ -69,3 +69,10 @@ output "worker_lb_ip_address" {
   value = module.worker_lb.public_ip_address
 }
 
+output "security_group_id" {
+  value = module.security_group.id
+}
+
+output "security_group_name" {
+  value = module.security_group.name
+}

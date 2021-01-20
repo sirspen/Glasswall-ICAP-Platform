@@ -81,3 +81,7 @@ output "subnet_name" {
 output "subnet_id" {
   value = module.subnet.id
 }
+
+output "subnet_prefix" {
+  value = var.subnet_prefix
+}

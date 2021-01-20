@@ -98,12 +98,12 @@ variable "cluster_subnet_cidr" {
   description = "Subnet CIDR"
   type        = list(string)
 }
-
+*/
 variable "cluster_subnet_prefix" {
   description = "Subnet Prefix"
   type        = string
 }
-*/
+
 variable "public_key_openssh" {
   description = "The Node SSH key"
   type        = string
@@ -211,4 +211,19 @@ variable "helm_chart_repo_url" {
 variable "docker_config_json" {
   description = "The docker config json"
   type        = string
+}
+
+variable "security_group_rules" {
+  description = "The rules to add as an object"
+  type        =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = string
+    destination_address_prefix                  = string
+  }))
 }

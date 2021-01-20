@@ -28,7 +28,6 @@ variable "node_image" {
 variable "node_type" {
   description = "the server type to use for the node"
   type        = string
-  default     = "Standard_D1_v2"
 }
 
 # Disk Size
@@ -66,11 +65,6 @@ variable "azure_region" {
   type        = string
 }
 
-variable "custom_data" {
-  description = "Custom Data"
-  type        = string
-}
-
 variable "docker_url" {
   description = "Docker Install Url"
   type        = string
@@ -89,5 +83,10 @@ variable "cluster_subnet_name" {
 
 variable "cluster_subnet_prefix" {
   description = "Set the cluster subnet cidr prefix"
+  type        = string
+}
+
+variable "public_key_openssh" {
+  description = "The Node SSH key"
   type        = string
 }
