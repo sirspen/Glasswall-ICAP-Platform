@@ -12,7 +12,7 @@ module "rancher_server" {
   suffix                = var.suffix
   dns_zone              = var.dns_zone_name
   azure_region          = var.azure_region
-  custom_data_file_path = filebase64("${path.module}/scripts/cloud-init.yaml")
+  rancher_server_version=var.rancher_server_version
   git_server_version    = var.git_server_version
   size                  = var.size
   key_vault_resource_group = var.key_vault_resource_group

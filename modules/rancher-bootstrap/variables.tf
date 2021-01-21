@@ -73,3 +73,8 @@ variable "key_vault_name" {
   description = "Git server docker tag version"
   type = string
 }
+
+variable "rancher_server_version" {
+  description = "Rancher server version"
+  type = string
+}

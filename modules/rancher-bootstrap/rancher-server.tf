@@ -36,7 +36,9 @@ module "rancher_server" {
   os_publisher            = "RedHat"
   size                    = var.size
   region                  = var.azure_region
-  custom_data_file_path   = var.custom_data_file_path
+  custom_data_file_path   = base64encode(templatefile("${path.module}/tmpl/rancher-server-cloud-init.template", {
+    rancher_server_version= var.rancher_server_version
+  }))
   subnet_id               = module.subnet.id
   public_ip_id            = module.public_ip.id
   public_key_openssh      = tls_private_key.ssh.public_key_openssh
