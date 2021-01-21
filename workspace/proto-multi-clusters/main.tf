@@ -19,6 +19,7 @@ locals {
   rancher_subnet_prefix    = data.terraform_remote_state.rancher_server.outputs.subnet_prefix
   rancher_subnet_name      = data.terraform_remote_state.rancher_server.outputs.subnet_name
   rancher_region           = data.terraform_remote_state.rancher_server.outputs.region
+  rancher_agent_version    = data.terraform_remote_state.rancher_server.outputs.rancher_agent_version
   git_server_url           = data.terraform_remote_state.rancher_server.outputs.git_server_url
   public_key_openssh       = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
   cluster_catalogs = {
@@ -243,6 +244,7 @@ module "icap_clusters" {
   rancher_admin_token          = local.rancher_admin_token
   rancher_network              = local.rancher_network
   rancher_resource_group       = local.rancher_resource_group
+  rancher_agent_version        = local.rancher_agent_version
   service_name                 = local.service_name
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
@@ -311,6 +313,7 @@ module "admin_cluster" {
   rancher_network_id       = local.rancher_network_id
   # we may not want to always reuse the same resource_group.
   rancher_resource_group   = local.rancher_resource_group
+  rancher_agent_version    = local.rancher_agent_version
   cluster_network_name     = local.rancher_network_name
   cluster_subnet_name      = local.rancher_subnet_name
   cluster_subnet_id        = local.rancher_subnet_id

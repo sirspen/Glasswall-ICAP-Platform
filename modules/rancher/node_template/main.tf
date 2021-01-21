@@ -6,8 +6,8 @@ resource "rancher2_node_template" "node_template" {
   engine_install_url        = var.docker_url
     azure_config {
       availability_set      = var.service_name
-      custom_data = templatefile("${path.module}/tmpl/cloud-init.template", {
-        public_key_openssh    = var.public_key_openssh
+      custom_data           = templatefile("${path.module}/tmpl/cloud-init.template", {
+        public_key_openssh  = var.public_key_openssh
       })
       disk_size             = var.node_disk_size
       image                 = var.node_image

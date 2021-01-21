@@ -162,6 +162,7 @@ module "icap_clusters" {
   rancher_admin_token          = local.rancher_admin_token
   rancher_network              = local.rancher_network
   rancher_resource_group       = local.rancher_resource_group
+  rancher_agent_version        = local.rancher_agent_version
   service_name                 = local.service_name
   public_key_openssh           = local.public_key_openssh
   rancher_network_id           = local.rancher_network_id
@@ -222,6 +223,7 @@ module "admin_cluster" {
   rancher_network_id           = local.rancher_network_id
   # we may not want to always reuse the same resource_group.
   rancher_resource_group       = local.rancher_resource_group
+  rancher_agent_version        = local.rancher_agent_version
   cluster_network_name         = local.rancher_network_name
   cluster_subnet_name          = local.rancher_subnet_name
   cluster_subnet_id            = local.rancher_subnet_id

@@ -41,6 +41,7 @@ No provider.
 | public\_key\_openssh | The Node SSH key | `string` | n/a | yes |
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
+| rancher\_agent\_version | Rancher agent version | `string` | n/a | yes |
 | rancher\_internal\_api\_url | The Rancher API | `string` | n/a | yes |
 | rancher\_network | The Rancher Network | `string` | n/a | yes |
 | rancher\_network\_id | The Network ID | `string` | n/a | yes |

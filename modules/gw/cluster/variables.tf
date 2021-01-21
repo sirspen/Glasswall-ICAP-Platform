@@ -226,3 +226,8 @@ variable "security_group_rules" {
     destination_address_prefix                  = string
   }))
 }
+
+variable "rancher_agent_version" {
+  description = "Rancher agent version"
+  type = string
+}

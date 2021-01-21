@@ -59,3 +59,14 @@ variable "key_vault_name" {
   type = string
 }
 
+variable "rancher_server_version" {
+  description = "Rancher server version"
+  type = string
+  default = "v2.5.2"
+}
+
+variable "rancher_agent_version" {
+  description = "Rancher agent version"
+  type = string
+  default = "v2.5.2"
+}
