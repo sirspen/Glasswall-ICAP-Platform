@@ -1,12 +1,4 @@
-/*data "terraform_remote_state" "rancher_server" {
-  backend = "azurerm"
-  config = {
-    resource_group_name  = "${var.organisation}-remotestatestore-${var.environment}-z1"
-    storage_account_name = "abcremotestatestoredevz1"
-    container_name       = "${var.organisation}-remotestatestore-${var.environment}-z1-state-storage"
-    key                  = "${var.organisation}-rancher-main-terraform.tfstate"
-  }
-}*/
+
 locals {
   short_region_r1          = substr(var.azure_region_r1, 0, 3)
   short_region_r2          = substr(var.azure_region_r2, 0, 3)
@@ -25,8 +17,8 @@ locals {
       suffix                       = var.icap_cluster_suffix_r1
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r1
-      cluster_backend_port         = var.backend_port
-      cluster_public_port          = var.public_port
+      cluster_backend_port         = var.icap_backend_port
+      cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r1
       cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r1
       cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r1
@@ -47,8 +39,8 @@ locals {
       suffix                       = var.icap_cluster_suffix_r2
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r2
-      cluster_backend_port         = var.backend_port
-      cluster_public_port          = var.public_port
+      cluster_backend_port         = var.icap_backend_port
+      cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r2
       cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r2
       cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r2
@@ -75,7 +67,7 @@ module "setting" {
 }
 # module.setting reboots the rancher server (it also recycles the certs) which might be 
 # causing issues with the catalog deployment right below.
-resource "time_sleep" "wait_60_seconds" {
+resource "time_sleep" "wait_60_for_rancher_setting" {
   depends_on      = [module.setting]
   create_duration = "60s"
 }
@@ -94,7 +86,6 @@ module "icap_clusters" {
   cluster_quantity             = each.value.cluster_quantity
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
-  dns_zone                     = var.dns_zone
   rancher_projects             = each.value.rancher_projects
   cluster_backend_port         = each.value.cluster_backend_port
   cluster_public_port          = each.value.cluster_public_port
@@ -120,7 +111,7 @@ module "icap_clusters" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = 32323
+      destination_port_range     = var.icap_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     },
@@ -131,7 +122,7 @@ module "icap_clusters" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = var.
+      destination_port_range     = var.policy_update_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     },
@@ -149,6 +140,7 @@ module "icap_clusters" {
   }
   organisation                 = var.organisation
   environment                  = var.environment
+  dns_zone                     = var.dns_zone
   cluster_stage1_apps          = var.icap_cluster_stage1_apps
   rancher_admin_url            = var.rancher_api_url
   rancher_internal_api_url     = var.rancher_internal_api_url
@@ -186,11 +178,8 @@ module "admin_cluster" {
   cluster_backend_port     = var.admin_cluster_backend_port
   cluster_public_port      = var.admin_cluster_public_port
   cluster_stage1_apps      = var.admin_cluster_stage1_apps
-  #cluster_address_space   = var.cluster_address_space
-  #cluster_subnet_cidr     = var.cluster_subnet_cidr
   cluster_subnet_prefix    = var.rancher_subnet_prefix
   service_name             = local.admin_service_name
-  #suffix                  = "z1"
   suffix                 = var.rancher_suffix
   azure_region           = var.rancher_region
   client_id              = data.azurerm_key_vault_secret.az-client-id.value
@@ -211,11 +200,12 @@ module "admin_cluster" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = 32323
+      destination_port_range     = var.admin_cluster_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     }
   }
+
   master_scaleset_size         = "Standard_DS4_v2"
   master_scaleset_admin_user   = "azure-user"
   master_scaleset_sku_capacity = 1
