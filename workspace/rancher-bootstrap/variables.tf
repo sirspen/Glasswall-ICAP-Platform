@@ -70,3 +70,21 @@ variable "rancher_agent_version" {
   type = string
   default = "v2.5.2"
 }
+
+variable "network_addresses" {
+  description = "Network Addresses"
+  type        = list(string)
+  default     = ["192.168.0.0/20"]
+}
+
+variable "subnet_address_prefixes" {
+  description = "Subnet CIDR"
+  type        = list(string)
+  default     = ["192.168.0.0/22"]
+}
+
+variable "subnet_prefix" {
+  description = "Subnet Prefix"
+  type        = string
+  default     = "192.168.0.0/22"
+}

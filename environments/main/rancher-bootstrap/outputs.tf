@@ -81,3 +81,11 @@ output "rancher_suffix" {
 output "subnet_prefix" {
   value = module.rancher_server.subnet_prefix
 }
+
+output "rancher_server_version" {
+  value = module.rancher_server.rancher_server_version
+}
+
+output "rancher_agent_version" {
+  value = module.rancher_server.rancher_agent_version
+}

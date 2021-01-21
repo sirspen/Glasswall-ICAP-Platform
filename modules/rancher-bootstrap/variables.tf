@@ -36,11 +36,6 @@ variable "size" {
   type        = string
 }
 
-variable "custom_data_file_path" {
-  description = "Bootstrap the virtual machine with this file"
-  type        = string
-}
-
 variable "network_addresses" {
   description = "Network Addresses"
   type        = list(string)

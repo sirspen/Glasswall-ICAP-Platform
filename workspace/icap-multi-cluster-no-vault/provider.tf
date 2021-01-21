@@ -7,7 +7,7 @@ provider "azurerm" {
 }
 
 provider "rancher2" {
-  api_url   = local.rancher_api_url
-  token_key = local.rancher_admin_token
+  api_url   = var.rancher_api_url
+  token_key = var.rancher_admin_token
   insecure  = true
 }

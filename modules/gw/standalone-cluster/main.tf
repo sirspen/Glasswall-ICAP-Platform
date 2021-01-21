@@ -26,27 +26,13 @@ module "worker_lb" {
   resource_group         = module.resource_group.name
   lb_probe_port          = var.cluster_backend_port
 }
-/*
-module "worker_lbint" {
-  source                      = "../../azure/internal-load-balancer"
-  azure_region                = var.azure_region
-  service_name                = local.service_name
-  resource_group              = module.resource_group.name
-  lb_probe_port               = var.backend_port
-}*/
 
 resource "azurerm_lb_backend_address_pool" "worker_lbap" {
   resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.worker_lb.id
   name                            = "WorkerNodePool"
 }
-/*
-resource "azurerm_lb_backend_address_pool" "worker_lbap_int" {
-  resource_group_name             = module.resource_group.name
-  loadbalancer_id                 = module.worker_lb.id
-  name                            = "InternalWorkerNodePool"
-}
-*/
+
 resource "azurerm_lb_probe" "worker_ingress_probe" {
   depends_on                      = [module.worker_lb]
   resource_group_name             = module.resource_group.name

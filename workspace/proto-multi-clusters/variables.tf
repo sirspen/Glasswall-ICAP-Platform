@@ -180,7 +180,7 @@ variable "admin_cluster_public_port" {
 variable "admin_cluster_backend_port" {
   description = "Admin Backend Port"
   type        = number
-  default     = 323232
+  default     = 32323
 }
 
 variable "icap_public_port" {

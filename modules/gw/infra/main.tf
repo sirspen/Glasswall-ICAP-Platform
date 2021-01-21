@@ -68,7 +68,7 @@ module "int_worker_lb" {
   service_name                = local.service_name
   service_group               = var.service_name
   resource_group              = module.resource_group.name
-  lb_probe_port               = "80"
+  lb_probe_port               = var.backend_port
   subnet_id                   = module.subnet.id
 }
 
@@ -83,13 +83,12 @@ resource "azurerm_lb_probe" "int_worker_ingress_probe" {
   resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.int_worker_lb.id
   name                            = "InternalWorkers"
-  port                            = "80"
+  port                            = var.backend_port
 }
 
 resource "azurerm_lb_rule" "int_worker_ingress_rules" {
   depends_on                      = [module.int_worker_lb, azurerm_lb_probe.int_worker_ingress_probe, azurerm_lb_backend_address_pool.int_worker_lbap ]
-  for_each                         = var.cluster_internal_services
-
+  for_each                        = var.cluster_internal_services
   name                            = each.key
   protocol                        = each.value.protocol
   frontend_port                   = each.value.frontend_port

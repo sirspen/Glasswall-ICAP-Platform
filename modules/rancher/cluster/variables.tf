@@ -224,3 +224,9 @@ variable "cluster_worker_taints" {
     effect = string
   }))
 }
+
+
+variable "rancher_agent_version" {
+  description = "Rancher agent version"
+  type = string
+}

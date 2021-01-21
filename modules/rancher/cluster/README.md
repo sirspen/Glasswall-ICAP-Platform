@@ -43,6 +43,7 @@
 | public\_key\_openssh | The Node SSH key | `string` | n/a | yes |
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher admin API | `string` | n/a | yes |
+| rancher\_agent\_version | Rancher agent version | `string` | n/a | yes |
 | rancher\_internal\_api\_url | The Rancher internal API url | `string` | n/a | yes |
 | rancher\_projects | The Projects to create on a base k8s Cluster | `string` | n/a | yes |
 | resource\_group\_name | The Resource Group | `string` | n/a | yes |
