@@ -328,3 +328,68 @@ variable "filedrop_cluster_apps" {
   }))
 
 }*/
+
+
+variable "rancher_suffix" {
+  type        = string
+}
+
+variable "rancher_api_url" {
+  type        = string
+}
+
+variable "rancher_internal_api_url" {
+  type        = string
+}
+
+variable "rancher_network" {
+  type        = string
+}
+
+variable "rancher_network_name" {
+  type        = string
+}
+
+variable "rancher_server_url" {
+  type        = string
+}
+
+variable "rancher_admin_token" {
+  type        = string
+}
+
+variable "rancher_network_id" {
+  type        = string
+}
+
+variable "rancher_resource_group" {
+  type        = string
+}
+
+variable "rancher_subnet_id" {
+  type        = string
+}
+
+variable "rancher_subnet_prefix" {
+  type        = string
+}
+
+variable "rancher_subnet_name" {
+  type        = string
+}
+
+variable "rancher_region" {
+  type        = string
+}
+
+variable "rancher_agent_version" {
+  type        = string
+}
+
+variable "git_server_url" {
+  type        = string
+}
+
+variable "public_key_openssh" {
+  type        = string
+}

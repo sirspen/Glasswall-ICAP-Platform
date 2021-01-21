@@ -6,25 +6,10 @@ locals {
   admin_service_name       = "${var.organisation}-${var.project}-admin-${var.environment}"
   service_name_nodash_r1   = "${var.organisation}icap${var.environment}${local.short_region_r1}"
   service_name_nodash_r2   = "${var.organisation}icap${var.environment}${local.short_region_r2}"
-  rancher_suffix           = data.terraform_remote_state.rancher_server.outputs.rancher_suffix
-  rancher_api_url          = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
-  rancher_internal_api_url = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
-  rancher_network          = data.terraform_remote_state.rancher_server.outputs.network
-  rancher_server_url       = data.terraform_remote_state.rancher_server.outputs.rancher_server_url
-  rancher_admin_token      = data.terraform_remote_state.rancher_server.outputs.rancher_admin_token
-  rancher_network_name     = data.terraform_remote_state.rancher_server.outputs.network
-  rancher_network_id       = data.terraform_remote_state.rancher_server.outputs.network_id
-  rancher_resource_group   = data.terraform_remote_state.rancher_server.outputs.resource_group
-  rancher_subnet_id        = data.terraform_remote_state.rancher_server.outputs.subnet_id
-  rancher_subnet_prefix    = data.terraform_remote_state.rancher_server.outputs.subnet_prefix
-  rancher_subnet_name      = data.terraform_remote_state.rancher_server.outputs.subnet_name
-  rancher_region           = data.terraform_remote_state.rancher_server.outputs.region
-  rancher_agent_version    = data.terraform_remote_state.rancher_server.outputs.rancher_agent_version
-  git_server_url           = data.terraform_remote_state.rancher_server.outputs.git_server_url
-  public_key_openssh       = data.terraform_remote_state.rancher_server.outputs.public_key_openssh
+
   cluster_catalogs = {
     icap-catalog = {
-      helm_charts_repo_url    = "${local.git_server_url}/icap-infrastructure.git"
+      helm_charts_repo_url    = "${var.git_server_url}/icap-infrastructure.git"
       helm_charts_repo_branch = "add-image-registry"
     }
   }
@@ -33,8 +18,8 @@ locals {
       suffix                       = var.icap_cluster_suffix_r1
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r1
-      cluster_backend_port         = var.backend_port
-      cluster_public_port          = var.public_port
+      cluster_backend_port         = var.icap_backend_port
+      cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r1
       cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r1
       cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r1
@@ -55,8 +40,8 @@ locals {
       suffix                       = var.icap_cluster_suffix_r2
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r2
-      cluster_backend_port         = var.backend_port
-      cluster_public_port          = var.public_port
+      cluster_backend_port         = var.icap_backend_port
+      cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r2
       cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r2
       cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r2
@@ -77,8 +62,8 @@ locals {
       suffix                       = var.icap_cluster_suffix_r3
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r3
-      cluster_backend_port         = var.backend_port
-      cluster_public_port          = var.public_port
+      cluster_backend_port         = var.icap_backend_port
+      cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r3
       cluster_subnet_cidr          = var.icap_cluster_subnet_cidr_r3
       cluster_subnet_prefix        = var.icap_cluster_subnet_prefix_r3
@@ -95,40 +80,6 @@ locals {
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
     }
-  }
-  /*azure_filedrop_clusters      = {
-    northeurope = {
-      suffix                       = "z"
-      cluster_quantity             = 1
-      azure_region                 = var.azure_region_r1
-      cluster_backend_port         = var.backend_port
-      cluster_public_port          = var.public_port
-      cluster_address_space        = var.filedrop_cluster_address_space_r1
-      cluster_subnet_cidr          = var.filedrop_cluster_subnet_cidr_r1
-      cluster_subnet_prefix        = var.filedrop_cluster_subnet_prefix_r1
-      os_publisher                 = var.os_publisher
-      os_offer                     = var.os_offer
-      os_sku                       = var.os_sku
-      os_version                   = var.os_version
-      master_scaleset_size         = "Standard_DS4_v2"
-      master_scaleset_admin_user   = "azure-user"
-      master_scaleset_sku_capacity = 1
-      worker_scaleset_size         = "Standard_DS4_v2"
-      worker_scaleset_admin_user   = "azure-user"
-      worker_scaleset_sku_capacity = 2
-      rancher_projects             = "filedropservice"
-      icap_internal_services       = var.filedrop_internal_services
-    }
-  }*/
-}
-
-data "terraform_remote_state" "rancher_server" {
-  backend = "azurerm"
-  config = {
-    resource_group_name  = "tf-state-resource-group"
-    storage_account_name = "gwtfstatestorageaccount"
-    container_name       = "tfstatecontainer"
-    key                  = "gw-rancher-${var.branch}-terraform.tfstate"
   }
 }
 
@@ -183,7 +134,6 @@ module "icap_clusters" {
   cluster_quantity             = each.value.cluster_quantity
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
-  dns_zone                     = var.dns_zone
   rancher_projects             = each.value.rancher_projects
   cluster_backend_port         = each.value.cluster_backend_port
   cluster_public_port          = each.value.cluster_public_port
@@ -209,7 +159,7 @@ module "icap_clusters" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = 32323
+      destination_port_range     = var.icap_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     },
@@ -220,7 +170,7 @@ module "icap_clusters" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = 32324
+      destination_port_range     = var.policy_update_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     },
@@ -231,107 +181,60 @@ module "icap_clusters" {
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = 32325
+      destination_port_range     = var.transaction_update_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     }
   }
   organisation                 = var.organisation
   environment                  = var.environment
+  dns_zone                     = var.dns_zone
   cluster_stage1_apps          = var.icap_cluster_stage1_apps
-  rancher_admin_url            = local.rancher_api_url
-  rancher_internal_api_url     = local.rancher_internal_api_url
-  rancher_admin_token          = local.rancher_admin_token
-  rancher_network              = local.rancher_network
-  rancher_resource_group       = local.rancher_resource_group
-  rancher_agent_version        = local.rancher_agent_version
+  rancher_admin_url            = var.rancher_api_url
+  rancher_internal_api_url     = var.rancher_internal_api_url
+  rancher_admin_token          = var.rancher_admin_token
+  rancher_network              = var.rancher_network
+  rancher_resource_group       = var.rancher_resource_group
+  rancher_agent_version        = var.rancher_agent_version
   service_name                 = local.service_name
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
   tenant_id                    = var.tenant_id
-  public_key_openssh           = local.public_key_openssh
-  rancher_network_id           = local.rancher_network_id
-  helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
+  public_key_openssh           = var.public_key_openssh
+  rancher_network_id           = var.rancher_network_id
+  helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
 }
-
-/*
-module "filedrop_clusters" {
-  source                       = "../../modules/gw/cluster"
-  for_each                     = local.azure_filedrop_clusters
-  cluster_quantity             = each.value.cluster_quantity
-  suffix                       = each.value.suffix
-  azure_region                 = each.value.azure_region
-  dns_zone                     = var.dns_zone
-  rancher_projects             = each.value.rancher_projects
-  cluster_backend_port         = each.value.cluster_backend_port
-  cluster_public_port          = each.value.cluster_public_port
-  cluster_address_space        = each.value.cluster_address_space
-  cluster_subnet_cidr          = each.value.cluster_subnet_cidr
-  cluster_subnet_prefix        = each.value.cluster_subnet_prefix
-  cluster_internal_services    = each.value.filedrop_internal_services
-  os_publisher                 = each.value.os_publisher
-  os_offer                     = each.value.os_offer
-  os_sku                       = each.value.os_sku
-  os_version                   = each.value.os_version
-  master_scaleset_size         = each.value.master_scaleset_size
-  master_scaleset_admin_user   = each.value.master_scaleset_admin_user
-  master_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
-  worker_scaleset_size         = each.value.master_scaleset_size
-  worker_scaleset_admin_user   = each.value.master_scaleset_admin_user
-  worker_scaleset_sku_capacity = each.value.master_scaleset_sku_capacity
-  organisation                 = var.organisation
-  environment                  = var.environment
-  cluster_apps                 = var.filedrop_cluster_apps
-  cluster_backend_port         = var.filedrop_cluster_backend_port
-  cluster_public_port          = var.filedrop_cluster_public_port
-  rancher_admin_url            = local.rancher_api_url
-  rancher_internal_api_url     = local.rancher_internal_api_url
-  rancher_admin_token          = local.rancher_admin_token
-  rancher_network              = local.rancher_network
-  rancher_resource_group       = local.rancher_resource_group
-  service_name                 = local.service_name
-  client_id                    = data.azurerm_key_vault_secret.az-client-id.value
-  client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
-  subscription_id              = data.azurerm_key_vault_secret.az-subscription-id.value
-  tenant_id                    = var.tenant_id
-  public_key_openssh           = local.public_key_openssh
-  rancher_network_id           = local.rancher_network_id
-}
-*/
 
 module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
   organisation             = var.organisation
   environment              = var.environment
   dns_zone                 = var.dns_zone
-  rancher_admin_url        = local.rancher_api_url
-  rancher_internal_api_url = local.rancher_internal_api_url
-  rancher_admin_token      = local.rancher_admin_token
-  rancher_network          = local.rancher_network
-  rancher_network_id       = local.rancher_network_id
+  rancher_admin_url        = var.rancher_api_url
+  rancher_internal_api_url = var.rancher_internal_api_url
+  rancher_admin_token      = var.rancher_admin_token
+  rancher_network          = var.rancher_network
+  rancher_network_id       = var.rancher_network_id
   # we may not want to always reuse the same resource_group.
-  rancher_resource_group   = local.rancher_resource_group
-  rancher_agent_version    = local.rancher_agent_version
-  cluster_network_name     = local.rancher_network_name
-  cluster_subnet_name      = local.rancher_subnet_name
-  cluster_subnet_id        = local.rancher_subnet_id
+  rancher_resource_group   = var.rancher_resource_group
+  rancher_agent_version    = var.rancher_agent_version
+  cluster_network_name     = var.rancher_network_name
+  cluster_subnet_name      = var.rancher_subnet_name
+  cluster_subnet_id        = var.rancher_subnet_id
   cluster_backend_port     = var.admin_cluster_backend_port
   cluster_public_port      = var.admin_cluster_public_port
   cluster_stage1_apps      = var.admin_cluster_stage1_apps
-  #cluster_address_space   = var.cluster_address_space
-  #cluster_subnet_cidr     = var.cluster_subnet_cidr
-  cluster_subnet_prefix    = local.rancher_subnet_prefix
+  cluster_subnet_prefix    = var.rancher_subnet_prefix
   service_name             = local.admin_service_name
-  #suffix                  = "z1"
-  suffix                 = local.rancher_suffix
-  azure_region           = local.rancher_region
+  suffix                 = var.rancher_suffix
+  azure_region           = var.rancher_region
   client_id              = data.azurerm_key_vault_secret.az-client-id.value
   client_secret          = data.azurerm_key_vault_secret.az-client-secret.value
   subscription_id        = data.azurerm_key_vault_secret.az-subscription-id.value
   tenant_id              = var.tenant_id
-  public_key_openssh     = local.public_key_openssh
+  public_key_openssh     = var.public_key_openssh
   os_publisher           = var.os_publisher
   os_offer               = var.os_offer
   os_sku                 = var.os_sku
@@ -339,13 +242,13 @@ module "admin_cluster" {
   rancher_projects       = "adminservice"
   security_group_rules         = {
     admin = {
-      name                       = "icapTransactionNodePort"
+      name                       = "adminNodePort"
       priority                   = 1006
       direction                  = "Inbound"
       access                     = "Allow"
       protocol                   = "Tcp"
       source_port_range          = "*"
-      destination_port_range     = 32326
+      destination_port_range     = var.admin_cluster_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     }
@@ -357,7 +260,7 @@ module "admin_cluster" {
   worker_scaleset_size         = "Standard_DS4_v2"
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 1
-  helm_chart_repo_url          = "${local.git_server_url}/icap-infrastructure.git"
+  helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
 }
 

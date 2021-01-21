@@ -159,40 +159,52 @@ variable "filedrop_cluster_subnet_prefix_r1" {
   default     = "192.168.64.0/21"
 }
 
-variable "filedrop_cluster_backend_port" {
+variable "filedrop_cluster_public_port" {
   description = "Public Port"
   type        = number
   default     = 443
 }
 
-variable "filedrop_cluster_public_port" {
+variable "filedrop_cluster_backend_port" {
   description = "Backend Port"
   type        = number
   default     = 32323
-}
-
-variable "admin_cluster_backend_port" {
-  description = "Public Port"
-  type        = number
-  default     = 80
 }
 
 variable "admin_cluster_public_port" {
-  description = "Backend Port"
+  description = "Admin Cluster Frontend Port"
   type        = number
-  default     = 32323
+  default     = 443
 }
 
-variable "public_port" {
+variable "admin_cluster_backend_port" {
+  description = "Admin Backend Port"
+  type        = number
+  default     = 323232
+}
+
+variable "icap_public_port" {
   description = "Public Port"
   type        = number
   default     = 443
 }
 
-variable "backend_port" {
+variable "icap_backend_port" {
   description = "Backend Port"
   type        = number
   default     = 32323
+}
+
+variable "policy_update_backend_port" {
+  description = "Backend Port"
+  type        = number
+  default     = 32324
+}
+
+variable "transaction_update_backend_port" {
+  description = "Backend Port"
+  type        = number
+  default     = 32325
 }
 
 variable "os_publisher" {
@@ -350,3 +362,67 @@ variable "filedrop_cluster_apps" {
   }))
 
 }*/
+
+variable "rancher_suffix" {
+  type        = string
+}
+
+variable "rancher_api_url" {
+  type        = string
+}
+
+variable "rancher_internal_api_url" {
+  type        = string
+}
+
+variable "rancher_network" {
+  type        = string
+}
+
+variable "rancher_network_name" {
+  type        = string
+}
+
+variable "rancher_server_url" {
+  type        = string
+}
+
+variable "rancher_admin_token" {
+  type        = string
+}
+
+variable "rancher_network_id" {
+  type        = string
+}
+
+variable "rancher_resource_group" {
+  type        = string
+}
+
+variable "rancher_subnet_id" {
+  type        = string
+}
+
+variable "rancher_subnet_prefix" {
+  type        = string
+}
+
+variable "rancher_subnet_name" {
+  type        = string
+}
+
+variable "rancher_region" {
+  type        = string
+}
+
+variable "rancher_agent_version" {
+  type        = string
+}
+
+variable "git_server_url" {
+  type        = string
+}
+
+variable "public_key_openssh" {
+  type        = string
+}
