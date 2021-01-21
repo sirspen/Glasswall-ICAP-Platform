@@ -84,8 +84,10 @@ module "master_scaleset" {
 
   custom_data = templatefile("${path.module}/tmpl/user-data.template", {
     cluster_name          = var.cluster_name
-    rancher_agent_version = "v2.5.2"
+    rancher_agent_version = var.rancher_agent_version
     rancher_server_url    = var.rancher_admin_url
+    rancher_server_name   = var.rancher_server_name
+    rancher_internal_ip   = var.rancher_internal_ip
     rancher_agent_token   = rancher2_token.main.token
     crt_cluster_token     = rancher2_cluster.main.cluster_registration_token.0.token
     node_pool_role        = "master"
@@ -129,6 +131,8 @@ module "worker_scaleset" {
     cluster_name          = var.cluster_name
     rancher_agent_version = var.rancher_agent_version
     rancher_server_url    = var.rancher_admin_url
+    rancher_server_name   = var.rancher_server_name
+    rancher_internal_ip   = var.rancher_internal_ip
     rancher_agent_token   = rancher2_token.main.token
     crt_cluster_token     = rancher2_cluster.main.cluster_registration_token.0.token
     node_pool_role        = "worker"

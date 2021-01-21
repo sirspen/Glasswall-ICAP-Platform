@@ -29,6 +29,8 @@
 | public\_key\_openssh | The Node SSH key | `string` | n/a | yes |
 | rancher\_admin\_token | The Rancher Admin Token | `string` | n/a | yes |
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
+| rancher\_internal\_ip | n/a | `string` | n/a | yes |
+| rancher\_server\_name | n/a | `string` | n/a | yes |
 | resource\_group | Resource Group | `string` | n/a | yes |
 | service\_name | The service this cluyster belongs to | `string` | n/a | yes |
 

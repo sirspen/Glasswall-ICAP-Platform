@@ -45,7 +45,9 @@
 | rancher\_admin\_url | The Rancher admin API | `string` | n/a | yes |
 | rancher\_agent\_version | Rancher agent version | `string` | n/a | yes |
 | rancher\_internal\_api\_url | The Rancher internal API url | `string` | n/a | yes |
+| rancher\_internal\_ip | n/a | `string` | n/a | yes |
 | rancher\_projects | The Projects to create on a base k8s Cluster | `string` | n/a | yes |
+| rancher\_server\_name | n/a | `string` | n/a | yes |
 | resource\_group\_name | The Resource Group | `string` | n/a | yes |
 | security\_group\_id | The security group id | `string` | n/a | yes |
 | subnet\_id | The Subnet ID for the ScaleSet | `string` | n/a | yes |

@@ -141,7 +141,9 @@ module "security_group" {
 
 module "default_master_template" {
   source                      = "../../rancher/node_template"
-  rancher_admin_url           = var.rancher_internal_api_url
+  rancher_admin_url           = var.rancher_admin_url
+  rancher_server_name         = var.rancher_server_name
+  rancher_internal_ip         = var.rancher_internal_ip
   rancher_admin_token         = var.rancher_admin_token
   service_name                = "${local.cluster_name}-master-default"
   node_type                   = var.master_scaleset_size
@@ -156,8 +158,10 @@ module "default_master_template" {
 
 module "default_worker_template" {
   source                      = "../../rancher/node_template"
-  rancher_admin_url           = var.rancher_internal_api_url
+  rancher_admin_url           = var.rancher_admin_url
   rancher_admin_token         = var.rancher_admin_token
+  rancher_server_name         = var.rancher_server_name
+  rancher_internal_ip         = var.rancher_internal_ip
   service_name                = "${local.cluster_name}-stateful-default"
   node_type                   = var.worker_scaleset_size
   azure_region                = var.azure_region
@@ -180,6 +184,8 @@ module "cluster" {
   cluster_stage1_apps                = var.cluster_stage1_apps
   cluster_name                       = local.cluster_name
   rancher_agent_version              = var.rancher_agent_version
+  rancher_server_name                = var.rancher_server_name
+  rancher_internal_ip                = var.rancher_internal_ip
   client_id                          = var.client_id
   tenant_id                          = var.tenant_id
   client_secret                      = var.client_secret

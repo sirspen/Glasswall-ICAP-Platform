@@ -63,8 +63,9 @@ locals {
 module "setting" {
   source            = "../../modules/rancher/setting"
   setting_name      = "server-url"
-  setting_value     = var.rancher_internal_api_url
+  setting_value     = var.rancher_api_url
 }
+
 # module.setting reboots the rancher server (it also recycles the certs) which might be 
 # causing issues with the catalog deployment right below.
 resource "time_sleep" "wait_60_for_rancher_setting" {
@@ -148,6 +149,8 @@ module "icap_clusters" {
   rancher_network              = var.rancher_network
   rancher_resource_group       = var.rancher_resource_group
   rancher_agent_version        = var.rancher_agent_version
+  rancher_internal_ip          = var.rancher_internal_ip
+  rancher_server_name      = var.rancher_server_name
   service_name                 = local.service_name
   client_id                    = data.azurerm_key_vault_secret.az-client-id.value
   client_secret                = data.azurerm_key_vault_secret.az-client-secret.value
@@ -179,6 +182,8 @@ module "admin_cluster" {
   cluster_public_port      = var.admin_cluster_public_port
   cluster_stage1_apps      = var.admin_cluster_stage1_apps
   cluster_subnet_prefix    = var.rancher_subnet_prefix
+  rancher_internal_ip      = var.rancher_internal_ip
+  rancher_server_name      = var.rancher_server_name
   service_name             = local.admin_service_name
   suffix                 = var.rancher_suffix
   azure_region           = var.rancher_region

@@ -90,3 +90,11 @@ variable "public_key_openssh" {
   description = "The Node SSH key"
   type        = string
 }
+
+variable "rancher_internal_ip" {
+  type        = string
+}
+
+variable "rancher_server_name" {
+  type        = string
+}

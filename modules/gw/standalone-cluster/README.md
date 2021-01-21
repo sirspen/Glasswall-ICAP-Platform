@@ -43,10 +43,12 @@
 | rancher\_admin\_url | The Rancher API | `string` | n/a | yes |
 | rancher\_agent\_version | Rancher agent version | `string` | n/a | yes |
 | rancher\_internal\_api\_url | The Rancher API | `string` | n/a | yes |
+| rancher\_internal\_ip | n/a | `string` | n/a | yes |
 | rancher\_network | The Rancher Network | `string` | n/a | yes |
 | rancher\_network\_id | The Network ID | `string` | n/a | yes |
 | rancher\_projects | The Projects to create on a base k8s Cluster | `string` | n/a | yes |
 | rancher\_resource\_group | The rancher resource group | `string` | n/a | yes |
+| rancher\_server\_name | n/a | `string` | n/a | yes |
 | security\_group\_rules | The rules to add as an object | <pre>map(object({<br>    name                                        = string<br>    priority                                    = string<br>    direction                                   = string<br>    access                                      = string<br>    protocol                                    = string<br>    source_port_range                           = string<br>    destination_port_range                      = string<br>    source_address_prefix                       = string<br>    destination_address_prefix                  = string<br>  }))</pre> | n/a | yes |
 | service\_name | The name of the service | `string` | n/a | yes |
 | subscription\_id | Service Principal Subscription ID | `string` | n/a | yes |

@@ -350,10 +350,6 @@ variable "rancher_network_name" {
   type        = string
 }
 
-variable "rancher_server_url" {
-  type        = string
-}
-
 variable "rancher_admin_token" {
   type        = string
 }
@@ -391,5 +387,13 @@ variable "git_server_url" {
 }
 
 variable "public_key_openssh" {
+  type        = string
+}
+
+variable "rancher_internal_ip" {
+  type        = string
+}
+
+variable "rancher_server_name" {
   type        = string
 }

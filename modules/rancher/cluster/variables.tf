@@ -225,6 +225,13 @@ variable "cluster_worker_taints" {
   }))
 }
 
+variable "rancher_server_name" {
+  type        = string
+}
+
+variable "rancher_internal_ip" {
+  type        = string
+}
 
 variable "rancher_agent_version" {
   description = "Rancher agent version"

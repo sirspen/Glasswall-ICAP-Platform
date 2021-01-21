@@ -111,7 +111,7 @@ data "azurerm_key_vault_secret" "docker-config-json" {
 module "setting" {
   source            = "../../modules/rancher/setting"
   setting_name      = "server-url"
-  setting_value     = var.rancher_internal_api_url
+  setting_value     = var.rancher_api_url
 }
 
 # module.setting reboots the rancher server (it also recycles the certs) which might be 
@@ -193,6 +193,8 @@ module "icap_clusters" {
   cluster_stage1_apps          = var.icap_cluster_stage1_apps
   rancher_admin_url            = var.rancher_api_url
   rancher_internal_api_url     = var.rancher_internal_api_url
+  rancher_server_name          = var.rancher_server_name
+  rancher_internal_ip          = var.rancher_internal_ip
   rancher_admin_token          = var.rancher_admin_token
   rancher_network              = var.rancher_network
   rancher_resource_group       = var.rancher_resource_group
@@ -215,6 +217,8 @@ module "admin_cluster" {
   dns_zone                 = var.dns_zone
   rancher_admin_url        = var.rancher_api_url
   rancher_internal_api_url = var.rancher_internal_api_url
+  rancher_internal_ip      = var.rancher_internal_ip
+  rancher_server_name      = var.rancher_server_name
   rancher_admin_token      = var.rancher_admin_token
   rancher_network          = var.rancher_network
   rancher_network_id       = var.rancher_network_id
