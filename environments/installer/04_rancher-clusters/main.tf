@@ -1,5 +1,3 @@
-
-
 data "terraform_remote_state" "rancher_server" {
   backend = "azurerm"
   config = {
