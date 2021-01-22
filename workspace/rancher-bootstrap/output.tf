@@ -14,6 +14,10 @@ output "linux_vm_public_ips" {
   value = module.rancher_server.linux_vm_public_ips
 }
 
+output "linux_vm_private_ips" {
+  value = module.rancher_server.linux_vm_private_ips
+}
+
 output "git_server_public_ips" {
   value = module.rancher_server.git_server_public_ips
 }
@@ -76,4 +80,16 @@ output "region" {
 
 output "network_id" {
   value = module.rancher_server.network_id
+}
+
+output "subnet_prefix" {
+  value = module.rancher_server.subnet_prefix
+}
+
+output "rancher_server_version" {
+  value = var.rancher_server_version
+}
+
+output "rancher_agent_version" {
+  value = var.rancher_agent_version
 }

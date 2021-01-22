@@ -57,14 +57,18 @@ resource "rancher2_token" "main" {
 }
 
 module "master_scaleset" {
+  count                 = var.add_master_scaleset == true? 1 : 0 
   source                = "../../azure/scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
   service_name          = "${var.cluster_name}-master"
-  tag_cluster_name      = var.cluster_name
-  tag_cluster_asg_state = "enabled"
-  service_role          = "master"
+
+  tag_cluster_id                = rancher2_cluster.main.id
+  tag_cluster_name              = var.cluster_name
+  tag_cluster_autoscaler_status = "false"
+  tag_cluster_role              = "master"
+
   resource_group        = var.resource_group_name
   subnet_id             = var.subnet_id
 
@@ -80,8 +84,10 @@ module "master_scaleset" {
 
   custom_data = templatefile("${path.module}/tmpl/user-data.template", {
     cluster_name          = var.cluster_name
-    rancher_agent_version = "v2.5.1"
-    rancher_server_url    = var.rancher_internal_api_url
+    rancher_agent_version = var.rancher_agent_version
+    rancher_server_url    = var.rancher_admin_url
+    rancher_server_name   = var.rancher_server_name
+    rancher_internal_ip   = var.rancher_internal_ip
     rancher_agent_token   = rancher2_token.main.token
     crt_cluster_token     = rancher2_cluster.main.cluster_registration_token.0.token
     node_pool_role        = "master"
@@ -89,33 +95,24 @@ module "master_scaleset" {
     rancher_ca_checksum   = ""
   })
   public_key_openssh = var.public_key_openssh
-  security_group_rules = {
-    k8s = {
-      name                       = "icapNodePort"
-      priority                   = 1004
-      direction                  = "Inbound"
-      access                     = "Allow"
-      protocol                   = "Tcp"
-      source_port_range          = "*"
-      destination_port_range     = 6443
-      source_address_prefix      = "*"
-      destination_address_prefix = "*"
-    }
-  }
+  security_group_id          = var.security_group_id
   loadbalancer               = false
   #lb_backend_address_pool_id = var.master_lb_backend_address_pool_id
   #lb_probe_id                = var.master_lb_probe_id 
 }
 
 module "worker_scaleset" {
+  count                 = var.add_worker_scaleset == true? 1 : 0 
   source                = "../../azure/scale-set"
   depends_on            = [rancher2_cluster.main]
   organisation          = var.organisation
   environment           = var.environment
   service_name          = "${var.cluster_name}-worker"
-  tag_cluster_name      = var.cluster_name
-  tag_cluster_asg_state = "enabled"
-  service_role          = "worker"
+
+  tag_cluster_id                = rancher2_cluster.main.id
+  tag_cluster_name              = var.cluster_name
+  tag_cluster_autoscaler_status = "true"
+  tag_cluster_role              = "worker"
 
   resource_group        = var.resource_group_name
   subnet_id             = var.subnet_id
@@ -132,30 +129,54 @@ module "worker_scaleset" {
 
   custom_data = templatefile("${path.module}/tmpl/user-data.template", {
     cluster_name          = var.cluster_name
-    rancher_agent_version = "v2.5.1"
+    rancher_agent_version = var.rancher_agent_version
     rancher_server_url    = var.rancher_admin_url
+    rancher_server_name   = var.rancher_server_name
+    rancher_internal_ip   = var.rancher_internal_ip
     rancher_agent_token   = rancher2_token.main.token
     crt_cluster_token     = rancher2_cluster.main.cluster_registration_token.0.token
     node_pool_role        = "worker"
     public_key_openssh    = var.public_key_openssh
     rancher_ca_checksum   = ""
   })
-  security_group_rules = {
-    icap = {
-      name                       = "icapNodePort"
-      priority                   = 1004
-      direction                  = "Inbound"
-      access                     = "Allow"
-      protocol                   = "Tcp"
-      source_port_range          = "*"
-      destination_port_range     = 32323
-      source_address_prefix      = "*"
-      destination_address_prefix = "*"
-    }
-  }
+  security_group_id          = var.security_group_id
   public_key_openssh         = var.public_key_openssh
   loadbalancer               = true
   lb_backend_address_pool_id = var.worker_lb_backend_address_pool_id
   lb_probe_id                = var.worker_lb_probe_id 
 }
 
+
+module "default_master_node_pool"{
+  source                        = "../node_pool"
+  count                         = var.add_master_scaleset == true? 0 : 1 
+  cluster_id                    = rancher2_cluster.main.id
+  node_pool_template_id         = var.default_master_template_id
+  resource_group                = var.resource_group_name
+  rancher_admin_url             = var.rancher_admin_url
+  rancher_admin_token           = var.rancher_admin_token
+  service_name                  = "${var.cluster_name}-master-pool"
+  node_pool_nodes_qty           = 1
+  node_pool_role_worker         = false
+  node_pool_role_control_plane  = true
+  node_pool_role_etcd           = true
+  labels                        = {}
+  node_taints                   = []
+}
+
+module "default_worker_node_pool"{
+  source                        = "../node_pool"
+  count                         = var.add_worker_nodepool == true? 1 : 0
+  cluster_id                    = rancher2_cluster.main.id
+  node_pool_template_id         = var.default_worker_template_id
+  resource_group                = var.resource_group_name
+  rancher_admin_url             = var.rancher_admin_url
+  rancher_admin_token           = var.rancher_admin_token
+  service_name                  = "${var.cluster_name}-stateful-pool"
+  node_pool_nodes_qty           = 1
+  node_pool_role_worker         = true
+  node_pool_role_control_plane  = false
+  node_pool_role_etcd           = false
+  labels                        = var.cluster_worker_labels
+  node_taints                   = var.cluster_worker_taints
+}

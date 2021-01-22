@@ -1,6 +1,6 @@
 
 locals{
-  domain_count = (var.region == "ukwest")? 2: 3 
+  domain_count = (var.region == "ukwest"||var.region == "uksouth")? 2: 3 
 }
 
 resource "azurerm_availability_set" "availability_set" {

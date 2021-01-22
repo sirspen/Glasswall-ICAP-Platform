@@ -3,6 +3,16 @@ variable "catalog_name" {
   type        = string
 }
 
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}
+
+variable "docker_config_json" {
+  description = "The docker config json"
+  type        = string
+}
+
 variable "project_id" {
   description = "The project id"
   type        = string

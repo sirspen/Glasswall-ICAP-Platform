@@ -17,6 +17,8 @@
 |------|-------------|------|---------|:--------:|
 | catalog\_name | The catalog name | `string` | n/a | yes |
 | create\_namespace | n/a | `bool` | n/a | yes |
+| docker\_config\_json | The docker config json | `string` | n/a | yes |
+| helm\_chart\_repo\_url | The git repo url | `string` | n/a | yes |
 | namespace | Namespace | `string` | n/a | yes |
 | project\_id | The project id | `string` | n/a | yes |
 | system\_app | n/a | `bool` | n/a | yes |

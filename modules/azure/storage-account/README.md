@@ -20,7 +20,7 @@
 | account\_tier | The Storage Account tier | `string` | n/a | yes |
 | azure\_region | The Azure Region | `string` | n/a | yes |
 | resource\_group\_name | The Resource Group name | `string` | n/a | yes |
-| service\_name | The Storage Account name | `string` | n/a | yes |
+| service\_name | The Service name | `string` | n/a | yes |
 
 ## Outputs
 

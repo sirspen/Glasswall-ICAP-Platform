@@ -42,6 +42,11 @@ variable "suffix" {
   type        = string
 }
 
+variable "dns_zone" {
+  description = "The name of the dns zone to add records to"
+  type        = string
+}
+
 variable "azure_region" {
   description = "The cloud region"
   type        = string
@@ -93,12 +98,12 @@ variable "cluster_subnet_cidr" {
   description = "Subnet CIDR"
   type        = list(string)
 }
-
+*/
 variable "cluster_subnet_prefix" {
   description = "Subnet Prefix"
   type        = string
 }
-*/
+
 variable "public_key_openssh" {
   description = "The Node SSH key"
   type        = string
@@ -190,16 +195,6 @@ variable "cluster_stage1_apps" {
   }))
 }
 
-variable "cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace = string
-    catalog_name = string
-    template_name = string
-    create_namespace = bool
-    system_app = bool
-  }))
-}
 /*
 variable "cluster_catalogs" {
   type = map(object({
@@ -207,3 +202,41 @@ variable "cluster_catalogs" {
     helm_charts_repo_branch = string
   }))
 }*/
+
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}
+
+variable "docker_config_json" {
+  description = "The docker config json"
+  type        = string
+}
+
+variable "security_group_rules" {
+  description = "The rules to add as an object"
+  type        =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = string
+    destination_address_prefix                  = string
+  }))
+}
+
+variable "rancher_agent_version" {
+  description = "Rancher agent version"
+  type        = string
+}
+
+variable "rancher_internal_ip" {
+  type        = string
+}
+
+variable "rancher_server_name" {
+  type        = string
+}

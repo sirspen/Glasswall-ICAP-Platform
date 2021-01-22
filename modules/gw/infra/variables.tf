@@ -37,9 +37,19 @@ variable "suffix" {
   type        = string
 }
 
+variable "dns_zone" {
+  description = "The name of the dns zone to add records to"
+  type        = string
+}
+
 variable "azure_region" {
   description = "The cloud region"
   type        = string
+}
+
+variable "fault_domain_count" {
+  description = "Azure Fault Domain count"
+  type = string
 }
 
 variable "tenant_id" {
@@ -108,5 +118,20 @@ variable "cluster_internal_services" {
       protocol                        = string
       frontend_port                   = number
       backend_port                    = number
+  }))
+}
+
+variable "security_group_rules" {
+  description = "The rules to add as an object"
+  type        =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = string
+    destination_address_prefix                  = string
   }))
 }

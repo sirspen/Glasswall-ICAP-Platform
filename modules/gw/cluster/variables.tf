@@ -66,6 +66,11 @@ variable "azure_region" {
   type        = string
 }
 
+variable "fault_domain_count" {
+  description = "Azure Fault Domain count"
+  type = string
+}
+
 variable "tenant_id" {
   description = "Service Principal tenantID"
   type        = string
@@ -84,6 +89,11 @@ variable "client_secret" {
 
 variable "subscription_id" {
   description = "Service Principal Subscription ID"
+  type        = string
+}
+
+variable "dns_zone" {
+  description = "The DNS Zone"
   type        = string
 }
 
@@ -188,17 +198,6 @@ variable "cluster_stage1_apps" {
   }))
 }
 
-variable "cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace = string
-    catalog_name = string
-    template_name = string
-    create_namespace = bool
-    system_app = bool
-  }))
-}
-
 variable "cluster_internal_services" {
   description = "Ports to open on the internal load balancer"
   type = map(object({
@@ -206,4 +205,42 @@ variable "cluster_internal_services" {
       frontend_port                   = number
       backend_port                    = number
   }))
+}
+
+variable "helm_chart_repo_url" {
+  description = "The git repo url"
+  type        = string
+}
+
+variable "docker_config_json" {
+  description = "The docker config json"
+  type        = string
+}
+
+variable "security_group_rules" {
+  description = "The rules to add as an object"
+  type        =  map(object({
+    name                                        = string
+    priority                                    = string
+    direction                                   = string
+    access                                      = string
+    protocol                                    = string
+    source_port_range                           = string
+    destination_port_range                      = string
+    source_address_prefix                       = string
+    destination_address_prefix                  = string
+  }))
+}
+
+variable "rancher_agent_version" {
+  description = "Rancher agent version"
+  type = string
+}
+
+variable "rancher_internal_ip" {
+  type        = string
+}
+
+variable "rancher_server_name" {
+  type        = string
 }

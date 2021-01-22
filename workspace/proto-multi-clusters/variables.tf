@@ -1,7 +1,6 @@
 variable "organisation" {
   description = "Metadata Organisation"
   type        = string
-  default     = "gw"
 }
 
 variable "environment" {
@@ -17,13 +16,11 @@ variable "branch" {
 variable "subscription_id" {
   description = "Subscription ID"
   type        = string
-  default     = "b8177f86-515f-4bff-bd08-1b9535dbc31b"
 }
 
 variable "tenant_id" {
   description = "Tenant ID"
   type        = string
-  default     = "7049e6a3-141d-463a-836b-1ba40d3ff653"
 }
 
 variable "project" {
@@ -32,16 +29,45 @@ variable "project" {
   default     = "icap"
 }
 
+variable "dns_zone" {
+  description = "The name of the dns zone to add records to"
+  type        = string
+}
+
 variable "azure_region_r1" {
   description = "Metadata Azure Region"
   type        = string
   default     = "northeurope"
 }
 
+variable "fault_domain_count_r1" {
+  description = "Azure Fault Domain count"
+  type = string
+  default = "3"
+}
+
 variable "azure_region_r2" {
   description = "Metadata Azure Region"
   type        = string
   default     = "ukwest"
+}
+
+variable "fault_domain_count_r2" {
+  description = "Azure Fault Domain count"
+  type = string
+  default = "2"
+}
+
+variable "azure_region_r3" {
+  description = "Metadata Azure Region"
+  type        = string
+  default     = "uksouth"
+}
+
+variable "fault_domain_count_r3" {
+  description = "Azure Fault Domain count"
+  type = string
+  default = "2"
 }
 
 variable "icap_cluster_address_space_r1" {
@@ -54,6 +80,12 @@ variable "icap_cluster_address_space_r2" {
   description = "Network CIDR"
   type        = list(string)
   default     = ["192.168.48.0/20"]
+}
+
+variable "icap_cluster_address_space_r3" {
+  description = "Network CIDR"
+  type        = list(string)
+  default     = ["192.168.64.0/20"]
 }
 
 variable "icap_cluster_subnet_cidr_r1" {
@@ -69,6 +101,12 @@ variable "icap_cluster_subnet_cidr_r2" {
   default     = ["192.168.48.0/21"]
 }
 
+variable "icap_cluster_subnet_cidr_r3" {
+  description = "Subnet CIDR"
+  type        = list(string)
+  default     = ["192.168.64.0/21"]
+}
+
 variable "icap_cluster_subnet_prefix_r1" {
   description = "Subnet CIDR"
   type        = string
@@ -81,6 +119,11 @@ variable "icap_cluster_subnet_prefix_r2" {
   default     = "192.168.48.0/21"
 }
 
+variable "icap_cluster_subnet_prefix_r3" {
+  description = "Subnet CIDR"
+  type        = string
+  default     = "192.168.64.0/21"
+}
 variable "icap_cluster_suffix_r1" {
   description = "Cluster suffix for the region"
   type        = string
@@ -91,6 +134,12 @@ variable "icap_cluster_suffix_r2" {
   description = "Cluster suffix for the region"
   type        = string
   default     = "y"
+}
+
+variable "icap_cluster_suffix_r3" {
+  description = "Cluster suffix for the region"
+  type        = string
+  default     = "x"
 }
 
 variable "icap_cluster_quantity" {
@@ -128,40 +177,52 @@ variable "filedrop_cluster_subnet_prefix_r1" {
   default     = "192.168.64.0/21"
 }
 
-variable "filedrop_cluster_backend_port" {
+variable "filedrop_cluster_public_port" {
   description = "Public Port"
   type        = number
   default     = 443
 }
 
-variable "filedrop_cluster_public_port" {
+variable "filedrop_cluster_backend_port" {
   description = "Backend Port"
   type        = number
   default     = 32323
-}
-
-variable "admin_cluster_backend_port" {
-  description = "Public Port"
-  type        = number
-  default     = 443
 }
 
 variable "admin_cluster_public_port" {
-  description = "Backend Port"
+  description = "Admin Cluster Frontend Port"
+  type        = number
+  default     = 443
+}
+
+variable "admin_cluster_backend_port" {
+  description = "Admin Backend Port"
   type        = number
   default     = 32323
 }
 
-variable "public_port" {
+variable "icap_public_port" {
   description = "Public Port"
   type        = number
   default     = 443
 }
 
-variable "backend_port" {
+variable "icap_backend_port" {
   description = "Backend Port"
   type        = number
   default     = 32323
+}
+
+variable "policy_update_backend_port" {
+  description = "Backend Port"
+  type        = number
+  default     = 32324
+}
+
+variable "transaction_update_backend_port" {
+  description = "Backend Port"
+  type        = number
+  default     = 32325
 }
 
 variable "os_publisher" {
@@ -212,25 +273,12 @@ variable "icap_cluster_stage1_apps" {
       create_namespace = false
       system_app       = true
     }
-  }
-}
-
-variable "icap_cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace        = string
-    catalog_name     = string
-    template_name    = string
-    create_namespace = bool
-    system_app       = bool
-  }))
-  default = {
-    adaptation = {
-      namespace        = "icap-adaptation"
+    argocd = {
+      namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "icap-adaptation"
+      template_name    = "argo-cd"
       create_namespace = true
-      system_app       = false
+      system_app       = true
     }
   }
 }
@@ -252,25 +300,12 @@ variable "admin_cluster_stage1_apps" {
       create_namespace = false
       system_app       = true
     }
-  }
-}
-
-variable "admin_cluster_stage2_apps" {
-  description = "A list of apps"
-  type = map(object({
-    namespace        = string
-    catalog_name     = string
-    template_name    = string
-    create_namespace = bool
-    system_app       = bool
-  }))
-  default = {
-    admin = {
-      namespace        = "icap-administration"
+    argocd = {
+      namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
-      template_name    = "icap-administration"
+      template_name    = "rancher-argocd-admin"
       create_namespace = true
-      system_app       = false
+      system_app       = true
     }
   }
 }
@@ -287,6 +322,11 @@ variable "icap_internal_services" {
       protocol      = "tcp"
       frontend_port = 32324
       backend_port  = 32324
+    },
+    TransactionQueryService = {
+      protocol      = "tcp"
+      frontend_port = 32325
+      backend_port  = 32325
     }
   }
 }
@@ -340,3 +380,71 @@ variable "filedrop_cluster_apps" {
   }))
 
 }*/
+
+variable "rancher_suffix" {
+  type        = string
+}
+
+variable "rancher_api_url" {
+  type        = string
+}
+
+variable "rancher_internal_api_url" {
+  type        = string
+}
+
+variable "rancher_network" {
+  type        = string
+}
+
+variable "rancher_network_name" {
+  type        = string
+}
+
+variable "rancher_server_name" {
+  type        = string
+}
+
+variable "rancher_admin_token" {
+  type        = string
+}
+
+variable "rancher_network_id" {
+  type        = string
+}
+
+variable "rancher_resource_group" {
+  type        = string
+}
+
+variable "rancher_subnet_id" {
+  type        = string
+}
+
+variable "rancher_subnet_prefix" {
+  type        = string
+}
+
+variable "rancher_subnet_name" {
+  type        = string
+}
+
+variable "rancher_region" {
+  type        = string
+}
+
+variable "rancher_agent_version" {
+  type        = string
+}
+
+variable "git_server_url" {
+  type        = string
+}
+
+variable "public_key_openssh" {
+  type        = string
+}
+
+variable "rancher_internal_ip" {
+  type        = string
+}

@@ -3,6 +3,11 @@ variable "name" {
   type        = string
 }
 
+variable "fault_domain_count" {
+  description = "Azure Fault Domain count"
+  type = string
+}
+
 variable "region" {
   description = "The azure region"
   type        = string

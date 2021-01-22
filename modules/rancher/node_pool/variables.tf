@@ -57,3 +57,16 @@ variable "resource_group" {
   type        = string
 }
 
+variable "labels" {
+  description = "The labels"
+  type        = map(any)
+}
+
+variable "node_taints" {
+  description = "The labels"
+  type        = list(object({
+    key = string
+    value = string
+    effect = string
+  }))
+}

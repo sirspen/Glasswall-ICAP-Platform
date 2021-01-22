@@ -10,6 +10,7 @@
 | Name | Version |
 |------|---------|
 | azurerm | ~> 2.30.0 |
+| random | n/a |
 
 ## Inputs
 
@@ -26,7 +27,8 @@
 
 | Name | Description |
 |------|-------------|
-| access\_key | n/a |
-| container\_name | n/a |
+| storage\_access\_key | n/a |
 | storage\_account\_name | n/a |
+| storage\_container\_name | n/a |
+| storage\_resource\_group | n/a |
 

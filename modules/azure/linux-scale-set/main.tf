@@ -58,11 +58,11 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_lb" {
       load_balancer_backend_address_pool_ids = var.lb_backend_address_pool_id
     }
   }
-
   tags = {
-    "cluster-autoscaler"          = var.tag_cluster_asg_state
-    "cluster"                     = var.tag_cluster_name
-    "roles"                       = var.service_role
+    "kubernetes.io/cluster/${var.tag_cluster_id}" = "owned"
+    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = var.tag_cluster_autoscaler_status
+    "k8s.io/cluster-autoscaler/enabled" = var.tag_cluster_autoscaler_status
+    "roles" = var.tag_cluster_role
   }
 }
 
@@ -118,10 +118,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "cluster_scaleset_nolb" {
       subnet_id                   =  var.subnet_id
     }
   }
-
   tags = {
-    "cluster-autoscaler" = var.tag_cluster_asg_state
-    "cluster" = var.tag_cluster_name
-    "roles" = var.service_role
+    "kubernetes.io/cluster/${var.tag_cluster_id}" = "owned"
+    "k8s.io/cluster-autoscaler/${var.tag_cluster_name}" = var.tag_cluster_autoscaler_status
+    "k8s.io/cluster-autoscaler/enabled" = var.tag_cluster_autoscaler_status
+    "roles" = var.tag_cluster_role
   }
 }

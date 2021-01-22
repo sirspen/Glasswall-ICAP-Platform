@@ -15,18 +15,23 @@ variable "service_name" {
   type        = string
 }
 
+variable "tag_cluster_id" {
+  description = "Kubernetes cluster id"
+  type        = string
+}
+
 variable "tag_cluster_name" {
-  description = "This the cluster name to integrate with the cluster-autoscaler"
+  description = "Kubernetes cluster name"
   type        = string
 }
 
-variable "tag_cluster_asg_state" {
-  description = "Enable or Disable the cluster asg"
+variable "tag_cluster_autoscaler_status" {
+  description = "Kubernetes cluster Autoscale status"
   type        = string
 }
 
-variable "service_role" {
-  description = "This is the instance role, used to identity a master or worker node"
+variable "tag_cluster_role" {
+  description = "Kubernetes cluster Role"
   type        = string
 }
 

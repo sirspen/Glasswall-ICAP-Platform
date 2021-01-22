@@ -1,10 +1,11 @@
-provider "azurerm" {
-  version   = "=2.30.0"
-  features {}
+locals {
+  service_name             = "${var.organisation}-${var.project}-${var.environment}-${var.suffix}"
+  store_name               = "${var.organisation}${var.project}${var.environment}${var.suffix}"
 }
 
-module "container-registry" {
+module "registry" {
   source                   = "../../modules/azure/container-registry"
-  location                 = "UK South"
-  resource_group_name      = "gw-icap-container-registry-resource-group"
+  location                 = var.azure_region
+  service_name             = local.store_name 
+  resource_group_name      = local.service_name
 }

@@ -21,6 +21,11 @@ variable "suffix" {
   type        = string
 }
 
+variable "dns_zone" {
+  description = "DNS Zone Name"
+  type        = string
+}
+
 variable "azure_region" {
   description = "Set the Azure Region"
   type        = string
@@ -28,11 +33,6 @@ variable "azure_region" {
 
 variable "size" {
   description = "The Azure Virtual Machine Size"
-  type        = string
-}
-
-variable "custom_data_file_path" {
-  description = "Bootstrap the virtual machine with this file"
   type        = string
 }
 
@@ -56,5 +56,20 @@ variable "subnet_prefix" {
 
 variable "git_server_version" {
   description = "Git server docker tag version"
+  type = string
+}
+
+variable "key_vault_resource_group" {
+  description = "Subnet Prefix"
+  type        = string
+}
+
+variable "key_vault_name" {
+  description = "Git server docker tag version"
+  type = string
+}
+
+variable "rancher_server_version" {
+  description = "Rancher server version"
   type = string
 }

@@ -14,6 +14,7 @@ module "availability_set" {
   source                  = "../../azure/availability-set"
   name                    = local.service_name
   region                  = var.azure_region
+  fault_domain_count      = var.fault_domain_count
   resource_group          = module.resource_group.name
 }
 
@@ -68,7 +69,7 @@ module "int_worker_lb" {
   service_name                = local.service_name
   service_group               = var.service_name
   resource_group              = module.resource_group.name
-  lb_probe_port               = "80"
+  lb_probe_port               = var.backend_port
   subnet_id                   = module.subnet.id
 }
 
@@ -83,13 +84,12 @@ resource "azurerm_lb_probe" "int_worker_ingress_probe" {
   resource_group_name             = module.resource_group.name
   loadbalancer_id                 = module.int_worker_lb.id
   name                            = "InternalWorkers"
-  port                            = "80"
+  port                            = var.backend_port
 }
 
 resource "azurerm_lb_rule" "int_worker_ingress_rules" {
   depends_on                      = [module.int_worker_lb, azurerm_lb_probe.int_worker_ingress_probe, azurerm_lb_backend_address_pool.int_worker_lbap ]
-  for_each                         = var.cluster_internal_services
-
+  for_each                        = var.cluster_internal_services
   name                            = each.key
   protocol                        = each.value.protocol
   frontend_port                   = each.value.frontend_port
@@ -137,24 +137,36 @@ resource "azurerm_lb_rule" "worker_ingress_rule_1" {
   backend_address_pool_id         = azurerm_lb_backend_address_pool.worker_lbap.id
 }
 
-
-data "azurerm_dns_zone" "curlywurly_zone" {
-  name                = "icap-proxy.curlywurly.me"
-  resource_group_name = "gw-icap-rg-dns"
+module "security_group" {
+  source               = "../../azure/security-group"
+  service_name         = "${var.service_name}-sg"
+  azure_region         = var.azure_region
+  resource_group_name  = module.resource_group.name
+  security_group_rules = var.security_group_rules
 }
+
+data "azurerm_dns_zone" "main" {
+  name                = var.dns_zone
+  resource_group_name = var.rancher_resource_group
+}
+
+#data "azurerm_dns_zone" "curlywurly_zone" {
+#  name                = "icap-proxy.curlywurly.me"
+#  resource_group_name = "gw-icap-rg-dns"
+#}
 
 resource "azurerm_dns_a_record" "main_int_worker" {
   name                = "${local.service_name}-int"
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
+  zone_name           = data.azurerm_dns_zone.main.name
   ttl                 = 300
+  resource_group_name = var.rancher_resource_group
   records             = [module.int_worker_lb.private_ip_address]
 }
 
 resource "azurerm_dns_a_record" "main_worker" {
   name                = var.service_name
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
+  zone_name           = data.azurerm_dns_zone.main.name
+  resource_group_name = var.rancher_resource_group
   ttl                 = 300
   records             = [module.worker_lb.public_ip_address]
 }

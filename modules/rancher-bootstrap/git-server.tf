@@ -9,8 +9,8 @@ module "git_server_public_ip" {
 }
 
 data "azurerm_key_vault" "key_vault" {
-  name                = "gw-icap-keyvault"
-  resource_group_name = "keyvault"
+  name                = var.key_vault_name
+  resource_group_name = var.key_vault_resource_group
 }
 
 data "azurerm_key_vault_secret" "docker-username" {
@@ -77,11 +77,12 @@ module "git_server" {
 
 resource "azurerm_dns_a_record" "git_server" {
   name                = local.git_service_name
-  zone_name           = data.azurerm_dns_zone.curlywurly_zone.name
-  resource_group_name = "gw-icap-rg-dns"
+  zone_name           = azurerm_dns_zone.main.name
+  resource_group_name = module.resource_group.name
   ttl                 = 60
   records             = [module.git_server.linux_vm_private_ips]
 }
+
 module "security_group_rules" {
   source                      = "../azure/security-group-rules"
   network_security_group_name = module.security_group.name
