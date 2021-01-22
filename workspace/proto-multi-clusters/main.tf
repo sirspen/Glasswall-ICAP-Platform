@@ -6,7 +6,7 @@ locals {
   admin_service_name       = "${var.organisation}-${var.project}-admin-${var.environment}"
   service_name_nodash_r1   = "${var.organisation}icap${var.environment}${local.short_region_r1}"
   service_name_nodash_r2   = "${var.organisation}icap${var.environment}${local.short_region_r2}"
-
+  
   cluster_catalogs = {
     icap-catalog = {
       helm_charts_repo_url    = "${var.git_server_url}/icap-infrastructure.git"
@@ -18,6 +18,7 @@ locals {
       suffix                       = var.icap_cluster_suffix_r1
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r1
+      fault_domain_count           = var.fault_domain_count_r1
       cluster_backend_port         = var.icap_backend_port
       cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r1
@@ -40,6 +41,7 @@ locals {
       suffix                       = var.icap_cluster_suffix_r2
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r2
+      fault_domain_count           = var.fault_domain_count_r2
       cluster_backend_port         = var.icap_backend_port
       cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r2
@@ -62,6 +64,7 @@ locals {
       suffix                       = var.icap_cluster_suffix_r3
       cluster_quantity             = var.icap_cluster_quantity
       azure_region                 = var.azure_region_r3
+      fault_domain_count           = var.fault_domain_count_r3
       cluster_backend_port         = var.icap_backend_port
       cluster_public_port          = var.icap_public_port
       cluster_address_space        = var.icap_cluster_address_space_r3
@@ -135,6 +138,7 @@ module "icap_clusters" {
   cluster_quantity             = each.value.cluster_quantity
   suffix                       = each.value.suffix
   azure_region                 = each.value.azure_region
+  fault_domain_count           = each.value.fault_domain_count
   rancher_projects             = each.value.rancher_projects
   cluster_backend_port         = each.value.cluster_backend_port
   cluster_public_port          = each.value.cluster_public_port

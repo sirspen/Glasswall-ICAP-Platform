@@ -40,16 +40,34 @@ variable "azure_region_r1" {
   default     = "northeurope"
 }
 
+variable "fault_domain_count_r1" {
+  description = "Azure Fault Domain count"
+  type = string
+  default = "3"
+}
+
 variable "azure_region_r2" {
   description = "Metadata Azure Region"
   type        = string
   default     = "ukwest"
 }
 
+variable "fault_domain_count_r2" {
+  description = "Azure Fault Domain count"
+  type = string
+  default = "2"
+}
+
 variable "azure_region_r3" {
   description = "Metadata Azure Region"
   type        = string
   default     = "uksouth"
+}
+
+variable "fault_domain_count_r3" {
+  description = "Azure Fault Domain count"
+  type = string
+  default = "2"
 }
 
 variable "icap_cluster_address_space_r1" {

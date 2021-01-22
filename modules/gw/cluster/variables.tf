@@ -66,6 +66,11 @@ variable "azure_region" {
   type        = string
 }
 
+variable "fault_domain_count" {
+  description = "Azure Fault Domain count"
+  type = string
+}
+
 variable "tenant_id" {
   description = "Service Principal tenantID"
   type        = string

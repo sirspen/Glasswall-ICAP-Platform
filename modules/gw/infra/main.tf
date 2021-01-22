@@ -14,6 +14,7 @@ module "availability_set" {
   source                  = "../../azure/availability-set"
   name                    = local.service_name
   region                  = var.azure_region
+  fault_domain_count      = var.fault_domain_count
   resource_group          = module.resource_group.name
 }
 

@@ -24,6 +24,7 @@
 | cluster\_subnet\_cidr | Subnet CIDR | `list(string)` | n/a | yes |
 | dns\_zone | The name of the dns zone to add records to | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
+| fault\_domain\_count | Azure Fault Domain count | `string` | n/a | yes |
 | organisation | Metadata Organisation | `string` | n/a | yes |
 | public\_key\_openssh | The Node SSH key | `string` | n/a | yes |
 | public\_port | Public Port | `string` | n/a | yes |

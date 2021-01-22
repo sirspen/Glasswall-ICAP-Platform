@@ -24,6 +24,7 @@ module "infra" {
   suffix                    = var.suffix
   service_name              = "${var.service_name}-${local.short_region}"
   azure_region              = var.azure_region
+  fault_domain_count        = var.fault_domain_count
   client_id                 = var.client_id
   tenant_id                 = var.tenant_id
   client_secret             = var.client_secret

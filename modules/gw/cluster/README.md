@@ -28,6 +28,7 @@ No provider.
 | dns\_zone | The DNS Zone | `string` | n/a | yes |
 | docker\_config\_json | The docker config json | `string` | n/a | yes |
 | environment | Metadata Environment | `string` | n/a | yes |
+| fault\_domain\_count | Azure Fault Domain count | `string` | n/a | yes |
 | helm\_chart\_repo\_url | The git repo url | `string` | n/a | yes |
 | infra\_module | The Suffix | `string` | `0` | no |
 | master\_scaleset\_admin\_user | The Instance Admin User | `string` | n/a | yes |
