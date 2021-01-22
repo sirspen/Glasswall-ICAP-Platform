@@ -65,9 +65,8 @@ write_files:
     --address eth0 \
     --label k8s.io/cluster=$CLUSTER \
     $K8S_ROLES
-bootcmd:
- - echo ${rancher_internal_ip} ${rancher_server_name} >> /etc/hosts
 runcmd:
+ - echo ${rancher_internal_ip} ${rancher_server_name} >> /etc/hosts
  - yum update -y
  - curl https://stedolan.github.io/jq/download/linux64/jq > /usr/bin/jq && chmod +x /usr/bin/jq
  - curl -sL https://releases.rancher.com/install-docker/19.03.sh | sh
