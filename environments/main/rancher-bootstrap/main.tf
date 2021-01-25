@@ -14,7 +14,7 @@ module "rancher_server" {
   environment            = "prd"
   project                = "rancher-server"
   suffix                 = "a1"
-  git_server_version     = "2.00"
+  git_server_version     = "2.08"
   azure_region           = "ukwest" # ukwest
   dns_zone_name          = "prd.icap-proxy.curlywurly.me"
   key_vault_resource_group = "keyvault"

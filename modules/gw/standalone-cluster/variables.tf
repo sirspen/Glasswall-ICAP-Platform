@@ -213,6 +213,11 @@ variable "docker_config_json" {
   type        = string
 }
 
+variable "cluster_endpoint_csv" {
+  description = "The list of cluster endpoints in csv"
+  type        = string
+}
+
 variable "security_group_rules" {
   description = "The rules to add as an object"
   type        =  map(object({

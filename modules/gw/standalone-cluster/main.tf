@@ -221,4 +221,5 @@ module "cluster" {
   add_worker_nodepool               = false
   cluster_worker_labels             = {}
   cluster_worker_taints             = []
+  cluster_endpoint_csv              = var.cluster_endpoint_csv
 }

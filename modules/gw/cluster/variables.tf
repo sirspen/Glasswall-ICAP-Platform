@@ -212,6 +212,11 @@ variable "helm_chart_repo_url" {
   type        = string
 }
 
+variable "cluster_endpoint_csv" {
+  description = "The list of cluster endpoints in csv"
+  type        = string
+}
+
 variable "docker_config_json" {
   description = "The docker config json"
   type        = string
