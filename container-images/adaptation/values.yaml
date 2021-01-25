@@ -1,0 +1,125 @@
+imagestore:
+  icapmanagementui:
+    registry: ""
+    repository: glasswallsolutions/icap-management-ui
+    tag: develop-100dbd0
+  policymanagementapi:
+    registry: ""
+    repository: glasswallsolutions/policy-management-api
+    tag: develop-4cd7ac0
+  transactioneventapi:
+    registry: ""
+    repository: glasswallsolutions/transactioneventapi
+    tag: develop-68b5973
+  transactionqueryaggregator:
+    registry: ""
+    repository: glasswallsolutions/transaction-query-aggregator
+    tag: develop-49884c7
+  rabbitmq:
+    registry: "docker.io/"
+    repository: rabbitmq
+    tag: 3.8
+  requestprocessing:
+    registry: ""
+    repository: glasswallsolutions/icap-request-processing
+    tag: develop-2cce03e
+  adaptationservice:
+    registry: ""
+    repository: glasswallsolutions/icap-adaptation-service
+    tag: develop-db95e26
+  podjanitor:
+    registry: ""
+    repository: glasswallsolutions/pod-janitor
+    tag: develop-dd4c0f8
+  icapservice:
+    registry: ""
+    repository: glasswallsolutions/mvp-icap-service
+    tag: develop-7cfec20
+  eventsubmission:
+    registry: ""
+    repository: glasswallsolutions/event-submission-service
+    tag: develop-3e609e6
+  policyupdate:
+    registry: ""
+    repository: glasswallsolutions/policy-update-service
+    tag: develop-20f889d
+  archiveadaptationservice:
+    registry: ""
+    repository: glasswallsolutions/archive-adaptation-service
+    tag: develop-f2f04eb
+  archiveprocessingservice:
+    registry: ""
+    repository: glasswallsolutions/archive-processing-service
+    tag: develop-d868800
+  transactionqueryservice:
+    registry: ""
+    repository: glasswallsolutions/transaction-query-service
+    tag: develop-57d0adb
+  autoscaler:
+    registry: "k8s.gcr.io/"
+    repository: "autoscaling/cluster-autoscaler"
+    tag: "v1.17.4"
+  alertmanager:
+    registry: quay.io/
+    repository: prometheus/alertmanager
+    tag: v0.21.0
+    sha: ""
+  tlsProxy:
+    registry: ""
+    repository: squareup/ghostunnel
+    tag: v1.5.2
+    sha: ""
+  webhook:
+    registry: ""
+    repository: jettech/kube-webhook-certgen
+    tag: v1.2.1
+    sha: ""
+  operator:
+    registry: quay.io/
+    repository: prometheus-operator/prometheus-operator
+    tag: v0.42.1
+    sha: ""
+  configmapReloader:
+    registry: docker.io/
+    repository: jimmidyson/configmap-reload
+    tag: v0.4.0
+    sha: ""
+  prometheusConfigReloader:
+    registry: quay.io/
+    repository: prometheus-operator/prometheus-config-reloader
+    tag: v0.42.1
+    sha: ""
+  kubectl:
+    registry: docker.io/
+    repository: bitnami/kubectl
+    tag: 1.16.15
+    sha: ""
+  prometheus:
+    registry: quay.io/
+    repository: prometheus/prometheus
+    tag: v2.21.0
+    sha: ""
+  ncfspolicyupdateservice:
+    registry: ""
+    repository: glasswallsolutions/ncfs-policy-update-service
+    tag: develop-bcf70bf
+  referencencfs:
+    registry: ""
+    repository: glasswallsolutions/reference-ncfs
+    tag: develop-5a9733e
+  ingressController:
+    registry: "quay.io/"
+    repository: "kubernetes-ingress-controller/nginx-ingress-controller"
+    tag: "0.26.1"
+  defaultBackend:
+    registry: "gcr.io/"
+    repository: "google-containers/defaultbackend"
+    tag: "1.4"
+  busybox:
+    registry: ""
+    repository: library/busybox
+    tag: latest
+  rabbitmqoperator:
+    registry: ""
+    repository: rabbitmqoperator/cluster-operator
+    tag: 1.0.0
