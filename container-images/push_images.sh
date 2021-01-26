@@ -6,6 +6,7 @@ glasswallRegistry="gwicapcontainerregistry.azurecr.io"
 final_registry="$1"
 echo "Final registry is:"
 echo $final_registry
+listofimages="$images_dir/values.yaml"
 
 checkPrereqs() {
   declare -a tools=("az yq find docker")
@@ -22,10 +23,11 @@ checkPrereqs() {
 
 importImages() {
 
-  for img in $(yq read -p p values.yaml 'imagestore.*'); do
-    registry=$(yq read values.yaml "$img.registry")
-    repository=$(yq read values.yaml "$img.repository")
-    tag=$(yq read values.yaml "$img.tag")
+  for img in $(yq read -p p "$listofimages" 'imagestore.*'); do
+    echo "List of images is:" $listofimages
+    registry=$(yq read "$listofimages" "$img.registry")
+    repository=$(yq read "$listofimages" "$img.repository")
+    tag=$(yq read "$listofimages" "$img.tag")
 
     repository_name=""
     image_name=""
@@ -40,18 +42,24 @@ importImages() {
       image_name=${repository##*/}
       client_image_name_no_tag="$final_registry/$repository_name/$image_name"
       image_relative_path="$final_registry/$repository_name/$image_name:$tag"
-      gw_image_full_name="$repository_name/$image_name:$tag"
+      gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
       client_image_full_name="$final_registry/$repository_name/$image_name:$tag"
-      image_absolute_path="$images_dir/$glasswallRegistry/$gw_image_full_name.tgz"
+      image_absolute_path="$images_dir/$gw_image_full_name.tgz"
     else
       echo "It doesn't contain '/'"
       repository_name=""
       image_name=${repository##*/}
       client_image_name_no_tag="$final_registry/$image_name"
       image_relative_path="$final_registry/$image_name:$tag"
-      gw_image_full_name="/$image_name:$tag"
+
+      if [[ $repository_name == *""* ]]; then
+        gw_image_full_name="$glasswallRegistry/$image_name:$tag"
+      else
+        gw_image_full_name="$glasswallRegistry/$repository_name/$image_name:$tag"
+      fi
+
       client_image_full_name="$final_registry/$image_name:$tag"
-      image_absolute_path="$images_dir/$glasswallRegistry/$gw_image_full_name.tgz"
+      image_absolute_path="$images_dir/$gw_image_full_name.tgz"
     fi
     echo "Final repository name:" "$repository_name"
     echo "Final image name is:" "$image_name"
@@ -74,15 +82,16 @@ importImages() {
       docker load < "$image_absolute_path"
       echo "Image loaded:" $image_absolute_path
 
-      docker tag "$gw_image_full_name" "$client_image_full_name"
-      echo "Image tagged:" $client_image_full_name
-
-      docker push $client_image_full_name
-      echo "Image pushed:" $client_image_full_name
     else
       echo "Yes!"
       echo "Image ID is:" $image_exists
     fi
+
+    docker tag "$gw_image_full_name" "$client_image_full_name"
+    echo "Image tagged:" $client_image_full_name
+
+    docker push $client_image_full_name
+    echo "Image pushed:" $client_image_full_name
 
     echo ""
     echo ""
@@ -96,8 +105,8 @@ checkPrereqs
 set -e
 set -o pipefail
 
-#az acr login --name $final_registry
-#tar -zxvf _images.tgz
+az acr login --name $final_registry
+tar -zxvf _images.tgz
 
 find . -maxdepth 1 -mindepth 1 -type d | while read -r d; do
   cd $d
