@@ -212,6 +212,7 @@ module "icap_clusters" {
   rancher_network_id           = var.rancher_network_id
   helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
+  cluster_endpoint_csv         = ""
 }
 
 module "admin_cluster" {
@@ -271,7 +272,8 @@ module "admin_cluster" {
   worker_scaleset_admin_user   = "azure-user"
   worker_scaleset_sku_capacity = 1
   helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
-  docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value  
+  docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
+  cluster_endpoint_csv         = module.icap_clusters.cluster_worker_lb_dns_name
 }
 
 

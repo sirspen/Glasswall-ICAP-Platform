@@ -190,6 +190,11 @@ variable "docker_config_json" {
   type        = string
 }
 
+variable "cluster_endpoint_csv" {
+  description = "The list of cluster endpoints in csv"
+  type        = string
+}
+
 variable "add_master_scaleset" {
   description = "Turn on or off scalesets"
   type        = bool
