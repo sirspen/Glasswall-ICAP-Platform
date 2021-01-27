@@ -67,6 +67,13 @@ output "cluster_secret_key" {
 output "cluster_token_enabled" {
   value = module.cluster.token_enabled
 }*/
+output "int_cluster_worker_lb_dns_name" {
+  value = module.infra.int_worker_lb_dns_name
+}
+
+output "int_cluster_worker_lb_ip_address" {
+  value = module.infra.int_worker_lb_ip_address
+}
 
 output "cluster_worker_lb_dns_name" {
   value = module.infra.worker_lb_dns_name

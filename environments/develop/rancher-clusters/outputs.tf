@@ -14,6 +14,10 @@ output "admin_system_ids" {
 output "icap_project_ids" {
   value = module.rancher_clusters.icap_project_ids
 }
+
+output "internal_icap_cluster_worker_lb_dns_names" {
+  value = module.rancher_clusters.internal_icap_cluster_worker_lb_dns_names
+}
 /*
 output "admin_project_ids" {
   value = module.rancher_clusters.admin_project_ids
