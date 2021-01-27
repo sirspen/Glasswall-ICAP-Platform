@@ -14,6 +14,10 @@ output "git_server_public_ips" {
   value = module.rancher_server.git_server_public_ips
 }
 
+output "linux_vm_private_ips" {
+  value = module.rancher_server.linux_vm_private_ips
+}
+
 output "git_server_url" {
   value = module.rancher_server.git_server_url
 }
