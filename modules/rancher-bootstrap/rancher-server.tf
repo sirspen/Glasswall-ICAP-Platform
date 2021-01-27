@@ -87,7 +87,7 @@ module "security_group" {
       destination_address_prefix                = module.rancher_server.linux_vm_private_ips
   },
   https = {
-      name                                      = "rancher_https"
+      name                                      = "rancher_plus_admin_https"
       priority                                  = "1002"
       direction                                 = "Inbound"
       access                                    = "Allow"
@@ -95,7 +95,7 @@ module "security_group" {
       source_port_range                         = "*"
       destination_port_range                    = "443"
       source_address_prefix                     = "*"
-      destination_address_prefix                = module.rancher_server.linux_vm_private_ips
+      destination_address_prefix                = "*"
     }
   }
 }
