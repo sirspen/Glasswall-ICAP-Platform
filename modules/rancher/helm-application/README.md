@@ -16,6 +16,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | catalog\_name | The catalog name | `string` | n/a | yes |
+| cluster\_endpoint\_csv | The list of cluster endpoints in csv | `string` | n/a | yes |
 | create\_namespace | n/a | `bool` | n/a | yes |
 | docker\_config\_json | The docker config json | `string` | n/a | yes |
 | helm\_chart\_repo\_url | The git repo url | `string` | n/a | yes |
