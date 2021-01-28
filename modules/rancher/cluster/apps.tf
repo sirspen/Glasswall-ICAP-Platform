@@ -29,5 +29,7 @@ module "cluster_apps_stage1" {
   system_app           = each.value.system_app
   helm_chart_repo_url  = var.helm_chart_repo_url
   docker_config_json   = var.docker_config_json
-  cluster_endpoint_csv = var.cluster_endpoint_csv
+  policy_update_endpoint_csv        = var.policy_update_endpoint_csv
+  transaction_event_endpoint_csv    = var.transaction_event_endpoint_csv
+  ncfs_endpoint_csv                 = var.ncfs_endpoint_csv
 }

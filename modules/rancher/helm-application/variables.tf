@@ -13,8 +13,18 @@ variable "docker_config_json" {
   type        = string
 }
 
-variable "cluster_endpoint_csv" {
-  description = "The list of cluster endpoints in csv"
+variable "policy_update_endpoint_csv" {
+  description = "The list of cluster endpoints in csv for policy update service"
+  type        = string
+}
+
+variable "transaction_event_endpoint_csv" {
+  description = "The list of cluster endpoints in csv for transaction event service"
+  type        = string
+}
+
+variable "ncfs_endpoint_csv" {
+  description = "The list of cluster endpoints in csv for ncfs event service"
   type        = string
 }
 

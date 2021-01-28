@@ -19,7 +19,6 @@ No provider.
 | client\_secret | Service Principal Secret | `string` | n/a | yes |
 | cluster\_address\_space | Address Space | `list(string)` | n/a | yes |
 | cluster\_backend\_port | Backend Port | `number` | n/a | yes |
-| cluster\_endpoint\_csv | The list of cluster endpoints in csv | `string` | n/a | yes |
 | cluster\_internal\_services | Ports to open on the internal load balancer | <pre>map(object({<br>      protocol                        = string<br>      frontend_port                   = number<br>      backend_port                    = number<br>  }))</pre> | n/a | yes |
 | cluster\_public\_port | Public Port | `number` | n/a | yes |
 | cluster\_quantity | Quantity of clusters in Region | `number` | n/a | yes |

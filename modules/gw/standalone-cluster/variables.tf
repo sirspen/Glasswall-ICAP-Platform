@@ -213,9 +213,9 @@ variable "docker_config_json" {
   type        = string
 }
 
-variable "cluster_endpoint_csv" {
-  description = "The list of cluster endpoints in csv"
-  type        = string
+variable "cluster_endpoints" {
+  description = "The list of cluster endpoints in csv for policy update service"
+  type        = list(string)
 }
 
 variable "security_group_rules" {

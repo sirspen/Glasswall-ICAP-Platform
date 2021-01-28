@@ -131,6 +131,5 @@ module "cluster" {
                                       value = "stateful"
                                       effect = "NoSchedule"
                                     }]
-  cluster_endpoint_csv              = var.cluster_endpoint_csv
 }
 

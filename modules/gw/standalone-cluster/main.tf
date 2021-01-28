@@ -221,5 +221,16 @@ module "cluster" {
   add_worker_nodepool               = false
   cluster_worker_labels             = {}
   cluster_worker_taints             = []
-  cluster_endpoint_csv              = var.cluster_endpoint_csv
+  policy_update_endpoint_csv        = join(",",[
+  for cluster in var.cluster_endpoints:
+    "https://${cluster}:32324/"
+  ])
+  transaction_event_endpoint_csv    = join(",",[
+  for cluster in var.cluster_endpoints:
+    "https://${cluster}:32325/"
+  ])
+  ncfs_endpoint_csv                 = join(",",[
+  for cluster in var.cluster_endpoints:
+    "https://${cluster}:32326/"
+  ])
 }

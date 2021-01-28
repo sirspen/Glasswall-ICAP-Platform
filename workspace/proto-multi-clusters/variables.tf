@@ -305,7 +305,7 @@ variable "admin_cluster_stage1_apps" {
       catalog_name     = "icap-catalog"
       template_name    = "cert-manager"
       create_namespace = true
-      system_app       = false
+      system_app       = true
     },
     argocd = {
       namespace        = "argo-cd"

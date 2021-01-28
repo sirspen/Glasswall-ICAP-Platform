@@ -212,7 +212,6 @@ module "icap_clusters" {
   rancher_network_id           = var.rancher_network_id
   helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
-  cluster_endpoint_csv         = ""
 }
 
 module "admin_cluster" {
@@ -273,16 +272,8 @@ module "admin_cluster" {
   worker_scaleset_sku_capacity = 1
   helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
-  cluster_endpoint_csv         = join(",",[
+  cluster_endpoints            = [
     for cluster in module.icap_clusters :
-    trimsuffix(cluster.int_cluster_worker_lb_dns_name,".")
-  ])
+      trimsuffix(cluster.int_cluster_worker_lb_dns_name,".")
+  ]
 }
-
-
-  #
-  
- #icap_multi_region_internal_services = flatten([
- #   for cluster in module.icap_clusters :
- #   cluster.int_cluster_worker_lb_dns_name
- # ])  

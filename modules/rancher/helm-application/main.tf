@@ -24,8 +24,8 @@ resource "rancher2_app" "helm_app" {
     "adaptationservice.repoUrl"                                                   = var.helm_chart_repo_url
     "adminservice.repoUrl"                                                        = var.helm_chart_repo_url
     "containerregistry.dockerconfigjson"                                          = var.docker_config_json
-    "policymanagementapi.PolicyUpdateServiceEndpointCsv"                          = var.cluster_endpoint_csv
-    "policymanagementapi.NcfsPolicyUpdateServiceEndpointCsv"                      = var.cluster_endpoint_csv
-    "transactionqueryaggregator.configuration.TransactionQueryServiceEndpointCsv" = var.cluster_endpoint_csv
+    "policymanagementapi.PolicyUpdateServiceEndpointCsv"                          = var.policy_update_endpoint_csv
+    "policymanagementapi.NcfsPolicyUpdateServiceEndpointCsv"                      = var.ncfs_endpoint_csv
+    "transactionqueryaggregator.configuration.TransactionQueryServiceEndpointCsv" = var.transaction_event_endpoint_csv
   }
 }
