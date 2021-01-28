@@ -18,6 +18,7 @@
 | add\_master\_scaleset | Turn on or off scalesets | `bool` | n/a | yes |
 | add\_worker\_nodepool | Turn on or off nodepools | `bool` | n/a | yes |
 | add\_worker\_scaleset | Turn on or off scalesets | `bool` | n/a | yes |
+| admin\_cluster\_lb\_name | Admin cluster load balancer hostname | `string` | `""` | no |
 | azure\_region | The cloud region | `string` | n/a | yes |
 | client\_id | Service Principal ClientID | `string` | n/a | yes |
 | client\_secret | Service Principal Secret | `string` | n/a | yes |

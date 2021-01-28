@@ -190,6 +190,12 @@ variable "docker_config_json" {
   type        = string
 }
 
+variable "admin_cluster_lb_name" {
+  description = "Admin cluster load balancer hostname"
+  type        = string
+  default     = ""
+}
+
 variable "policy_update_endpoint_csv" {
   description = "The list of cluster endpoints in csv for policy update service"
   type        = string

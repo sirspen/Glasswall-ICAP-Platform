@@ -15,6 +15,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| admin\_cluster\_lb\_name | Admin cluster load balancer hostname | `string` | `""` | no |
 | catalog\_name | The catalog name | `string` | n/a | yes |
 | create\_namespace | n/a | `bool` | n/a | yes |
 | docker\_config\_json | The docker config json | `string` | n/a | yes |

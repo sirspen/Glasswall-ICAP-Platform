@@ -28,6 +28,12 @@ variable "ncfs_endpoint_csv" {
   type        = string
 }
 
+variable "admin_cluster_lb_name" {
+  description = "Admin cluster load balancer hostname"
+  type        = string
+  default     = ""
+}
+
 variable "project_id" {
   description = "The project id"
   type        = string

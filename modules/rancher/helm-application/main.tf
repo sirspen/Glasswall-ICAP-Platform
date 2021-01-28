@@ -21,6 +21,7 @@ resource "rancher2_app" "helm_app" {
   target_namespace  = var.create_namespace ? rancher2_namespace.main[0].name : data.rancher2_namespace.namespace[0].name
   template_name     = var.template_name
   answers = {
+    "ingress.host"                                                                = var.admin_cluster_lb_name
     "adaptationservice.repoUrl"                                                   = var.helm_chart_repo_url
     "adminservice.repoUrl"                                                        = var.helm_chart_repo_url
     "containerregistry.dockerconfigjson"                                          = var.docker_config_json
