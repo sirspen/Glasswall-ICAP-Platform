@@ -272,7 +272,7 @@ variable "icap_cluster_stage1_apps" {
       template_name    = "systemclusterrole"
       create_namespace = false
       system_app       = true
-    }
+    },
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
@@ -299,7 +299,14 @@ variable "admin_cluster_stage1_apps" {
       template_name    = "systemclusterrole"
       create_namespace = false
       system_app       = true
-    }
+    },
+    certmanager = {
+      namespace        = "cert-manager"
+      catalog_name     = "icap-catalog"
+      template_name    = "cert-manager"
+      create_namespace = true
+      system_app       = false
+    },
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
