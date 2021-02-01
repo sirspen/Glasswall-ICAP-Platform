@@ -36,7 +36,7 @@ locals {
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
-    },
+    }/*,
     ukwest = {
       suffix                       = var.icap_cluster_suffix_r2
       cluster_quantity             = var.icap_cluster_quantity
@@ -82,7 +82,7 @@ locals {
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
-    }
+    }*/
   }
 }
 
@@ -187,6 +187,17 @@ module "icap_clusters" {
       protocol                   = "Tcp"
       source_port_range          = "*"
       destination_port_range     = var.transaction_update_backend_port
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    ncfs = {
+      name                       = "icapNcfsNodePort"
+      priority                   = 1007
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = var.ncfs_update_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     }

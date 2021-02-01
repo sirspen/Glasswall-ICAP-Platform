@@ -225,6 +225,12 @@ variable "transaction_update_backend_port" {
   default     = 32325
 }
 
+variable "ncfs_update_backend_port" {
+  description = "Backend Port"
+  type        = number
+  default     = 32326
+}
+
 variable "os_publisher" {
   description = "OS Publisher"
   type        = string
@@ -334,6 +340,11 @@ variable "icap_internal_services" {
       protocol      = "tcp"
       frontend_port = 32325
       backend_port  = 32325
+    },
+    NcfsPolicyUpdateService = {
+      protocol      = "tcp"
+      frontend_port = 32326
+      backend_port  = 32326
     }
   }
 }
