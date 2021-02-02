@@ -36,7 +36,7 @@ locals {
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
-    }/*,
+    },
     ukwest = {
       suffix                       = var.icap_cluster_suffix_r2
       cluster_quantity             = var.icap_cluster_quantity
@@ -82,7 +82,7 @@ locals {
       worker_scaleset_sku_capacity = var.icap_worker_scaleset_sku_capacity
       rancher_projects             = "icapservice"
       icap_internal_services       = var.icap_internal_services
-    }*/
+    }
   }
 }
 
