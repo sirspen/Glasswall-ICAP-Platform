@@ -87,8 +87,8 @@ locals {
 }
 
 data "azurerm_key_vault" "key_vault" {
-  name                = "gw-icap-keyvault"
-  resource_group_name = "keyvault"
+  name                = var.azure_keyvault_name
+  resource_group_name = var.azure_keyvault_resource_group
 }
 
 data "azurerm_key_vault_secret" "az-client-id" {

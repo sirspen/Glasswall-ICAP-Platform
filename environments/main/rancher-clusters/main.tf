@@ -29,6 +29,10 @@ module "rancher_clusters" {
     icap_master_scaleset_sku_capacity = 2
     icap_worker_scaleset_sku_capacity = 1
     dns_zone                          = "prod.icap-proxy.curlywurly.me"
+    azure_keyvault_name               = "gw-icap-keyvault"
+    azure_keyvault_resource_group     = "keyvault"
+    azure_keyvault_client_id          = "icap-service-principle-id"
+    azure_keyvault_client_secret      = "icap-service-principle-value"
     tenant_id                         = "7049e6a3-141d-463a-836b-1ba40d3ff653"
     subscription_id                   = "b8177f86-515f-4bff-bd08-1b9535dbc31b"
     rancher_suffix                    = data.terraform_remote_state.rancher_server.outputs.rancher_suffix

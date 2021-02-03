@@ -466,3 +466,11 @@ variable "public_key_openssh" {
 variable "rancher_internal_ip" {
   type        = string
 }
+
+variable "azure_keyvault_name" {
+  type        = string
+}
+
+variable "azure_keyvault_resource_group" {
+  type        = string
+}

@@ -34,7 +34,6 @@ output "internal_icap_cluster_worker_lb_dns_names" {
   ])
 }
 
-
 output "admin_cluster_worker_lb_dns_names" {
   value = module.admin_cluster.cluster_worker_lb_dns_name
 }
