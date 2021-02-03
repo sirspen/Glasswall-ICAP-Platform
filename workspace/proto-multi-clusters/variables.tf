@@ -198,7 +198,7 @@ variable "admin_cluster_public_port" {
 variable "admin_cluster_backend_port" {
   description = "Admin Backend Port"
   type        = number
-  default     = 32323
+  default     = 443
 }
 
 variable "icap_public_port" {
@@ -223,6 +223,12 @@ variable "transaction_update_backend_port" {
   description = "Backend Port"
   type        = number
   default     = 32325
+}
+
+variable "ncfs_update_backend_port" {
+  description = "Backend Port"
+  type        = number
+  default     = 32326
 }
 
 variable "os_publisher" {
@@ -272,7 +278,7 @@ variable "icap_cluster_stage1_apps" {
       template_name    = "systemclusterrole"
       create_namespace = false
       system_app       = true
-    }
+    },
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
@@ -299,7 +305,14 @@ variable "admin_cluster_stage1_apps" {
       template_name    = "systemclusterrole"
       create_namespace = false
       system_app       = true
-    }
+    },
+    certmanager = {
+      namespace        = "cert-manager"
+      catalog_name     = "icap-catalog"
+      template_name    = "cert-manager"
+      create_namespace = true
+      system_app       = true
+    },
     argocd = {
       namespace        = "argo-cd"
       catalog_name     = "icap-catalog"
@@ -327,6 +340,11 @@ variable "icap_internal_services" {
       protocol      = "tcp"
       frontend_port = 32325
       backend_port  = 32325
+    },
+    NcfsPolicyUpdateService = {
+      protocol      = "tcp"
+      frontend_port = 32326
+      backend_port  = 32326
     }
   }
 }

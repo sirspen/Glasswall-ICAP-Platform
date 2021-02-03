@@ -189,6 +189,17 @@ module "icap_clusters" {
       destination_port_range     = var.transaction_update_backend_port
       source_address_prefix      = "*"
       destination_address_prefix = "*"
+    },
+    ncfs = {
+      name                       = "icapNcfsNodePort"
+      priority                   = 1007
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = var.ncfs_update_backend_port
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
     }
   }
   organisation                 = var.organisation
@@ -216,6 +227,7 @@ module "icap_clusters" {
 
 module "admin_cluster" {
   source                   = "../../modules/gw/standalone-cluster"
+  depends_on = [ module.icap_clusters ]
   organisation             = var.organisation
   environment              = var.environment
   dns_zone                 = var.dns_zone
@@ -237,18 +249,18 @@ module "admin_cluster" {
   cluster_stage1_apps      = var.admin_cluster_stage1_apps
   cluster_subnet_prefix    = var.rancher_subnet_prefix
   service_name             = local.admin_service_name
-  suffix                 = var.rancher_suffix
-  azure_region           = var.rancher_region
-  client_id              = data.azurerm_key_vault_secret.az-client-id.value
-  client_secret          = data.azurerm_key_vault_secret.az-client-secret.value
-  subscription_id        = data.azurerm_key_vault_secret.az-subscription-id.value
-  tenant_id              = var.tenant_id
-  public_key_openssh     = var.public_key_openssh
-  os_publisher           = var.os_publisher
-  os_offer               = var.os_offer
-  os_sku                 = var.os_sku
-  os_version             = var.os_version
-  rancher_projects       = "adminservice"
+  suffix                   = var.rancher_suffix
+  azure_region             = var.rancher_region
+  client_id                = data.azurerm_key_vault_secret.az-client-id.value
+  client_secret            = data.azurerm_key_vault_secret.az-client-secret.value
+  subscription_id          = data.azurerm_key_vault_secret.az-subscription-id.value
+  tenant_id                = var.tenant_id
+  public_key_openssh       = var.public_key_openssh
+  os_publisher             = var.os_publisher
+  os_offer                 = var.os_offer
+  os_sku                   = var.os_sku
+  os_version               = var.os_version
+  rancher_projects         = "adminservice"
   security_group_rules         = {
     admin = {
       name                       = "adminNodePort"
@@ -271,5 +283,8 @@ module "admin_cluster" {
   worker_scaleset_sku_capacity = 1
   helm_chart_repo_url          = "${var.git_server_url}/icap-infrastructure.git"
   docker_config_json           = data.azurerm_key_vault_secret.docker-config-json.value
+  cluster_endpoints            = [
+    for cluster in module.icap_clusters :
+      trimsuffix(cluster.int_cluster_worker_lb_dns_name,".")
+  ]
 }
-

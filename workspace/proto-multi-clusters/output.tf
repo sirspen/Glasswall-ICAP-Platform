@@ -23,13 +23,21 @@ output "icap_project_ids" {
 output "icap_cluster_worker_lb_dns_names" {
   value = [
     for cluster in module.icap_clusters :
-    cluster.cluster_worker_lb_dns_name
+      cluster.cluster_worker_lb_dns_name
   ]
 }
-/*
+
+output "internal_icap_cluster_worker_lb_dns_names" {
+  value = join(",",[
+    for cluster in module.icap_clusters :
+      trimsuffix(cluster.int_cluster_worker_lb_dns_name,".")
+  ])
+}
+
+
 output "admin_cluster_worker_lb_dns_names" {
   value = module.admin_cluster.cluster_worker_lb_dns_name
-}*/
+}
 
 output "icap_cluster_worker_lb_ip_addr" {
   value = [

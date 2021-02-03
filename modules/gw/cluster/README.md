@@ -65,6 +65,8 @@ No provider.
 |------|-------------|
 | cloud\_credentials\_id | n/a |
 | cluster\_worker\_lb\_dns\_name | n/a |
+| int\_cluster\_worker\_lb\_dns\_name | n/a |
+| int\_cluster\_worker\_lb\_ip\_address | n/a |
 | network\_id | n/a |
 | network\_name | n/a |
 | project\_ids | n/a |
