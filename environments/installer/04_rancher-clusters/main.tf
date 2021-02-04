@@ -33,6 +33,8 @@ module "rancher_clusters" {
     tenant_id                         = ""
     client_id                         = ""
     client_secret                     = ""
+    azure_keyvault_name               = ""
+    azure_keyvault_resource_group     = ""
     rancher_suffix                    = data.terraform_remote_state.rancher_server.outputs.rancher_suffix
     rancher_api_url                   = data.terraform_remote_state.rancher_server.outputs.rancher_api_url
     rancher_internal_api_url          = data.terraform_remote_state.rancher_server.outputs.rancher_internal_api_url
