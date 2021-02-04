@@ -29,4 +29,10 @@ resource "rancher2_app" "helm_app" {
     "policymanagementapi.NcfsPolicyUpdateServiceEndpointCsv"                      = var.ncfs_endpoint_csv
     "transactionqueryaggregator.configuration.TransactionQueryServiceEndpointCsv" = var.transaction_event_endpoint_csv
   }
+
+  lifecycle {
+    ignore_changes = [
+      project_id
+    ]
+  }
 }
