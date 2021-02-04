@@ -13,7 +13,7 @@ module "rancher_server" {
   environment            = ""
   project                = "rancher-server"
   suffix                 = "a1"
-  git_server_version     = "1.86"
+  git_server_version     = "2.20"
   key_vault_resource_group = ""
   key_vault_name           = ""
   azure_region           = "" # ukwest
