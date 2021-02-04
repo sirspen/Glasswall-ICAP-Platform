@@ -9,24 +9,26 @@ users:
       - ${public_key_openssh}
   - name: packer
     inactive: true
-write_files:
-- path: /etc/sysctl.d/90-kubelet.conf
-  owner: root:root  
-  permissions: '0644'
-  content: |
-    vm.overcommit_memory = 1
-    vm.panic_on_oom = 0
-    kernel.panic = 10
-    kernel.panic_on_oops = 1
-    kernel.keys.root_maxkeys = 1000000
-    kernel.keys.root_maxbytes = 25000000
 runcmd:
- - echo ${rancher_internal_ip} ${rancher_server_name} >> /etc/hosts
- - systemctl stop firewalld
- - systemctl disable firewalld
- - yum -y install iptables-services
- - systemctl enable iptables
- - systemctl enable ip6tables
- - systemctl start iptables
- - systemctl start ip6tables
- - iptables -F
+  - echo ${rancher_internal_ip} ${rancher_server_name} >> /etc/hosts
+  - systemctl stop firewalld
+  - systemctl disable firewalld
+  - yum -y install iptables-services
+  - /usr/local/bin/install-docker.sh
+  - systemctl enable iptables
+  - systemctl enable ip6tables
+  - systemctl enable docker
+  - systemctl start iptables
+  - systemctl start ip6tables
+  - iptables -F
+write_files:
+  - path: /etc/sysctl.d/90-kubelet.conf
+    owner: root:root  
+    permissions: '0644'
+    content: |
+      vm.overcommit_memory = 1
+      vm.panic_on_oom = 0
+      kernel.panic = 10
+      kernel.panic_on_oops = 1
+      kernel.keys.root_maxkeys = 1000000
+      kernel.keys.root_maxbytes = 25000000
