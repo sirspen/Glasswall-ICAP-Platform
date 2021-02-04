@@ -474,3 +474,12 @@ variable "azure_keyvault_name" {
 variable "azure_keyvault_resource_group" {
   type        = string
 }
+variable "azure_keyvault_client_id" {
+  type        = string
+  default     = "az-client-id" 
+}
+
+variable "azure_keyvault_client_secret" {
+  type        = string
+  default     = "az-client-secret" 
+}
