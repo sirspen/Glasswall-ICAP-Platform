@@ -82,7 +82,7 @@ module "master_scaleset" {
   sku_capacity          = var.master_scaleset_sku_capacity
   admin_username        = var.master_scaleset_admin_user
 
-  custom_data = templatefile("${path.module}/tmpl/user-data.template", {
+  custom_data = "${templatefile("${path.module}/tmpl/user-data.template", {
     cluster_name          = var.cluster_name
     rancher_agent_version = var.rancher_agent_version
     rancher_server_url    = var.rancher_admin_url
@@ -93,7 +93,8 @@ module "master_scaleset" {
     node_pool_role        = "master"
     public_key_openssh    = var.public_key_openssh
     rancher_ca_checksum   = ""
-  })
+  })}\n${file("${path.module}/tmpl/user-data-write-files.yaml")}"
+
   public_key_openssh = var.public_key_openssh
   security_group_id          = var.security_group_id
   loadbalancer               = false
@@ -127,7 +128,7 @@ module "worker_scaleset" {
   sku_capacity          = var.worker_scaleset_sku_capacity
   admin_username        = var.worker_scaleset_admin_user
 
-  custom_data = templatefile("${path.module}/tmpl/user-data.template", {
+  custom_data = "${templatefile("${path.module}/tmpl/user-data.template", {
     cluster_name          = var.cluster_name
     rancher_agent_version = var.rancher_agent_version
     rancher_server_url    = var.rancher_admin_url
@@ -138,7 +139,8 @@ module "worker_scaleset" {
     node_pool_role        = "worker"
     public_key_openssh    = var.public_key_openssh
     rancher_ca_checksum   = ""
-  })
+  })}\n${file("${path.module}/tmpl/user-data-write-files.yaml")}"
+  
   security_group_id          = var.security_group_id
   public_key_openssh         = var.public_key_openssh
   loadbalancer               = true
